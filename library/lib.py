@@ -1,29 +1,84 @@
 import random
 import copy
+from enum import Enum
+
+from library import Parameters
+
+class NodeType(Enum):
+    INPUT = 'INPUT'
+    CONSTANT = 'CONSTANT'
+    OPERATION = 'OPERATION'
+
+class TreeType(Enum):
+    GROW = 1
+    FULL = 2
+    HALF_AND_HALF = 3
 
 class Node:
-    def __init__(self, value):
+    type: NodeType
+    value: str
+    children: list['Node']
+    isRoot: bool
+
+    def __init__(self, value, isRoot=False):
+        self.type = NodeType(value)
         self.value = value
         self.children = []
+        self.isRoot = isRoot
+    
+    def __repr__(self):
+        return f"Node({self.value}, children:{self.children})"
 
     def add_child(self, child_node):
         self.children.append(child_node)
 
-class GeneticProgrammingLibrary:
-    def __init__(self, max_depth):
-        self.max_depth = max_depth
+Program = list[Node]
 
-    def generate_random_program(self, depth=None):
+class GeneticProgrammingLibrary:
+    fitness: list[float]
+    program: Program
+    population: list[Program]
+    params: Parameters.Params
+    input_data: list[float]
+
+    def __init__(self, Params: Parameters.Params):
+        self.params = Params
+        self.generation = 0
+        self.population = self.initialize_population(self.params.max_depth)
+        self.fitness: list[float] = [0.0 for _ in range(self.params.popsize)]
+
+
+        # x: list[float]
+        # PC:int
+        # fbestpop = 0.0
+        # favgpop = 0.0
+        # targets:list[list[float]] 
+        
+    def grow(self, depth=None):
         if depth is None:
-            depth = random.randint(1, self.max_depth)
+            depth = random.randint(1, self.params.max_depth)
         if depth == 1:
-            return Node(random.choice(['input', 'constant', 'operation']))
+            return Node(random.choice(['INPUT', 'CONSTANT', 'OPERATION']), isRoot=True)
         else:
-            node = Node(random.choice(['operation', 'input']))
+            node = Node(random.choice(['CONSTANT', 'OPERATION']))
             for _ in range(random.randint(1, 3)):
-                node.add_child(self.generate_random_program(depth - 1))
+                node.add_child(self.grow(depth - 1))
             return node
 
+
+    def generate_random_program(self, depth: int, tree_type=TreeType.GROW):
+        if tree_type == TreeType.GROW:
+            return self.grow(depth)
+        else:
+            print("Not implemented")
+        # elif tree_type == TreeType.FULL:
+        #     return self.full(depth)
+        # elif tree_type == TreeType.HALF_AND_HALF:
+        #     return self.half_and_half(depth)
+        
+    def initialize_population(self, depth: int):
+        return [self.generate_random_program(depth=depth) for _ in range(self.params.popsize)]
+        
     def crossover(self, program1, program2):
         new_program1 = copy.deepcopy(program1)
         new_program2 = copy.deepcopy(program2)
@@ -86,42 +141,3 @@ class GeneticProgrammingLibrary:
                 return node
         return deserialize_node(iter(serialized_program))
     
-
-
-
-
-
-
-gp_library = GeneticProgrammingLibrary(max_depth=3)
-
-# Generujemy losowe programy
-program1 = gp_library.generate_random_program()
-program2 = gp_library.generate_random_program()
-
-# Ocena programów na podstawie danych wejściowych
-input_data = [3, 5]
-output1 = gp_library.evaluate_program(program1, input_data)
-output2 = gp_library.evaluate_program(program2, input_data)
-
-print("Program 1 (ocena):", output1)
-print("Program 2 (ocena):", output2)
-
-# Krzyżowanie programów
-new_program1, new_program2 = gp_library.crossover(program1, program2)
-
-# Mutacja programów
-mutated_program1 = gp_library.mutate(program1)
-mutated_program2 = gp_library.mutate(program2)
-
-# Selekcja programów
-population = [program1, program2, new_program1, new_program2, mutated_program1, mutated_program2]
-selected_program = gp_library.tournament_selection(population)
-
-print("Nowy wybrany program (ocena):", gp_library.evaluate_program(selected_program, input_data))
-
-# Serializacja i deserializacja programu
-serialized_program = gp_library.serialize_program(selected_program)
-print("Serialized Program:", serialized_program)
-
-deserialized_program = gp_library.deserialize_program(serialized_program)
-print("Deserialized Program (ocena):", gp_library.evaluate_program(deserialized_program, input_data))
