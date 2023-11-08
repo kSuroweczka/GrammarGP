@@ -1,6 +1,5 @@
 import random
 import copy
-# from plik import *
 
 class Node:
     def __init__(self, value):
@@ -38,7 +37,7 @@ class GeneticProgrammingLibrary:
 
     def evaluate_program(self, program, input_data):
         # Evaluate the fitness of the program based on input_data and output_data
-        def evaluate_node(node):
+        def evaluate_node(node,input_data):
             if node.value == 'input':
                 # Pobierz wartość zmiennej wejściowej z input_data (indeksowanie od 0)
                 return input_data[int(random.uniform(0, len(input_data)))]
@@ -57,7 +56,7 @@ class GeneticProgrammingLibrary:
                 else:
                     # Obsługa innych operacji arytmetycznych
                     pass
-        return evaluate_node(program)
+        return evaluate_node(program, input_data)
 
     def tournament_selection(self, population, k=2):
         tournament_players = random.sample(population, k)
@@ -79,12 +78,12 @@ class GeneticProgrammingLibrary:
         # Deserialize the program from a string or a data structure
         # Prosta deserializacja listy na drzewo
         def deserialize_node(serialized_iter):
-            value = next(serialized_iter)
-            node = Node(value)
-            while serialized_iter[0] not in ['input', 'constant', 'operation']:
-                node.add_child(deserialize_node(serialized_iter))
-            return node
-
+                value = next(serialized_iter)
+                node = Node(value)
+                while value not in ['input', 'constant', 'operation']:
+                    node.add_child(deserialize_node(serialized_iter))
+                    value = next(serialized_iter)
+                return node
         return deserialize_node(iter(serialized_program))
     
 
