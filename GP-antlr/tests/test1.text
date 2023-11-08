@@ -1,0 +1,11 @@
+x=true;
+if (x == false){
+    i=9;
+    while(i<30 && i>=9){
+        i+=1;
+        input(i);
+        output((i*5)/10 + 5);
+    }
+}else{
+    function(i)
+}
