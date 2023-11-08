@@ -16,7 +16,7 @@ conditionalStatement: 'if' '(' condition ')' compoundStatement ('else' compoundS
 
 compoundStatement: '{' statement* '}';
 
-assignmentStatement: variable ('='|'+='|'-='|'*='|'/=') expression ';';
+assignmentStatement: variable ('='|'+='|'-='|'*='|'/=') expression ';' | constant;
 
 inputStatement: 'input' '(' variable ')' ';';
 
@@ -32,7 +32,8 @@ factor: '(' expression ')'
       | variable
       | NUMBER
       | boolean
-      | functionCall;
+      | functionCall
+      | constant ;
 
 functionCall: ID '(' argumentList? ')';
 
@@ -40,9 +41,11 @@ argumentList: expression (',' expression)*;
 
 variable: ID;
 
+constant: 'const' ID '=' expression;
+
 ID: [a-zA-Z][a-zA-Z0-9]*;
 
-NUMBER: [0-9]+;
+NUMBER: ('-'?[0-9]+);
 
 boolean: 'true' | 'false';
 

@@ -1,0 +1,9 @@
+x=0;
+z=true;
+while(x<80 && x>0 || x==70){
+    if(x>=50){
+        z=false;
+    }else{
+        output(x);
+    }
+}

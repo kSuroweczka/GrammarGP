@@ -1,0 +1,8 @@
+x=0;
+input(x);
+if (x>=5){
+    output(x);
+}else{
+    input(x);
+}
+
