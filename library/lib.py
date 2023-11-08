@@ -5,9 +5,9 @@ from enum import Enum
 from library import Parameters
 
 class NodeType(Enum):
-    INPUT = 'INPUT'
-    CONSTANT = 'CONSTANT'
-    OPERATION = 'OPERATION'
+    INPUT = 'input'
+    CONSTANT = 'constant'
+    OPERATION = 'operation'
 
 class TreeType(Enum):
     GROW = 1
@@ -54,16 +54,22 @@ class GeneticProgrammingLibrary:
         # favgpop = 0.0
         # targets:list[list[float]] 
         
-    def grow(self, depth=None):
+    def grow(self, depth: int):
         if depth is None:
             depth = random.randint(1, self.params.max_depth)
         if depth == 1:
-            return Node(random.choice(['INPUT', 'CONSTANT', 'OPERATION']), isRoot=True)
+            return Node(random.choice(['input', 'constant', 'operation']), isRoot=True)
         else:
-            node = Node(random.choice(['CONSTANT', 'OPERATION']))
+            node = Node(random.choice(['constant', 'operation']))
             for _ in range(random.randint(1, 3)):
                 node.add_child(self.grow(depth - 1))
             return node
+        
+    def full(self, depth: int):
+        pass    
+
+    def half_and_half(self, depth: int):
+        pass
 
 
     def generate_random_program(self, depth: int, tree_type=TreeType.GROW):
