@@ -1,7 +1,8 @@
-x=-3;
+const x=-3;
 if (5 <10 && x<=4){
     x-=1;
 }
 if(v<=t || y!=10){
     x*=2;
 }
+function(x,y,t)

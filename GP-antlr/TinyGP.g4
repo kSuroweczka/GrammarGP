@@ -24,7 +24,7 @@ outputStatement: 'output' '(' expression ')' ';';
 
 condition: expression ('==' | '!=' | '<' | '>' | '<=' | '>=') expression (('&&' | '||') condition)*;
 
-expression: term (('+' | '-') term)*;
+expression: ('-')? term (('+' | '-') term)*;
 
 term: factor (('*' | '/') factor)*;
 
@@ -41,11 +41,11 @@ argumentList: expression (',' expression)*;
 
 variable: ID;
 
-constant: 'const' ID '=' expression;
+constant: 'const' ID '=' expression ';' ;
 
 ID: [a-zA-Z][a-zA-Z0-9]*;
 
-NUMBER: ('-'?[0-9]+);
+NUMBER: ([0-9]+);
 
 boolean: 'true' | 'false';
 

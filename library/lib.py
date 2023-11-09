@@ -1,6 +1,13 @@
 import random
 import copy
 
+
+class NodeInfo:
+    def __init__(self, node, parent, index):
+        self.node = node
+        self.parent = parent
+        self.index = index
+
 class Node:
     def __init__(self, value):
         self.value = value
@@ -28,12 +35,45 @@ class GeneticProgrammingLibrary:
         new_program1 = copy.deepcopy(program1)
         new_program2 = copy.deepcopy(program2)
         # Perform crossover operation (swap subtrees) between new_program1 and new_program2
+        # Losujemy węzły do krzyżowania w obu programach
+        node1 = self.random_node(new_program1)
+        node2 = self.random_node(new_program2)
+
+        # Zamieniamy poddrzewa między wylosowanymi węzłami
+        node1.parent.children[node1.index] = node2
+        node2.parent.children[node2.index] = node1
+
         return new_program1, new_program2
 
     def mutate(self, program):
         new_program = copy.deepcopy(program)
         # Perform mutation operation (modify subtree or replace subtree with a new random subtree)
+        # Losujemy węzeł do mutacji
+        node = self.random_node(new_program)
+
+        # Zmieniamy wartość węzła na losową wartość: 'input', 'constant' lub 'operation'
+        node.value = random.choice(['input', 'constant', 'operation'])
+
+        # Jeśli to jest węzeł operacji, aktualizujemy jego dzieci
+        if node.value == 'operation':
+            node.children = []
+            for _ in range(random.randint(1, 3)):
+                node.add_child(self.generate_random_program(depth=1))
         return new_program
+
+    def random_node(self, program):
+        # Losujemy węzeł z programu (drzewa) przy użyciu BFS (przeszukiwanie wszerz)
+        queue = [(program, None, None)]
+        while queue:
+            node, parent, index = queue.pop(0)
+            if random.random() < 0.5:  # 50% szans na wybór tego węzła
+                return NodeInfo(node, parent, index)
+            queue.extend((child, node, i) for i, child in enumerate(node.children))
+
+        # Jeśli nie ma żadnego węzła do wyboru, zwracamy korzeń programu
+        return NodeInfo(program, None, None)
+
+
 
     def evaluate_program(self, program, input_data):
         # Evaluate the fitness of the program based on input_data and output_data
