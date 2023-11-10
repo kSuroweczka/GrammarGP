@@ -22,20 +22,18 @@ inputStatement: 'input' '(' variable ')' ';';
 
 outputStatement: 'output' '(' expression ')' ';';
 
-condition: expression ('==' | '!=' | '<' | '>' | '<=' | '>=') expression (('&&' | '||') condition)*;
+condition: expression ('==' | '!=' | '<' | '>' | '<=' | '>=') expression (('&&' | '||') condition)* | boolean ('&&' | '||') boolean;
 
-expression: ('-')? term (('+' | '-') term)*;
+expression: ('-')? term (('+' | '-') term)* | boolean;
 
 term: factor (('*' | '/') factor)*;
 
 factor: '(' expression ')'
       | variable
       | NUMBER
-      | boolean
-      | functionCall
       | constant ;
 
-functionCall: ID '(' argumentList? ')';
+functionCall: ID '(' argumentList? ')' ';';
 
 argumentList: expression (',' expression)*;
 

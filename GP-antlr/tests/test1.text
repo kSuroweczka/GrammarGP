@@ -7,5 +7,5 @@ if (x == false){
         output((i*5)/10 + 5);
     }
 }else{
-    function(i)
+    function(i);
 }
