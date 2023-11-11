@@ -10,7 +10,9 @@ params = Params(seed=None, max_depth=3)
 # Tworzymy instancję biblioteki z maksymalną głębokością drzewa 3
 gp_library = GeneticProgrammingLibrary(Params=params)
 
+
 print(gp_library.population[0])
+
 
 # # Generujemy losowe programy
 # program1 = gp_library.generate_random_program()

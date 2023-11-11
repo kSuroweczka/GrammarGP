@@ -16,10 +16,10 @@ class Params:
 
 #minrandom: float, maxrandom: float
 
-    def __init__(self, seed: int | None, max_len: float = 1000, popsize: int = 10000, max_depth: int = 5, generations: int = 100, tournament_size: int = 2, pmut_per_node: float = 0.15, crossover_prob: float = 0.85) -> None:
+    def __init__(self, seed: int | None, minrandom: float = -5, maxrandom: float = 5, max_len: float = 1000, popsize: int = 10000, max_depth: int = 5, generations: int = 100, tournament_size: int = 2, pmut_per_node: float = 0.15, crossover_prob: float = 0.85) -> None:
         self.seed = seed or datetime.now().timestamp()
-        # self.minrandom = minrandom
-        # self.maxrandom = maxrandom
+        self.minrandom = minrandom
+        self.maxrandom = maxrandom
         self.max_len = max_len
         self.popsize = popsize
         self.max_depth = max_depth
@@ -38,6 +38,10 @@ class Params:
             + str(self.popsize)
             + "\nMAX_DEPTH="
             + str(self.max_depth)
+            + "\nMIN_RANDOM="
+            + str(self.minrandom)
+            + "\nMAX_RANDOM="
+            + str(self.maxrandom)
             + "\nCROSSOVER_PROB="
             + str(self.crossover_prob)
             + "\nPMUT_PER_NODE="
@@ -48,7 +52,3 @@ class Params:
             + str(self.tournament_size)
             + "\n----------------------------------\n"
         )
-            # + "\nMIN_RANDOM="
-            # + str(self.minrandom)
-            # + "\nMAX_RANDOM="
-            # + str(self.maxrandom)

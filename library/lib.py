@@ -27,7 +27,9 @@ class Node:
         self.isRoot = isRoot
     
     def __repr__(self):
-        return f"Node({self.value}, children:{self.children})"
+        # change syntax to make it easier to read
+        rep = f"Node({self.value}, children:{self.children})"
+        return rep
 
     def add_child(self, child_node):
         self.children.append(child_node)
@@ -41,11 +43,12 @@ class GeneticProgrammingLibrary:
     params: Parameters.Params
     input_data: list[float]
 
-    def __init__(self, Params: Parameters.Params):
+    def __init__(self, Params: Parameters.Params, input_data: list[float] = []):
         self.params = Params
         self.generation = 0
         self.population = self.initialize_population(self.params.max_depth)
         self.fitness: list[float] = [0.0 for _ in range(self.params.popsize)]
+        self.input_data = input_data
 
 
         # x: list[float]
@@ -89,6 +92,8 @@ class GeneticProgrammingLibrary:
         new_program1 = copy.deepcopy(program1)
         new_program2 = copy.deepcopy(program2)
         # Perform crossover operation (swap subtrees) between new_program1 and new_program2
+        
+        
         return new_program1, new_program2
 
     def mutate(self, program):
@@ -122,7 +127,7 @@ class GeneticProgrammingLibrary:
     def tournament_selection(self, population, k=2):
         tournament_players = random.sample(population, k)
         # Return the best program from the tournament
-        return max(tournament_players, key=lambda program: self.evaluate_program(program, input_data))
+        return max(tournament_players, key=lambda program: self.evaluate_program(program, self.input_data))
 
     def serialize_program(self, program):
         # Serialize the program to a string or a data structure
