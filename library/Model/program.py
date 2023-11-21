@@ -45,7 +45,7 @@ class Program():
         # create input nodes
         self.ROOT.add_child(self.createNode(NodeType.INPUT, self.ROOT))
 
-        self.ROOT.add_child(self.createNode(NodeType.VAR, self.ROOT))
+        self.ROOT.add_child(self.createNode(NodeType.ASSIGNMENT, self.ROOT))
         # self.ROOT.add_child(self.createNode(NodeType.CONDITION, self.ROOT))
 
         self.ROOT.add_child(self.createNode(NodeType.OUTPUT, self.ROOT))
@@ -108,7 +108,19 @@ class Program():
                 value = random.randint(self.min_rand, self.max_rand)
                 self.variables.update({var_name: NumeralNode(float(value))})
                 return ConstNode(node_type=type, parent_node=parent, name=var_name, value=value)
+            
+        elif type == NodeType.ASSIGNMENT:
+            new_var = self.createNode(NodeType.VAR, None)
+            exp = self.createNode(NodeType.EXPRESSION, None)
+
+            assign = AssignmentNode(node_type=type, parent_node=parent, var_name=new_var.name, body=exp)
+            new_var.parent_node = assign
+            exp.parent_node = assign
+
+            self.variables[new_var.name] = exp.value
         
+            return assign
+                    
         elif type == NodeType.EXPRESSION:
             left = self.createNode(NodeType.FACTOR, parent)
             right = self.createNode(NodeType.FACTOR, parent)

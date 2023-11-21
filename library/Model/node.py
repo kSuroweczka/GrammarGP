@@ -11,6 +11,7 @@ class NodeType(Enum):
     TERM = 7,
     FACTOR = 8,
     EXPRESSION = 9,
+    ASSIGNMENT = 10,
 
 
 class Node:
@@ -89,7 +90,10 @@ class ScopeNode(Node):
 
     
 class FactorNode(Node):
-    def __init__(self, node_type: NodeType, parent_node: Node, left: NumeralNode, right: NumeralNode, operation: str):
+    def __init__(self, node_type: NodeType, parent_node: Node, 
+                 left: NumeralNode, 
+                 right: NumeralNode, 
+                 operation: str):
         super().__init__(node_type, parent_node)
         self.left = left
         self.right = right
@@ -108,7 +112,10 @@ class FactorNode(Node):
         return f"( {self.left} {self.operation} {self.right} )"
     
 class ExpressionNode(Node):
-    def __init__(self, node_type: NodeType, parent_node: Node, left: FactorNode, right: FactorNode, operation: str):
+    def __init__(self, node_type: NodeType, parent_node: Node, 
+                 left: FactorNode | NumeralNode , 
+                 right: FactorNode | NumeralNode, 
+                 operation: str):
         super().__init__(node_type, parent_node)
         self.left = left
         self.right = right
@@ -140,6 +147,20 @@ class VarNode(Node):
 class ConstNode(VarNode):
     def __repr__(self):
         return f"const {self.name} = {self.value}"
+    
+
+class AssignmentNode(Node):
+    def __init__(self, node_type: NodeType, parent_node: Node, var_name: str, body: ExpressionNode):
+        super().__init__(node_type, parent_node)
+        self.var_name = var_name
+        self.body = body
+        self.value = self.calculate()
+    
+    def calculate(self):
+        return self.body.calculate()
+    
+    def __repr__(self):
+        return f"{self.var_name} = {self.body}  value({self.value})"
 
 
 class InputNode(Node):
