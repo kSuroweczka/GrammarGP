@@ -1,4 +1,4 @@
-// Generated from c:/Users/karol/Desktop/grammarGP/GrammarGP/GP-antlr/TinyGP.g4 by ANTLR 4.13.1
+// Generated from c:/Users/kinga/Documents/Github/GrammarGP/GP-antlr/TinyGP.g4 by ANTLR 4.13.1
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -191,6 +191,18 @@ public class TinyGPBaseListener implements TinyGPListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitVariable(TinyGPParser.VariableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterConstant(TinyGPParser.ConstantContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitConstant(TinyGPParser.ConstantContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

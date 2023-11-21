@@ -1,4 +1,4 @@
-// Generated from c:/Users/karol/Desktop/grammarGP/GrammarGP/GP-antlr/TinyGP.g4 by ANTLR 4.13.1
+// Generated from c:/Users/kinga/Documents/Github/GrammarGP/GP-antlr/TinyGP.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -156,6 +156,16 @@ public interface TinyGPListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitVariable(TinyGPParser.VariableContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link TinyGPParser#constant}.
+	 * @param ctx the parse tree
+	 */
+	void enterConstant(TinyGPParser.ConstantContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link TinyGPParser#constant}.
+	 * @param ctx the parse tree
+	 */
+	void exitConstant(TinyGPParser.ConstantContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link TinyGPParser#boolean}.
 	 * @param ctx the parse tree

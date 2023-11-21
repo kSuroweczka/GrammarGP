@@ -2,6 +2,7 @@ import random
 import copy
 from enum import Enum
 
+import term
 from library import Parameters
 
 class NodeType(Enum):

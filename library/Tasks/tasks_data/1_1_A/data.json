@@ -1,0 +1,13 @@
+{
+    "name": "1_1_A",
+    "min_input_length": 0,
+    "max_input_length": 1,
+    "min_output_length": 1,
+    "max_output_length": 1,
+    "test_cases": [
+        {
+            "input": [],
+            "output": [1]
+        }
+    ]
+}
