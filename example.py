@@ -1,7 +1,7 @@
 # Przykład użycia biblioteki do generowania, ewolucji, oceny i serializacji/deserializacji programów
 
 from library.lib import *
-from library.Parameters import Params
+from library.Solver.params import Params
 
 
 # Tworzymy instancję parametrów

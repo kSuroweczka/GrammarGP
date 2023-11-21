@@ -13,11 +13,14 @@ class Params:
     pmut_per_node: float
     crossover_prob: float
 
+    def __init__(self, seed: int | None, minrandom: float = -5, maxrandom: float = 5, 
+                 max_len: float = 10, popsize: int = 10000, max_depth: int = 3, 
+                 generations: int = 100, tournament_size: int = 2, pmut_per_node: float = 0.15, 
+                 crossover_prob: float = 0.85):
+        seed = seed or datetime.now().timestamp()
+        random.seed(seed)
+        self.seed = seed
 
-#minrandom: float, maxrandom: float
-
-    def __init__(self, seed: int | None, minrandom: float = -5, maxrandom: float = 5, max_len: float = 1000, popsize: int = 10000, max_depth: int = 5, generations: int = 100, tournament_size: int = 2, pmut_per_node: float = 0.15, crossover_prob: float = 0.85) -> None:
-        self.seed = seed or datetime.now().timestamp()
         self.minrandom = minrandom
         self.maxrandom = maxrandom
         self.max_len = max_len
