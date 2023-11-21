@@ -23,13 +23,32 @@ class GP():
         self.params = params or Params(seed=set_seed, max_depth=3)
         self.popuation = self.create_population(self.task, self.params)
 
+    def get_task_cases(self):
+        return self.task.test_cases
+
     def create_population(self, task: Task, params: Params):
+        # print(params)
+        
         self.name = task.name
         pop = []
 
         for _ in range(params.popsize):
-            p = Program(task, params.max_depth)
+            p = Program(task, params.max_depth, params.min_rand, params.max_rand)
             p.createIndividual()
             pop.append(p)
 
         return pop
+    
+    def print_individual(self, index: int):
+        print("---------------------")
+        print(f"Individual: {index}\n")
+        print("Program: ")
+        print(self.popuation[index])
+
+        print("Variables:")
+        print(self.popuation[index].variables)
+
+        print("\nRoot children:")
+        for child in self.popuation[index].ROOT.children_nodes:
+            print(child)
+        print("---------------------\n")

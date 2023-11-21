@@ -4,5 +4,7 @@ from library.Solver.GP import *
 
 task_name = '1_1_A'
 
-gp = GP(set_seed=42, name=task_name)
-print(gp.popuation[0])
+gp = GP(set_seed=None, name=task_name)
+gp.print_individual(0)
+
+

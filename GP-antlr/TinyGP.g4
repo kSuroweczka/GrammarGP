@@ -18,7 +18,7 @@ compoundStatement: '{' statement* '}';
 
 assignmentStatement: variable ('='|'+='|'-='|'*='|'/=') expression ';' | constant;
 
-inputStatement: 'input' '(' variable ')' ';';
+inputStatement: 'input' '(' assignmentStatement ')' ';';
 
 outputStatement: 'output' '(' expression ')' ';';
 

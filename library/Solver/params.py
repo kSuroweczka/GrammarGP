@@ -3,8 +3,8 @@ from datetime import datetime
 
 class Params:
     seed: int
-    minrandom: float
-    maxrandom: float
+    min_rand: float
+    max_rand: float
     max_len: float
     popsize: int
     max_depth: int
@@ -13,7 +13,7 @@ class Params:
     pmut_per_node: float
     crossover_prob: float
 
-    def __init__(self, seed: int | None, minrandom: float = -5, maxrandom: float = 5, 
+    def __init__(self, seed: int | None, min_rand: float = -5, max_rand: float = 5, 
                  max_len: float = 10, popsize: int = 10000, max_depth: int = 3, 
                  generations: int = 100, tournament_size: int = 2, pmut_per_node: float = 0.15, 
                  crossover_prob: float = 0.85):
@@ -21,8 +21,8 @@ class Params:
         random.seed(seed)
         self.seed = seed
 
-        self.minrandom = minrandom
-        self.maxrandom = maxrandom
+        self.min_rand = min_rand
+        self.max_rand = max_rand
         self.max_len = max_len
         self.popsize = popsize
         self.max_depth = max_depth
@@ -42,9 +42,9 @@ class Params:
             + "\nMAX_DEPTH="
             + str(self.max_depth)
             + "\nMIN_RANDOM="
-            + str(self.minrandom)
+            + str(self.min_rand)
             + "\nMAX_RANDOM="
-            + str(self.maxrandom)
+            + str(self.max_rand)
             + "\nCROSSOVER_PROB="
             + str(self.crossover_prob)
             + "\nPMUT_PER_NODE="
