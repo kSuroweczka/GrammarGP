@@ -6,11 +6,13 @@ from library.Solver.interpreter import *
 task_name = '1_1_A'
 
 gp = GP(set_seed=None, name=task_name)
-# gp.print_individual(0)
+gp.print_individual(0)
 
-for i in range(50):
-    gp.print_individual(i)
+# for i in range(50):
+#     gp.print_individual(i)
 
+
+# TO DO 
 # parsed_program = parsProgram(gp.popuation[0])
 # print(parsed_program)
 

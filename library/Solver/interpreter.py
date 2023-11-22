@@ -43,17 +43,12 @@ def parsProgram(program: Program):
                 for child in node.value:
                     walk(child)
             case NodeType.ASSIGNMENT:
-                parsed_program.extend([node.node_type.name, node.var_name, "="])
-                walk(node.value)
-            case NodeType.EXPRESSION:
                 parsed_program.append(node.node_type.name)
-                walk(node.left)
-                walk(node.right)
-            case NodeType.FACTOR:
-                parsed_program.append(node.node_type.name)
-                walk(node.left)
-                parsed_program.append(node.operator)
-                walk(node.right)
+                for child in node.children_nodes:
+                    walk(child)
+                
+
+
 
     for child in program.ROOT.children_nodes:
         walk(child)

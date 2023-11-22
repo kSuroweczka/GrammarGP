@@ -51,8 +51,8 @@ class Node:
 
 
 class TerminalNode(Node):
-    def __init__(self, value: float | bool):
-        super().__init__(NodeType.TERMINAL, None)
+    def __init__(self, value: float | bool, parent_node: Node):
+        super().__init__(NodeType.TERMINAL, parent_node)
         self.is_leaf = True
         self.value = value
 
@@ -73,6 +73,7 @@ class ScopeNode(Node):
 
     def __repr__(self):
         return f"Program:\n"
+    
 
 # var, const, expression, number
 class FactorNode(Node):
@@ -170,6 +171,13 @@ class AssignmentNode(Node):
     
     def calculate(self):
         return self.body.calculate()
+    
+    def change_var_name(self, new_var: str):
+        self.var_name = new_var
+
+    def change_body(self, new_body: ExpressionNode):
+        self.body = new_body
+        self.value = self.calculate()
     
     def __repr__(self):
         return f"{self.var_name} = {self.body} (value: {self.value})"
