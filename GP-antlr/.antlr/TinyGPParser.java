@@ -116,6 +116,14 @@ public class TinyGPParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_program; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).enterProgram(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).exitProgram(this);
+		}
 	}
 
 	public final ProgramContext program() throws RecognitionException {
@@ -179,6 +187,14 @@ public class TinyGPParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_statement; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).enterStatement(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).exitStatement(this);
+		}
 	}
 
 	public final StatementContext statement() throws RecognitionException {
@@ -262,6 +278,14 @@ public class TinyGPParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_loopStatement; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).enterLoopStatement(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).exitLoopStatement(this);
+		}
 	}
 
 	public final LoopStatementContext loopStatement() throws RecognitionException {
@@ -308,6 +332,14 @@ public class TinyGPParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_conditionalStatement; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).enterConditionalStatement(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).exitConditionalStatement(this);
+		}
 	}
 
 	public final ConditionalStatementContext conditionalStatement() throws RecognitionException {
@@ -364,6 +396,14 @@ public class TinyGPParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_compoundStatement; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).enterCompoundStatement(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).exitCompoundStatement(this);
+		}
 	}
 
 	public final CompoundStatementContext compoundStatement() throws RecognitionException {
@@ -419,6 +459,14 @@ public class TinyGPParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_assignmentStatement; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).enterAssignmentStatement(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).exitAssignmentStatement(this);
+		}
 	}
 
 	public final AssignmentStatementContext assignmentStatement() throws RecognitionException {
@@ -481,6 +529,14 @@ public class TinyGPParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_inputStatement; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).enterInputStatement(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).exitInputStatement(this);
+		}
 	}
 
 	public final InputStatementContext inputStatement() throws RecognitionException {
@@ -521,6 +577,14 @@ public class TinyGPParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_outputStatement; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).enterOutputStatement(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).exitOutputStatement(this);
+		}
 	}
 
 	public final OutputStatementContext outputStatement() throws RecognitionException {
@@ -576,6 +640,14 @@ public class TinyGPParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_condition; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).enterCondition(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).exitCondition(this);
+		}
 	}
 
 	public final ConditionContext condition() throws RecognitionException {
@@ -679,6 +751,14 @@ public class TinyGPParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expression; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).enterExpression(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).exitExpression(this);
+		}
 	}
 
 	public final ExpressionContext expression() throws RecognitionException {
@@ -769,6 +849,14 @@ public class TinyGPParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_term; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).enterTerm(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).exitTerm(this);
+		}
 	}
 
 	public final TermContext term() throws RecognitionException {
@@ -833,6 +921,14 @@ public class TinyGPParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_factor; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).enterFactor(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).exitFactor(this);
+		}
 	}
 
 	public final FactorContext factor() throws RecognitionException {
@@ -899,6 +995,14 @@ public class TinyGPParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_functionCall; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).enterFunctionCall(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).exitFunctionCall(this);
+		}
 	}
 
 	public final FunctionCallContext functionCall() throws RecognitionException {
@@ -951,6 +1055,14 @@ public class TinyGPParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_argumentList; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).enterArgumentList(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).exitArgumentList(this);
+		}
 	}
 
 	public final ArgumentListContext argumentList() throws RecognitionException {
@@ -998,6 +1110,14 @@ public class TinyGPParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_variable; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).enterVariable(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).exitVariable(this);
+		}
 	}
 
 	public final VariableContext variable() throws RecognitionException {
@@ -1031,6 +1151,14 @@ public class TinyGPParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_constant; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).enterConstant(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).exitConstant(this);
+		}
 	}
 
 	public final ConstantContext constant() throws RecognitionException {
@@ -1068,6 +1196,14 @@ public class TinyGPParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_boolean; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).enterBoolean(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof TinyGPListener ) ((TinyGPListener)listener).exitBoolean(this);
+		}
 	}
 
 	public final BooleanContext boolean_() throws RecognitionException {

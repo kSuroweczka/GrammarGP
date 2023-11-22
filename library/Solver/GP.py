@@ -51,4 +51,14 @@ class GP():
         print("\nRoot children:")
         for child in self.popuation[index].ROOT.children_nodes:
             print(child)
+
+        print("\nInput data:")
+        print(self.popuation[index].input_data)
+
+        print("\nOutput data:")
+        print(self.popuation[index].output_data)
         print("---------------------\n")
+
+    def print_population(self):
+        for i in range(len(self.popuation)):
+            self.print_individual(i)

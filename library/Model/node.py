@@ -8,10 +8,11 @@ class NodeType(Enum):
     OUTPUT = 4,
     CONDITION = 5,
     IF = 6,
-    TERM = 7,
+    TERMINAL = 7,
     FACTOR = 8,
-    EXPRESSION = 9,
-    ASSIGNMENT = 10,
+    TERM = 9,
+    EXPRESSION = 10,
+    ASSIGNMENT = 11,
 
 
 class Node:
@@ -51,6 +52,7 @@ class Node:
 
 class TerminalNode(Node):
     def __init__(self, value: float | bool):
+        super().__init__(NodeType.TERMINAL, None)
         self.is_leaf = True
         self.value = value
 
@@ -64,22 +66,6 @@ class TerminalNode(Node):
         return isinstance(self.value, bool)
     
 
-class BooleanNode(TerminalNode):
-    def __init__(self, value: bool):
-        super().__init__(value)
-    
-    def __repr__(self):
-        return f"{self.value}"
-    
-    
-class NumeralNode(TerminalNode):
-    def __init__(self, value: float):
-        super().__init__(value)
-    
-    def __repr__(self):
-        return f"{self.value}"
-    
-
 class ScopeNode(Node):
     def __init__(self, node_type: NodeType, parent_node: Node):
         super().__init__(node_type, parent_node)
@@ -88,34 +74,51 @@ class ScopeNode(Node):
     def __repr__(self):
         return f"Program:\n"
 
-    
+# var, const, expression, number
 class FactorNode(Node):
+    def __init__(self, node_type: NodeType, parent_node: Node, body: Node):
+        super().__init__(node_type, parent_node)
+        self.body = body
+        self.value = self.calculate()
+
+    def calculate(self):
+        return self.body.value
+    
+    def __repr__(self):
+        return f"( {self.value} )"
+    
+
+class TermNode(Node):
     def __init__(self, node_type: NodeType, parent_node: Node, 
-                 left: NumeralNode, 
-                 right: NumeralNode, 
-                 operation: str):
+                left: Node, 
+                right: Node | None, 
+                operation: str | None):
         super().__init__(node_type, parent_node)
         self.left = left
         self.right = right
         self.operation = operation
         self.value = self.calculate()
-
+    
     def calculate(self):
-        if self.operation == '*':
+        if self.operation is None:
+            return self.left.value
+        elif self.operation == '*':
             return self.left.value * self.right.value
         elif self.operation == '/':
             return self.left.value / self.right.value
         else:
             raise Exception(f"Unknown operation: {self.operation}")
-
+        
     def __repr__(self):
-        return f"( {self.left} {self.operation} {self.right} )"
+        if self.operation is None:
+            return f"{self.left}"
+        return f"{self.left} {self.operation} {self.right}"
     
 class ExpressionNode(Node):
     def __init__(self, node_type: NodeType, parent_node: Node, 
-                 left: FactorNode | NumeralNode , 
-                 right: FactorNode | NumeralNode, 
-                 operation: str):
+                 left: Node, 
+                 right: Node | None, 
+                 operation: str | None):
         super().__init__(node_type, parent_node)
         self.left = left
         self.right = right
@@ -123,7 +126,9 @@ class ExpressionNode(Node):
         self.value = self.calculate()
     
     def calculate(self):
-        if self.operation == '+':
+        if self.operation is None:
+            return self.left.value
+        elif self.operation == '+':
             return self.left.value + self.right.value
         elif self.operation == '-':
             return self.left.value - self.right.value
@@ -131,7 +136,9 @@ class ExpressionNode(Node):
             raise Exception(f"Unknown operation: {self.operation}")
         
     def __repr__(self):
-        return f"{self.left} {self.operation} {self.right}"
+        if self.operation is None:
+            return f"{self.left}"
+        return f"( {self.left} {self.operation} {self.right} )"
 
 
 class VarNode(Node):
@@ -144,7 +151,12 @@ class VarNode(Node):
         return f"{self.name} = {self.value}"
 
 
-class ConstNode(VarNode):
+class ConstNode(Node):
+    def __init__(self, node_type: NodeType, parent_node: Node, name: str, value: ExpressionNode):
+        super().__init__(node_type, parent_node)
+        self.name = name
+        self.value = value
+
     def __repr__(self):
         return f"const {self.name} = {self.value}"
     
@@ -160,7 +172,7 @@ class AssignmentNode(Node):
         return self.body.calculate()
     
     def __repr__(self):
-        return f"{self.var_name} = {self.body}  value({self.value})"
+        return f"{self.var_name} = {self.body} (value: {self.value})"
 
 
 class InputNode(Node):
@@ -173,7 +185,7 @@ class InputNode(Node):
 
 
 class OutputNode(Node):
-    def __init__(self, node_type: NodeType, parent_node: Node, value: list[float]):
+    def __init__(self, node_type: NodeType, parent_node: Node, value: list[TerminalNode]):
         super().__init__(node_type, parent_node)
         self.value = value
     
