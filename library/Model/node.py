@@ -106,7 +106,11 @@ class TermNode(Node):
         elif self.operation == '*':
             return self.left.value * self.right.value
         elif self.operation == '/':
-            return self.left.value / self.right.value
+            right = self.right.value
+            left = self.left.value
+            if right == 0:
+                right = 0.001
+            return  left / right
         else:
             raise Exception(f"Unknown operation: {self.operation}")
         
@@ -149,7 +153,15 @@ class VarNode(Node):
         self.value = value
     
     def __repr__(self):
-        return f"{self.name} = {self.value}"
+        if self.parent_node and (self.parent_node.node_type == NodeType.FACTOR or self.parent_node.node_type == NodeType.OUTPUT):
+            return f"{self.name} (value: {self.value})"
+        else:
+            return f"{self.name} = {self.value}"
+
+        
+    def copy(self):
+        new_var = VarNode(NodeType.VAR, None, self.name, self.value)
+        return new_var
 
 
 class ConstNode(Node):
@@ -160,6 +172,10 @@ class ConstNode(Node):
 
     def __repr__(self):
         return f"const {self.name} = {self.value}"
+    
+    def copy(self):
+        new_var = ConstNode(NodeType.CONST, None, self.name, self.value)
+        return new_var
     
 
 class AssignmentNode(Node):

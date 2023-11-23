@@ -8,7 +8,7 @@ class Program():
     name: str
     task: Task
     variables: dict[str, VarNode]
-    const: dict[str, float | bool]
+    const: dict[str, ConstNode]
     input_data: list[float]
     output_data: list[float]
     fitness: float
@@ -32,7 +32,7 @@ class Program():
         self.max_rand = max_rand
         self.ROOT = ScopeNode(NodeType.SCOPE, None)
 
-    def add_variable(self, name: str, value: float):
+    def add_variable(self, name: str, value: VarNode):
         new_variables = self.variables.update({name: value})
         return new_variables
 
@@ -46,7 +46,11 @@ class Program():
         # create input nodes
         self.ROOT.add_child(self.createNode(NodeType.INPUT, self.ROOT))
 
-        self.ROOT.add_child(self.createNode(NodeType.ASSIGNMENT, self.ROOT))
+        posible_nodes = [NodeType.ASSIGNMENT, NodeType.VAR, NodeType.CONST]
+        node_t = random.choice(posible_nodes)
+
+        for i in range(random.randint(2, 5)):
+            self.ROOT.add_child(self.createNode(node_t, self.ROOT))
 
         self.ROOT.add_child(self.createNode(NodeType.OUTPUT, self.ROOT))
 
@@ -59,15 +63,15 @@ class Program():
         #     return
         
         if type == NodeType.INPUT:
-            posible_nodes = [NodeType.VAR, NodeType.CONST]
-            node = random.choice(posible_nodes)
-
-            vars: list[TerminalNode] = []
+            vars: list[VarNode | ConstNode] = []
             input = InputNode(node_type=type, parent_node=parent, value=vars)
 
             input_len = random.randint(self.task.min_input_length, self.task.max_input_length)
             for i in range(input_len):
-                var = self.createNode(node, input, current_depth)
+                posible_nodes = [NodeType.VAR, NodeType.CONST]
+                node_t = random.choice(posible_nodes)
+
+                var = self.createNode(node_t, input, current_depth)
                 vars.append(var)
 
             input.value = vars
@@ -91,9 +95,20 @@ class Program():
                 elif out_const:
                     rand_const = random.choice(list(self.const.keys()))
                     values.append(TerminalNode(self.const[rand_const], output))
+                    # rand_const = random.choice(list(self.const.items()))
+
+                    # const_copy = rand_const[1].copy()
+                    # const_copy.parent_node = output
+
+                    # values.append(const_copy.value)
                 else:
                     rand_var = random.choice(list(self.variables.keys()))
                     values.append(TerminalNode(self.variables[rand_var], output))
+                    # rand_var = random.choice(list(self.variables.items()))
+                    # var_copy = rand_var[1].copy()
+                    # var_copy.parent_node = output
+
+                    # values.append(var_copy.value)
 
             self.output_data = values
             output.value = values
@@ -130,7 +145,9 @@ class Program():
                 exp = self.createNode(NodeType.EXPRESSION, None, current_depth+1)
 
                 assign = AssignmentNode(node_type=type, parent_node=parent, var_name=new_var.name, body=exp)
-                
+                new_var.parent_node = assign
+                exp.parent_node = assign
+
                 self.variables[new_var.name] = exp.value
             else:
                 index = random.randint(0, self.variables.__len__()-1)
@@ -173,13 +190,35 @@ class Program():
             return out
         
         elif type == NodeType.FACTOR:
-            if random.choice([True, False]) and current_depth < self.max_depth-2:
-                return self.createNode(NodeType.EXPRESSION, parent, current_depth+1)
-            else:
-                # use variables or constants
-                # need to print vars names which can be a problem 
+            none_vars = self.variables.__len__() == 0
+            none_const = self.const.__len__() == 0
 
-                out = TerminalNode(float(random.choice([i for i in range(self.min_rand, self.max_rand) if i != 0])), parent)
+            if random.choice([True, False]) and current_depth < self.max_depth-2:
+                out = self.createNode(NodeType.EXPRESSION, parent, current_depth+1)
+            else:
+                out = TerminalNode(float(random.choice([i for i in range(self.min_rand, self.max_rand) if i != 0])), parent) 
+
+            # else:
+            #     posible_nodes = [NodeType.VAR, NodeType.CONST, NodeType.TERMINAL]
+            #     node_t = random.choice(posible_nodes) 
+            #     match node_t:
+            #         case NodeType.VAR:
+            #             if not none_vars:
+            #                 var = random.choice(list(self.variables.items()))
+            #                 node = VarNode(node_t, parent, var[0], var[1])
+            #                 out = node
+            #             else:
+            #                 out = TerminalNode(float(random.choice([i for i in range(self.min_rand, self.max_rand) if i != 0])), parent)
+            #         case NodeType.CONST:
+            #             if not none_const:
+            #                 var = random.choice(list(self.const.items()))
+            #                 node = VarNode(node_t, parent, var[0], var[1])
+            #                 out = node
+            #             else:
+            #                 out = TerminalNode(float(random.choice([i for i in range(self.min_rand, self.max_rand) if i != 0])), parent)
+            #         case NodeType.TERMINAL:
+            #             out = TerminalNode(float(random.choice([i for i in range(self.min_rand, self.max_rand) if i != 0])), parent) 
+
                 self.mutable_nodes.append(out)
                 return out
             
@@ -187,10 +226,6 @@ class Program():
             print("ERROR: invalid node type")
             return None
 
-    def use_variables(self, var_name: str, parent: Node):
-        value = self.variables[var_name]
-        var = VarNode(NodeType.VAR, parent, var_name, TerminalNode(value))
-        return var
 
         
         
