@@ -135,10 +135,10 @@ class Program():
                 self.variables.update({new_var.name: new_var})
 
             else:
-                choice = random.choice(["var", "const"]) # "assign"
+                choice = random.choice(["var", "const", "assign"])
                 create_const = choice == "const"
                 create_var = choice == "var"
-                # var_assign = choice == "assign"
+                var_assign = choice == "assign"
 
                 if create_const:
                     new_const = self.createNode(NodeType.CONST, None, current_depth+1)
@@ -161,6 +161,17 @@ class Program():
                     assign.add_child(exp)
 
                     self.variables.update({new_var.name: new_var})
+
+                elif var_assign:
+                    var_name = random.choice(list(self.variables.keys()))
+                    var = self.variables[var_name]
+                    exp = self.createNode(NodeType.EXPRESSION, None, current_depth+1)
+                    var.value = exp.value
+
+                    assign = AssignmentNode(node_type=type, parent_node=parent, var=var, body=exp)
+                    assign.add_child(var)
+                    assign.add_child(exp)
+                    
 
             return assign
                     
