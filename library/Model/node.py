@@ -42,14 +42,13 @@ class Node:
             return 1 + self.parent_node.get_depth()
         
     def add_child(self, child_node: 'Node'):
-        if not self.is_leaf:
+        if not self.is_leaf and child_node is not None:
             if not isinstance(child_node, float) and not isinstance(child_node, bool):
                 child_node.parent_node = self
             
             self.children_nodes.append(child_node)
 
                 
-
     def change_parent(self, new_parent: 'Node'):
         self.parent_node.children_nodes.remove(self)
         self.parent_node = new_parent
@@ -69,20 +68,29 @@ class ScopeNode(Node):
 # var, const, expression, number
 class FactorNode(Node):
     def __init__(self, node_type: NodeType, parent_node, 
-                 body: Node = None, 
-                 children_nodes
-            : list[Node] = []):
+                 body: Node | float = None, 
+                 children_nodes: list[Node] = []):
         super().__init__(node_type, parent_node)
         self.body = body
         self.value = self.calculate()
+        self.is_leaf = True
         self.children_nodes = children_nodes
 
-
     def calculate(self):
-        return self.body.value
+        if isinstance(self.body, ExpressionNode):
+            return self.body.calculate()
+        if isinstance(self.body, VarNode) or isinstance(self.body, ConstNode):
+            return self.body.value
+        elif isinstance(self.body, float):
+            return self.body
+        else:
+            raise Exception(f"Unknown type: {type(self.body)}")
     
     def __repr__(self):
+        if isinstance(self.body, VarNode) or isinstance(self.body, ConstNode):
+            return f"{self.body}"
         return f"( {self.value} )"
+
     
 
 class TermNode(Node):
@@ -150,15 +158,14 @@ class ExpressionNode(Node):
 class VarNode(Node):
     def __init__(self, node_type: NodeType, parent_node: Node, 
                  name: str, 
-                 value: float | bool, 
-                 is_leaf: bool = True):
+                 value: float | bool):
         super().__init__(node_type, parent_node)
         self.name = name
         self.value = value
-        self.is_leaf = is_leaf
+        self.is_leaf = True
     
     def __repr__(self):
-        return f"{self.name} (value: {self.value})"
+        return f"{self.name}" #(value: {self.value})
     
     # def copy(self):
     #     new_var = VarNode(NodeType.CONST, None, self.name, self.value)
@@ -168,16 +175,15 @@ class VarNode(Node):
 class ConstNode(Node):
     def __init__(self, node_type: NodeType, parent_node: Node, 
                  name: str, 
-                 value: float | bool,
-                 is_leaf: bool = True):
+                 value: float | bool):
         super().__init__(node_type, parent_node)
         self.name = name
         self.value = value
-        self.is_leaf = is_leaf
+        self.is_leaf = True
 
 
     def __repr__(self):
-        return f"const {self.name} = {self.value}"
+        return f"{self.name}"#(value: {self.value})
     
     # def copy(self):
     #     new_var = ConstNode(NodeType.CONST, None, self.name, self.value)
@@ -186,7 +192,7 @@ class ConstNode(Node):
 
 class AssignmentNode(Node):
     def __init__(self, node_type: NodeType, parent_node: Node, 
-                 var: VarNode, 
+                 var: VarNode | ConstNode, 
                  body: ExpressionNode,
                  children_nodes: list[Node] = []):
         super().__init__(node_type, parent_node)
@@ -196,23 +202,18 @@ class AssignmentNode(Node):
         self.value = self.calculate()
     
     def calculate(self):
-        return self.body
-        # if isinstance(self.body, ExpressionNode):
-        #     return self.body.calculate()
-        # elif isinstance(self.body, VarNode) or isinstance(self.body, ConstNode):
-        #     return self.body.value
-        # elif isinstance(self.body, float) or isinstance(self.body, bool):
-        #     return self.body
+        if isinstance(self.body, float) or isinstance(self.body, bool):
+            return self.body
+        return self.body.calculate()
 
     def change_body(self, new_body: ExpressionNode):
         self.body = new_body
         self.value = self.calculate()
 
-    def add_child(self, child_node: Node):
-        self.children_nodes.append(child_node)
-    
     def __repr__(self):
-        return f"{self.var.name} = {self.body} (value: {self.value})"
+        if self.var.node_type == NodeType.CONST:
+            return f"const {self.var.name} = {self.body}"
+        return f"{self.var.name} = {self.body}" # (value: {self.value})
 
 
 class InputNode(Node):
