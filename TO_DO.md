@@ -20,3 +20,6 @@ Interpreter drzewa:
 itd
 
 Odtwarzanie drzewa -> coś jak createNode ale wartości pochodzą z instniejącego programu
+
+## gramatyka
+- x_0 = 4 > x_1 && ...

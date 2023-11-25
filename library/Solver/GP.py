@@ -1,6 +1,7 @@
 from library.Model.program import Program
 from library.Solver.params import Params
-from library.Tasks.task import Task
+from library.Tasks.task import Task, TestCase
+import random
 
 class GP():
     name: str
@@ -10,6 +11,7 @@ class GP():
     best_generation: int
     params: Params
     task: Task
+    test_cases: list[TestCase] # list of TestCase objects from library/Tasks/task.py
     generation: int
 
     def __init__(self, name: str, set_seed: int | None = None, params: Params | None = None):
@@ -19,12 +21,13 @@ class GP():
         self.best_generation = 0
         self.generation = 0
         self.task = Task(name)
-
         self.params = params or Params(seed=set_seed, max_depth=3)
         self.popuation = self.create_population(self.task, self.params)
+        self.test_cases = []
+
 
     def get_task_cases(self):
-        return self.task.test_cases
+        self.test_cases = self.task.test_cases
 
     def create_population(self, task: Task, params: Params):
         # print(params)
@@ -32,8 +35,11 @@ class GP():
         self.name = task.name
         pop = []
 
-        for _ in range(params.popsize):
-            p = Program(task, params.max_depth, params.min_rand, params.max_rand)
+        for i in range(params.popsize):
+            index = random.randint(0, len(task.test_cases) - 1)
+            test_case = task.test_cases[index]
+
+            p = Program(i, task, params.max_depth, params.min_rand, params.max_rand, input_data=test_case.input_data)
             p.createIndividual()
             pop.append(p)
 
@@ -41,7 +47,7 @@ class GP():
     
     def print_individual(self, index: int):
         print("---------------------")
-        print(f"Individual: {index}\n")
+        print(f"Individual: {self.popuation[index].id}\n")
         print("Program: ")
         print(self.popuation[index])
 
@@ -65,5 +71,22 @@ class GP():
 
 
     def print_population(self):
+        print(f"Population size: {self.params.popsize}") 
+        print(f"Input size: {len(self.task.test_cases[0].input_data)}\n")
         for i in range(len(self.popuation)):
             self.print_individual(i)
+
+    # TO DO
+    def evalate(self):
+        # check if best_individual solve the case
+        # if not -> random: mutation / crossover
+        # calculate new fitnesses
+        pass
+
+    # TO DO
+    def mutation(self, individual: Program):
+        pass
+
+    # TO DO
+    def crossover(self, individual_1: Program, individual_2: Program):
+        pass

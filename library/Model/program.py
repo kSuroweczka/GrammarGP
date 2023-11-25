@@ -1,10 +1,11 @@
 import os
 import random
-from library.Tasks.task import Task
+from library.Tasks.task import Task, TestCase
 from library.Model.node import *
 from library.Solver.params import Params
 
 class Program():
+    id: int
     name: str
     task: Task
     variables: dict[str, VarNode]
@@ -18,145 +19,141 @@ class Program():
     max_rand: int
     ROOT: ScopeNode
 
-    def __init__(self, task: Task, max_depth: int, min_rand: int = -5, max_rand: int = 5):
+    def __init__(self, id: int, task: Task, max_depth: int, min_rand: int = -5, max_rand: int = 5, input_data: list[float] = []):
+        self.id = id
         self.task = task
         self.name = task.name
         self.variables = {}
         self.const = {}
-        self.input_data = []
+        self.input_data = input_data
         self.output_data = []
         self.mutable_nodes = []
         self.fitness = 0.0
         self.max_depth = max_depth
         self.min_rand = min_rand
         self.max_rand = max_rand
-        self.ROOT = ScopeNode(NodeType.SCOPE, None)
+        self.ROOT = ScopeNode(NodeType.SCOPE, None, [])
 
-    def add_variable(self, name: str, value: VarNode):
-        new_variables = self.variables.update({name: value})
-        return new_variables
 
     def __repr__(self):
         for child in self.ROOT.children_nodes:
             print(child)
         return ""
 
-    # do recurent createIndividual that will create tree until max_depth
-    def createIndividual(self):
-        # create input nodes
+    def createIndividual(self):        
         self.ROOT.add_child(self.createNode(NodeType.INPUT, self.ROOT))
 
-        posible_nodes = [NodeType.ASSIGNMENT, NodeType.VAR, NodeType.CONST]
-        node_t = random.choice(posible_nodes)
+        # posible_nodes = [NodeType.ASSIGNMENT, NodeType.VAR, NodeType.CONST]
+        # node_t = random.choice(posible_nodes)
 
-        for i in range(random.randint(2, 5)):
-            self.ROOT.add_child(self.createNode(node_t, self.ROOT))
+        # for i in range(random.randint(2, 5)):
+        #     self.ROOT.add_child(self.createNode(node_t, self.ROOT))
 
         self.ROOT.add_child(self.createNode(NodeType.OUTPUT, self.ROOT))
+        
 
-
-    # def get_subtree(self, node: Node):
 
     def createNode(self, type: NodeType, parent: Node, current_depth: int = 0):
 
-        # if current_depth >= self.max_depth:
-        #     return
-        
+
         if type == NodeType.INPUT:
-            vars: list[VarNode | ConstNode] = []
-            input = InputNode(node_type=type, parent_node=parent, value=vars)
+            input_len = len(self.input_data)
+            input = InputNode(node_type=type, parent_node=parent, children_nodes=[])
 
-            input_len = random.randint(self.task.min_input_length, self.task.max_input_length)
             for i in range(input_len):
-                posible_nodes = [NodeType.VAR, NodeType.CONST]
-                node_t = random.choice(posible_nodes)
+                new_assignment = self.createNode(NodeType.ASSIGNMENT, input, current_depth)
+                input.add_child(new_assignment)
 
-                var = self.createNode(node_t, input, current_depth)
-                vars.append(var)
-
-            input.value = vars
-            self.input_data = list(v.value for v in vars)
-
+            input.value = input.calculate()
             return input
         
+        
         elif type == NodeType.OUTPUT:
-            values: list[TerminalNode] = []
+            const_count = self.const.__len__()
+            var_count = self.variables.__len__()
 
-            output = OutputNode(node_type=type, parent_node=parent, value=values)
+            output = OutputNode(node_type=type, parent_node=parent, children_nodes=[])
             output_len = random.randint(self.task.min_output_length, self.task.max_output_length)
 
             for i in range(output_len):
-                out_rand = random.choice([True, False])
-                out_const = random.choice([True, False])
-            
-                if self.variables.__len__() == 0 or ( self.const.__len__() == 0 and out_const ) or out_rand:
-                    rand_value = random.randint(self.min_rand, self.max_rand)
-                    values.append(TerminalNode(float(rand_value), output))
+                choice = random.choice(["var", "const", "rand"])
+                out_rand = choice == "rand"
+                out_const = choice == "const"
+                out_var = choice == "var"
+
+                if (var_count == 0 and const_count == 0) or out_rand or (const_count == 0 and out_const) or (var_count == 0 and out_var):
+                    rand_value = float(random.randint(self.min_rand, self.max_rand))
+                    output.add_child(rand_value)
+                    self.output_data.append(rand_value)
                 elif out_const:
                     rand_const = random.choice(list(self.const.keys()))
-                    values.append(TerminalNode(self.const[rand_const], output))
-                    # rand_const = random.choice(list(self.const.items()))
-
-                    # const_copy = rand_const[1].copy()
-                    # const_copy.parent_node = output
-
-                    # values.append(const_copy.value)
+                    const = self.const[rand_const]
+                    output.add_child(const)
+                    self.output_data.append(const.value)
                 else:
                     rand_var = random.choice(list(self.variables.keys()))
-                    values.append(TerminalNode(self.variables[rand_var], output))
-                    # rand_var = random.choice(list(self.variables.items()))
-                    # var_copy = rand_var[1].copy()
-                    # var_copy.parent_node = output
+                    var = self.variables[rand_var]
+                    output.add_child(var)
+                    self.output_data.append(var.value)
 
-                    # values.append(var_copy.value)
-
-            self.output_data = values
-            output.value = values
+            output.value = output.calculate()
             return output
         
+
         elif type == NodeType.VAR:
             var_name = f"x_{self.variables.__len__()}"
-            value = random.randint(self.min_rand, self.max_rand)
-            node = VarNode(node_type=type, parent_node=parent, name=var_name, value=None)
-            t_value = TerminalNode(float(value), node)
-            node.value = t_value
+            rand_value = float(random.randint(self.min_rand, self.max_rand))
+            node = VarNode(node_type=type, parent_node=None, name=var_name, value=rand_value)
             
             self.variables.update({var_name: node})
-            self.mutable_nodes.append(node)
             return node
             
         elif type == NodeType.CONST:
-            var_name = f"c_{self.const.__len__()}"
-            value = random.randint(self.min_rand, self.max_rand)
+            const_name = f"c_{self.const.__len__()}"
+            rand_value = float(random.randint(self.min_rand, self.max_rand))
+            node = ConstNode(node_type=type, parent_node=None, name=const_name, value=rand_value)
             
-            node = ConstNode(node_type=type, parent_node=parent, name=var_name, value=None)
-            t_value = TerminalNode(float(value), node)
-            node.value = t_value
-            
-            self.const.update({var_name: node})
-            self.mutable_nodes.append(node)
+            self.const.update({const_name: node})
             return node
             
         elif type == NodeType.ASSIGNMENT:
             create_var = random.choice([True, False])
-
-            if self.variables.__len__() == 0 or create_var:
+            var_count = self.variables.__len__()
+            
+            if parent.node_type == NodeType.INPUT:
+                index = self.variables.__len__()
+                var_value = float(self.input_data[index])
+                
                 new_var = self.createNode(NodeType.VAR, None, current_depth+1)
-                exp = self.createNode(NodeType.EXPRESSION, None, current_depth+1)
+                new_var.value = var_value
 
-                assign = AssignmentNode(node_type=type, parent_node=parent, var_name=new_var.name, body=exp)
-                new_var.parent_node = assign
-                exp.parent_node = assign
+                assign = AssignmentNode(node_type=type, parent_node=parent, var=new_var, body=var_value, children_nodes=[])
+                assign.add_child(new_var)
+                assign.add_child(var_value)
+                self.variables.update({new_var.name: new_var})
 
-                self.variables[new_var.name] = exp.value
-            else:
-                index = random.randint(0, self.variables.__len__()-1)
-                new_var = list(self.variables.keys())[index]
-                exp = self.createNode(NodeType.EXPRESSION, None, current_depth+1)
-                assign = AssignmentNode(node_type=type, parent_node=parent, var_name=new_var, body=exp)
-                self.variables[new_var] = exp.value
+            # else:
+            #     if var_count == 0 or create_var:
+            #         new_var = self.createNode(NodeType.VAR, None, current_depth+1)
+            #         exp = self.createNode(NodeType.EXPRESSION, None, current_depth+1)
 
-            self.mutable_nodes.append(assign)
+            #         assign = AssignmentNode(node_type=type, parent_node=parent, var=new_var, body=exp)
+            #         assign.add_child(new_var)
+            #         assign.add_child(exp)
+
+            #         self.variables[new_var.name] = exp.value
+            #     else:
+            #         index = random.randint(0, self.variables.__len__()-1)
+            #         new_var = list(self.variables.keys())[index]
+            #         exp = self.createNode(NodeType.EXPRESSION, None, current_depth+1)
+            #         assign = AssignmentNode(node_type=type, parent_node=parent, var=new_var, body=exp)
+            #         assign.add_child(new_var)
+            #         assign.add_child(exp)
+
+            #         self.variables[new_var] = exp.value
+                
+            #     self.mutable_nodes.append(assign)
+
             return assign
                     
         elif type == NodeType.EXPRESSION:

@@ -7,9 +7,8 @@ task_name = '1_1_A'
 
 gp = GP(set_seed=None, name=task_name)
 
-for i in range(50):
-    gp.print_individual(i)
 
+gp.print_population()
 
 # TO DO 
 # parsed_program = parsProgram(gp.popuation[0])
