@@ -71,8 +71,9 @@ class GP():
 
 
     def print_population(self):
-        print(f"Population size: {self.params.popsize}") 
-        print(f"Input size: {len(self.task.test_cases[0].input_data)}\n")
+        print(f"Task: {self.name}")
+        print(self.params)
+        print(f"Generation: {self.generation}\n")   
         for i in range(len(self.popuation)):
             self.print_individual(i)
 

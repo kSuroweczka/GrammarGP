@@ -107,7 +107,6 @@ class Program():
             rand_value = float(random.randint(self.min_rand, self.max_rand))
             node = VarNode(node_type=type, parent_node=None, name=var_name, value=rand_value)
             
-            self.variables.update({var_name: node})
             return node
             
         elif type == NodeType.CONST:
@@ -115,7 +114,6 @@ class Program():
             rand_value = float(random.randint(self.min_rand, self.max_rand))
             node = ConstNode(node_type=type, parent_node=None, name=const_name, value=rand_value)
             
-            self.const.update({const_name: node})
             return node
             
         elif type == NodeType.ASSIGNMENT:
