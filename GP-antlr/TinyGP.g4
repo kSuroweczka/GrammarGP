@@ -8,7 +8,7 @@ statement: loopStatement
          | assignmentStatement
          | inputStatement
          | outputStatement
-         | functionCall;
+         | constant;
 
 loopStatement: 'while' '(' condition ')' compoundStatement;
 
@@ -16,26 +16,26 @@ conditionalStatement: 'if' '(' condition ')' compoundStatement ('else' compoundS
 
 compoundStatement: '{' statement* '}';
 
-assignmentStatement: variable ('='|'+='|'-='|'*='|'/=') expression ';' | constant;
+assignmentStatement: variable '=' (expression | condition | boolean) (';')? ;
 
 inputStatement: 'input' '(' assignmentStatement ')' ';';
 
 outputStatement: 'output' '(' expression ')' ';';
 
-condition: expression ('==' | '!=' | '<' | '>' | '<=' | '>=') expression (('&&' | '||') condition)* | boolean ('&&' | '||') boolean;
+//condition: expression ('==' | '!=' | '<' | '>' | '<=' | '>=') expression (('&&' | '||') condition)* | boolean ('&&' | '||') boolean (('&&' | '||') condition)*;
+condition: expressionCondition (('&&' | '||') (expressionCondition | logicCondition))* | logicCondition (('&&' | '||') (expressionCondition | logicCondition))*;
 
-expression: ('-')? term (('+' | '-') term)* | boolean;
+expressionCondition: expression ('==' | '!=' | '<' | '>' | '<=' | '>=') expression;
+
+logicCondition: boolean ('==' | '!=') boolean;
+
+expression: ('-')? term (('+' | '-') term)*;
 
 term: factor (('*' | '/') factor)*;
 
 factor: '(' expression ')'
       | variable
-      | NUMBER
-      | constant ;
-
-functionCall: ID '(' argumentList? ')' ';';
-
-argumentList: expression (',' expression)*;
+      | NUMBER;
 
 variable: ID;
 
