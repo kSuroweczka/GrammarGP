@@ -23,8 +23,8 @@ inputStatement: 'input' '(' assignmentStatement ')' ';';
 outputStatement: 'output' '(' expression ')' ';';
 
 //condition: expression ('==' | '!=' | '<' | '>' | '<=' | '>=') expression (('&&' | '||') condition)* | boolean ('&&' | '||') boolean (('&&' | '||') condition)*;
-condition: expressionCondition (('&&' | '||') (expressionCondition | logicCondition))* | logicCondition (('&&' | '||') (expressionCondition | logicCondition))*;
-
+//condition: expressionCondition (('&&' | '||') (expressionCondition | logicCondition))* | logicCondition (('&&' | '||') (expressionCondition | logicCondition))*;
+condition: (expressionCondition | logicCondition) (('&&' | '||') (expressionCondition | logicCondition))*;
 expressionCondition: expression ('==' | '!=' | '<' | '>' | '<=' | '>=') expression;
 
 logicCondition: boolean ('==' | '!=') boolean;
