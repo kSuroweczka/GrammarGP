@@ -14,13 +14,13 @@ class GP():
     test_cases: list[TestCase] # list of TestCase objects from library/Tasks/task.py
     generation: int
 
-    def __init__(self, name: str, set_seed: int | None = None, params: Params | None = None):
+    def __init__(self, task_name: str, set_seed: int | None = None, params: Params | None = None):
         self.popuation = []
         self.best = None
         self.best_fitness = 0.0
         self.best_generation = 0
         self.generation = 0
-        self.task = Task(name)
+        self.task = Task(task_name)
         self.params = params or Params(seed=set_seed, max_depth=3)
         self.popuation = self.create_population(self.task, self.params)
         self.test_cases = []

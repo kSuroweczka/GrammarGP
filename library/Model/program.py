@@ -51,6 +51,9 @@ class Program():
         # for i in range(random.randint(2, 5)):
         #     self.ROOT.add_child(self.createNode(node_t, self.ROOT))
 
+        # self.ROOT.add_child(self.createNode(NodeType.CONDITION, self.ROOT))
+        self.ROOT.add_child(self.createNode(NodeType.WHILE, self.ROOT))
+
         self.ROOT.add_child(self.createNode(NodeType.OUTPUT, self.ROOT))
         
 
@@ -104,8 +107,14 @@ class Program():
 
         elif type == NodeType.VAR:
             var_name = f"x_{self.variables.__len__()}"
-            rand_value = float(random.randint(self.min_rand, self.max_rand))
-            node = VarNode(node_type=type, parent_node=None, name=var_name, value=rand_value)
+            choice = random.choice(['number', 'bool'])
+            if choice == 'number':
+                rand_value = float(random.randint(self.min_rand, self.max_rand))
+                node = VarNode(node_type=type, parent_node=None, name=var_name, value=rand_value)
+            else:
+                boolNode = self.createNode(NodeType.BOOLEAN, parent= parent)
+                node = VarNode(node_type=type, parent_node=None, name=var_name, value=boolNode.value)
+                # node.add_child(boolNode)
             
             return node
             
@@ -137,6 +146,7 @@ class Program():
                 create_const = choice == "const"
                 create_var = choice == "var"
                 var_assign = choice == "assign"
+                # create_bool = choice == "bool"
 
                 if create_const:
                     new_const = self.createNode(NodeType.CONST, None, current_depth+1)
@@ -169,8 +179,22 @@ class Program():
                     assign = AssignmentNode(node_type=type, parent_node=parent, var=var, body=exp)
                     assign.add_child(var)
                     assign.add_child(exp)
-                    
-
+                # elif create_bool:
+                #     new_var = self.createNode(NodeType.VAR, None, current_depth+1)
+                #     choice2 = random.choice(['bool', 'cond'])
+                #     if choice2 == 'bool':
+                #         bool = self.createNode(NodeType.BOOLEAN, parent=parent)
+                #         new_var.value = bool.value
+                #         assign = AssignmentNode(node_type=type, parent_node=parent, var=new_var, body=bool.value)
+                #         assign.add_child(new_var)
+                #         assign.add_child(bool)
+                #         return assign
+                #     if choice2 == 'cond':
+                #         condNode = self.createNode(NodeType.CONDITION, parent=parent)
+                #         new_var.add_child(condNode)
+                #         assign = AssignmentNode(node_type=type, parent_node=parent, var=new_var, body=condNode)
+                #         assign.add_child(new_var)
+                #         assign.add_child(condNode)
             return assign
                     
         elif type == NodeType.EXPRESSION:
@@ -239,13 +263,117 @@ class Program():
 
             self.mutable_nodes.append(out)
             return out
-            
-        else:
-            print("ERROR: invalid node type")
-            return None
-
-
         
+        elif type == NodeType.BOOLEAN:
+            boolean = random.choice([True, False])
+            booleanNode = BooleanNode(node_type=type, parent_node=parent,value=boolean)
+            return booleanNode
         
+        elif type == NodeType.OPERATOR:
+            operator = random.choice(['==', '!=','<','>','<=' ,'>='])
+            operatorNode=OperatorNode(node_type=type, parent_node=parent, operatorType=operator)
+            return operatorNode
+        
+        elif type==NodeType.LOGICOPERATOR:
+            operator= random.choice(["&&", "||"])
+            logicOperatorNode = LogicOperator(node_type=type, parent_node=parent, operatorType=operator)
+            return logicOperatorNode
+        
+        elif type == NodeType.EXPRESSIONCONDITION:
+            children = []
+            leftexpNode = self.createNode(NodeType.EXPRESSION, parent=parent)
+            children.append(leftexpNode)
+            operatorNode = self.createNode(NodeType.OPERATOR, parent = parent)
+            children.append(operatorNode)
+            rightexpNode = self.createNode(NodeType.EXPRESSION, parent=parent)
+            children.append(rightexpNode)
 
+            expressionConditionNode = ExpressionConditionNode(node_type=type, parent_node=parent,children_nodes=children)
+            return expressionConditionNode
+
+        elif type == NodeType.LOGICCONDITION:
+            children = []
+            leftBoolean = self.createNode(NodeType.BOOLEAN, parent= parent)
+            children.append(leftBoolean)
+
+            operator = random.choice(['!=', '=='])
+            operator = OperatorNode(node_type=NodeType.OPERATOR, parent_node=parent, operatorType=operator)
+            children.append(operator)
+
+            rightBoolean = self.createNode(NodeType.BOOLEAN, parent= parent)
+            children.append(rightBoolean)
+
+            LogicConditionNode = LogicCondition(node_type=type, parent_node=parent,children_nodes=children)
+
+            return LogicConditionNode
         
+        elif type == NodeType.CONDITION:
+            howMuch = random.choice([1,2,3,4])
+            children =[]
+
+            expOrlog = random.choice(['exp', 'log'])
+            if expOrlog == 'exp':
+                expressionConditionNode = self.createNode(NodeType.EXPRESSIONCONDITION,  parent, current_depth)
+                children.append(expressionConditionNode)
+            if expOrlog == 'log':
+                logicConditionNode = self.createNode(NodeType.LOGICCONDITION, parent, current_depth)
+                children.append(logicConditionNode)
+
+            for i in range(howMuch-1):
+                expOrlog = random.choice(['exp', 'log'])
+                logicOperator = self.createNode(NodeType.LOGICOPERATOR, parent, current_depth)
+                children.append(logicOperator)
+                if expOrlog == 'exp':
+                    expressionConditionNode = self.createNode(NodeType.EXPRESSIONCONDITION,  parent, current_depth)
+                    children.append(expressionConditionNode)
+                if expOrlog == 'log':
+                    logicConditionNode = self.createNode(NodeType.LOGICCONDITION, parent, current_depth)
+                    children.append(logicConditionNode)
+
+            conditionNode = ConditionNode(node_type=type, parent_node= parent, children_nodes=children)
+
+            return conditionNode
+
+        elif type == NodeType.COMPOUNDSTATEMENT:
+            howMuch = random.choice([1,2])
+            children=[]
+            for i in range(howMuch):
+                # choice = random.choice(['if', 'assignment', 'compoundStatement']) # potem dodac loopstatement
+                choice = random.choice(['assignment']) ## na razie tak bo sie robie nieskonczona petla
+                if choice == 'if':
+                    ifNode = self.createNode(NodeType.IF, parent, current_depth)
+                    children.append(ifNode)
+                if choice == 'assignment':
+                    assignmentNode = self.createNode(NodeType.ASSIGNMENT, parent, current_depth)
+                    children.append(assignmentNode)
+                # if choice == 'compoundStatement':
+                #     compoundNode = self.createNode(NodeType.COMPOUNDSTATEMENT,  parent, current_depth)
+                #     children.append(compoundNode)
+            compoundNode = CompoundStatementNode(node_type=type, parent_node= parent, children_nodes=children)
+            return compoundNode
+        
+        elif type == NodeType.IF:
+            children = []
+            conditionNode = self.createNode(NodeType.CONDITION, parent, current_depth)
+            children.append(conditionNode)
+            compoundStatementNode = self.createNode(NodeType.COMPOUNDSTATEMENT, parent, current_depth)
+            children.append(compoundStatementNode)
+            choice = random.choice([True, False])
+            if choice == True:
+                compoundStatementNode = self.createNode(NodeType.COMPOUNDSTATEMENT, parent, current_depth)
+                children.append(compoundStatementNode)
+
+            ifNode = IfNode(node_type=type, parent_node= parent, children_nodes=children)
+
+            return ifNode
+        
+        elif type == NodeType.WHILE:
+            children =[]
+            conditionNode = self.createNode(NodeType.CONDITION, parent, current_depth)
+            children.append(conditionNode)
+            compoundStatementNode = self.createNode(NodeType.COMPOUNDSTATEMENT, parent, current_depth)
+            children.append(compoundStatementNode)
+
+            whileNode = WhileNode(node_type=type, parent_node= parent, children_nodes=children)
+
+            return whileNode

@@ -13,6 +13,16 @@ class NodeType(Enum):
     TERM = 9,
     EXPRESSION = 10,
     ASSIGNMENT = 11,
+    COMPOUNDSTATEMENT = 12,
+    OPERATOR = 13,
+    LOGICOPERATOR=14,
+    BOOLEAN = 15,
+    EXPRESSIONCONDITION=16
+    LOGICCONDITION=17,
+    WHILE =18
+
+
+
 
 
 class Node:
@@ -286,6 +296,107 @@ class OutputNode(Node):
     
 #     def __rep__(self):
 #         return f"if {self.condition}:\n {self.if_node}\nelse:\n {self.else_node}\n"
+
+class BooleanNode(Node):
+    def __init__(self, node_type: NodeType, parent_node: Node = None, value: bool = None):
+        super().__init__(node_type, parent_node)
+        self.value = value
+    def __repr__(self) -> str:
+        return f'{self.value}'
+
+class OperatorNode(Node):  ### <, <= itd
+    def __init__(self, node_type: NodeType, parent_node: Node, operatorType: str):
+        super().__init__(node_type, parent_node)
+        self.operatorType = operatorType
+    def __repr__(self) -> str:
+        return f" {self.operatorType} "
+
+class LogicOperator(Node): ### && , ||
+    def __init__(self, node_type: NodeType, parent_node: Node, operatorType: str):
+        super().__init__(node_type, parent_node)
+        self.operatorType = operatorType
+    def __repr__(self) -> str:
+        return f" {self.operatorType} "
+
+class ExpressionConditionNode(Node):
+    def __init__(self, node_type: NodeType, parent_node: Node = None, children_nodes: list[Node] = [], leftExpression:ExpressionNode=None, rigthExpression: ExpressionNode=None):
+        super().__init__(node_type, parent_node, children_nodes)
+        self.leftExpression = leftExpression
+        self.rightExpression = rigthExpression
+    def __repr__(self) -> str:
+        output = ""
+        for child in self.children_nodes:
+            output+=f"{child}"
+        return output
+
+class LogicCondition(Node):
+    def __init__(self, node_type: NodeType, parent_node: Node = None, children_nodes: list[Node] = [], leftBoolean:BooleanNode=None, rightBoolean: BooleanNode = None):
+        super().__init__(node_type, parent_node, children_nodes)
+        self.leftBoolean = leftBoolean
+        self.rightBoolean = rightBoolean
+        self.children_nodes = children_nodes
+    def __repr__(self) -> str:
+        output = ""
+        for child in self.children_nodes:
+            output+=f"{child}"
+        return output
+
+class ConditionNode(Node):
+    def __init__(self, node_type: NodeType, 
+                 parent_node: Node,
+                #  expression: list[ExpressionNode]=None, 
+                #  operator: list[OperatorNode]=None, 
+                #  logicOperators:list[LogicOperator]=None, 
+                 children_nodes:list[Node]=None):  
+        
+        super().__init__(node_type, parent_node)
+        self.children_nodes = children_nodes 
+        # self.expression=expression
+        # self.operator = operator 
+        # self.logicOperators= logicOperators
+    def __repr__(self) -> str:
+        output = "( "
+        for child in self.children_nodes:
+            output += f"{child}"
+        return output+" )"
+        
+
+
+class CompoundStatementNode(Node):
+    def __init__(self, node_type: NodeType, parent_node: Node = None, children_nodes: list[Node] = []):
+        super().__init__(node_type, parent_node, children_nodes)
+        self.children_nodes = children_nodes
+    def __repr__(self) -> str:
+        output = "{\n"
+        for child in self.children_nodes:
+            output += f"{child}\n"
+        return output+"}"
+    
+    pass
+
+class IfNode(Node):
+    def __init__(self, node_type: NodeType, parent_node: Node = None, children_nodes: list[Node] = []):
+        super().__init__(node_type, parent_node, children_nodes)
+        self.children_nodes = children_nodes
+    def __repr__(self) -> str:
+        output = "if "
+        output += f'{self.children_nodes[0]}'
+        output += f'{self.children_nodes[1]}'
+        if len(self.children_nodes) > 2:
+            output+="else"
+            output+=f'{self.children_nodes[2]}'
+        return output
+    
+class WhileNode(Node):
+    def __init__(self, node_type: NodeType, parent_node: Node = None, children_nodes: list[Node] = []):
+        super().__init__(node_type, parent_node, children_nodes)
+        self.children_nodes = children_nodes
+        
+    def __repr__(self) -> str:
+        output = "when "
+        output += f'{self.children_nodes[0]}'
+        output += f'{self.children_nodes[1]}'
+        return output
 
 
 # CHECK IF NESSESARY

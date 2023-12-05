@@ -5,7 +5,7 @@ from library.Solver.interpreter import *
 
 task_name = '1_1_A'
 
-gp = GP(set_seed=None, name=task_name)
+gp = GP(set_seed=None, task_name=task_name)
 
 
 gp.print_population()
