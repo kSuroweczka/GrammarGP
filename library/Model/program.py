@@ -52,7 +52,8 @@ class Program():
         #     self.ROOT.add_child(self.createNode(node_t, self.ROOT))
 
         # self.ROOT.add_child(self.createNode(NodeType.CONDITION, self.ROOT))
-        self.ROOT.add_child(self.createNode(NodeType.WHILE, self.ROOT))
+
+        self.ROOT.add_child(self.createNode(NodeType.IF, self.ROOT))
 
         self.ROOT.add_child(self.createNode(NodeType.OUTPUT, self.ROOT))
         
@@ -354,17 +355,29 @@ class Program():
         
         elif type == NodeType.IF:
             children = []
+
             conditionNode = self.createNode(NodeType.CONDITION, parent, current_depth)
             children.append(conditionNode)
+
             compoundStatementNode = self.createNode(NodeType.COMPOUNDSTATEMENT, parent, current_depth)
             children.append(compoundStatementNode)
+
             choice = random.choice([True, False])
             if choice == True:
-                compoundStatementNode = self.createNode(NodeType.COMPOUNDSTATEMENT, parent, current_depth)
-                children.append(compoundStatementNode)
-
-            ifNode = IfNode(node_type=type, parent_node= parent, children_nodes=children)
-
+                compoundStatementNode2 = self.createNode(NodeType.COMPOUNDSTATEMENT, parent, current_depth)
+                children.append(compoundStatementNode2)
+                ifNode = IfNode(node_type=type,
+                                parent_node= parent, 
+                                children_nodes=children,
+                                conditionNode=conditionNode, 
+                                ifBody=compoundStatementNode,
+                                elseBody=compoundStatementNode2)
+            else:
+                ifNode = IfNode(node_type=type,
+                                parent_node= parent, 
+                                children_nodes=children,
+                                conditionNode=conditionNode, 
+                                ifBody=compoundStatementNode)
             return ifNode
         
         elif type == NodeType.WHILE:
@@ -374,6 +387,10 @@ class Program():
             compoundStatementNode = self.createNode(NodeType.COMPOUNDSTATEMENT, parent, current_depth)
             children.append(compoundStatementNode)
 
-            whileNode = WhileNode(node_type=type, parent_node= parent, children_nodes=children)
+            whileNode = WhileNode(node_type=type, 
+                                  parent_node= parent, 
+                                  children_nodes=children, 
+                                  conditionNode=conditionNode, 
+                                  whileBodyNode=compoundStatementNode)
 
             return whileNode

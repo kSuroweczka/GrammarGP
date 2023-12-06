@@ -375,9 +375,19 @@ class CompoundStatementNode(Node):
     pass
 
 class IfNode(Node):
-    def __init__(self, node_type: NodeType, parent_node: Node = None, children_nodes: list[Node] = []):
+    def __init__(self, node_type: NodeType, 
+                 parent_node: Node = None, 
+                 children_nodes: list[Node] = [], 
+                 conditionNode: ConditionNode=None, 
+                 ifBody: CompoundStatementNode=None, 
+                 elseBody: CompoundStatementNode=None):
+        
         super().__init__(node_type, parent_node, children_nodes)
         self.children_nodes = children_nodes
+        self.conditionNode = conditionNode
+        self.ifBodyNode = ifBody
+        self.elseBodyNode = elseBody
+
     def __repr__(self) -> str:
         output = "if "
         output += f'{self.children_nodes[0]}'
@@ -393,7 +403,7 @@ class WhileNode(Node):
         self.children_nodes = children_nodes
         
     def __repr__(self) -> str:
-        output = "when "
+        output = "while "
         output += f'{self.children_nodes[0]}'
         output += f'{self.children_nodes[1]}'
         return output
