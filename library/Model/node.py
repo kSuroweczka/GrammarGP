@@ -310,6 +310,7 @@ class ExpressionConditionNode(Node):
         self.leftExpression = leftExpression
         self.rightExpression = rigthExpression
         self.operator = operator
+        
     def __repr__(self) -> str:
         output = ""
         output += f'{self.children_nodes[0]} '

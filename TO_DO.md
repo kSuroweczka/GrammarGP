@@ -23,3 +23,14 @@ Odtwarzanie drzewa -> coś jak createNode ale wartości pochodzą z instniejące
 
 ## gramatyka
 - x_0 = 4 > x_1 && ...
+
+
+## Input -> różne opcje
+
+## ilość intrukcji np przy rekurencji 
+
+## input 
+wartości do inputu w pliku
+interpreter wczytuje kolejną wartość z pliku jak natrafi na input
+
+## TinyGP - wysłać do końca tygodnia
