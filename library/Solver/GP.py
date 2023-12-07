@@ -61,9 +61,9 @@ class GP():
         print("Variables:")
         print(self.popuation[index].variables)
 
-        print("\nRoot children:")
-        for child in self.popuation[index].ROOT.children_nodes:
-            print(child)
+        # print("\nRoot children:")
+        # for child in self.popuation[index].ROOT.children_nodes:
+        #     print(child)
 
         # print("\nMutable nodes:")
         # for node in self.popuation[index].mutable_nodes:

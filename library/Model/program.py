@@ -37,27 +37,18 @@ class Program():
 
 
     def __repr__(self):
-        for child in self.ROOT.children_nodes:
-            print(child)
+        print(self.ROOT)
         return ""
 
     def createIndividual(self):  
         #### self.ROOT ma depth = 0     
-        print("MAX", self.max_depth) 
         self.ROOT.add_child(self.createNode(type = NodeType.INPUT, parent = self.ROOT, current_depth=1))
 
-        
-        self.ROOT.add_child(self.createNode(type = NodeType.IF, parent = self.ROOT, current_depth=1))
+        posible_nodes = [NodeType.ASSIGNMENT, NodeType.IF, NodeType.WHILE]
+        node_t = random.choice(posible_nodes)
 
-        # posible_nodes = [NodeType.ASSIGNMENT, NodeType.VAR, NodeType.CONST]
-        # node_t = random.choice(posible_nodes)
-
-        # for i in range(random.randint(2, 5)):
-        #     self.ROOT.add_child(self.createNode(node_t, self.ROOT))
-
-        # self.ROOT.add_child(self.createNode(NodeType.CONDITION, self.ROOT))
-
-        # self.ROOT.add_child(self.createNode(type = NodeType.WHILE, parent =self.ROOT, current_depth=0))
+        for i in range(random.randint(1, 3)):
+            self.ROOT.add_child(self.createNode(node_t, self.ROOT))
 
         self.ROOT.add_child(self.createNode(type = NodeType.OUTPUT, parent =self.ROOT, current_depth=1))
         
@@ -65,7 +56,6 @@ class Program():
 
     def createNode(self, type: NodeType, parent: Node, current_depth: int = 0):
         if type == NodeType.INPUT:
-            # print("INPUT")
             input_len = len(self.input_data)
             input = InputNode(node_type=type, parent_node=parent, children_nodes=[])
             input.depth = current_depth
@@ -78,7 +68,6 @@ class Program():
             return input
         
         elif type == NodeType.OUTPUT:
-            # print("OUTPUT")
             const_count = self.const.__len__()
             var_count = self.variables.__len__()
 
@@ -87,7 +76,7 @@ class Program():
             output_len = random.randint(self.task.min_output_length, self.task.max_output_length)
 
             for i in range(output_len):
-                choice = random.choice(["var", "const", "rand"])
+                choice = random.choice(["var", "const"]) #, "rand"
                 out_rand = choice == "rand"
                 out_const = choice == "const"
                 out_var = choice == "var"
@@ -112,28 +101,24 @@ class Program():
         
 
         elif type == NodeType.VAR:
-            # print("VAR")
             var_name = f"x_{self.variables.__len__()}"
             choice = random.choice(['number'])  ### dodać bool??
             if choice == 'number':
                 rand_value = float(random.randint(self.min_rand, self.max_rand))
                 node = VarNode(node_type=type, parent_node=parent, name=var_name, value=rand_value)
                 node.depth = current_depth
-            # else:
-            #     boolNode = self.createNode(NodeType.BOOLEAN, parent= parent)
-            #     node = VarNode(node_type=type, parent_node=parent, name=var_name, value=boolNode.value)
-                # print("VAR - PARENT: ", node.parent_node)
-                # node.add_child(boolNode)
+            else:
+                boolNode = self.createNode(NodeType.BOOLEAN, parent= parent)
+                node = VarNode(node_type=type, parent_node=parent, name=var_name, value=boolNode.value)
+                node.add_child(boolNode)
             
             return node
             
         elif type == NodeType.CONST:
-            # print("CONST")
             const_name = f"c_{self.const.__len__()}"
             rand_value = float(random.randint(self.min_rand, self.max_rand))
             node = ConstNode(node_type=type, parent_node=parent, name=const_name, value=rand_value)
             node.depth = current_depth
-            # print("CONST-PARENT: ", node.parent_node)
             
             return node
             
@@ -315,16 +300,7 @@ class Program():
             booleanNode.depth = current_depth
             return booleanNode
         
-        # elif type == NodeType.OPERATOR:
-        #     operator = random.choice(['==', '!=','<','>','<=' ,'>='])
-        #     operatorNode=OperatorNode(node_type=type, parent_node=parent, operatorType=operator)
-        #     return operatorNode
-        
-        # elif type==NodeType.LOGICOPERATOR:
-        #     operator= random.choice(["&&", "||"])
-        #     logicOperatorNode = LogicOperator(node_type=type, parent_node=parent, operatorType=operator)
-        #     return logicOperatorNode
-        
+
         elif type == NodeType.EXPRESSIONCONDITION:
             children = []
             leftexpNode = self.createNode(NodeType.EXPRESSION, parent=None, current_depth=current_depth+1)
@@ -406,71 +382,58 @@ class Program():
 
             return conditionNode
 
-        elif type == NodeType.COMPOUNDSTATEMENT:
-            # print("\n\nCOMPOUND")
+        
+        elif type == NodeType.SCOPE:
             howMuch = random.choice([1,2])
-            children=[]
+            scope = ScopeNode(node_type=type, parent_node=parent, children_nodes=[])
+
             for i in range(howMuch):
-                # choice = random.choice(['if', 'assignment', 'compoundStatement']) # potem dodac loopstatement
+                # choice = random.choice(['if', 'assignment']) # potem dodac loopstatement
                 choice = random.choice(['assignment']) ## na razie tak bo sie robie nieskonczona petla
                 if choice == 'if':
-                    ifNode = self.createNode(NodeType.IF, None, current_depth+1)
-                    children.append(ifNode)
+                    ifNode = self.createNode(NodeType.IF, scope, current_depth+1)
+                    scope.add_child(ifNode)
                 if choice == 'assignment':
-                    assignmentNode = self.createNode(NodeType.ASSIGNMENT, None, current_depth+1)
-                    children.append(assignmentNode)
-                # if choice == 'compoundStatement':
-                #     compoundNode = self.createNode(NodeType.COMPOUNDSTATEMENT,  parent, current_depth)
-                #     children.append(compoundNode)
-            compoundNode = CompoundStatementNode(node_type=type, parent_node= parent, children_nodes=children)
-            compoundNode.depth = current_depth
-            for child in children:
-                child.parent_node = compoundNode
-                # print("COM-CHILD: ", child)
-                # print("COM-CHILD -PARENT: ", child.parent_node.node_type)
+                    assignmentNode = self.createNode(NodeType.ASSIGNMENT, scope, current_depth+1)
+                    scope.add_child(assignmentNode)
 
-            return compoundNode
+            scope.depth = current_depth
+            return scope
+
         
         elif type == NodeType.IF:
-            # print("\n\nIF")
             children = []
+            ifNode = IfNode(node_type=type,
+                            parent_node= parent, 
+                            children_nodes=children)
+            
+            condition = self.createNode(NodeType.CONDITION, None, current_depth+1)
+            ifNode.add_child(condition)
+            ifNode.conditionNode = condition
 
-            conditionNode = self.createNode(NodeType.CONDITION, None, current_depth+1)
-            children.append(conditionNode)
-
-            compoundStatementNode = self.createNode(NodeType.COMPOUNDSTATEMENT, None, current_depth+1)
-            children.append(compoundStatementNode)
+            ifTrueBody = self.createNode(NodeType.SCOPE, None, current_depth+1)
+            ifNode.add_child(ifTrueBody)
+            ifNode.ifBodyNode = ifTrueBody
 
             choice = random.choice([True, False])
             if choice == True:
-                compoundStatementNode2 = self.createNode(NodeType.COMPOUNDSTATEMENT, None, current_depth+1)
-                children.append(compoundStatementNode2)
-                ifNode = IfNode(node_type=type,
-                                parent_node= parent, 
-                                children_nodes=children,
-                                conditionNode=conditionNode, 
-                                ifBody=compoundStatementNode,
-                                elseBody=compoundStatementNode2)
+                ifFalseBody = self.createNode(NodeType.SCOPE, None, current_depth+1)
+                ifNode.add_child(ifFalseBody)
+                ifNode.elseBodyNode = ifFalseBody
+
                 ifNode.depth = current_depth
-            else:
-                ifNode = IfNode(node_type=type,
-                                parent_node= parent, 
-                                children_nodes=children,
-                                conditionNode=conditionNode, 
-                                ifBody=compoundStatementNode)
-                ifNode.depth = current_depth
-            for child in children:
-                child.parent_node = ifNode
-                # print("IF-CHILD: ", child)
-                # print("IF-CHILD -PARENT: ", child.parent_node.node_type)
+
+
+            ifNode.depth = current_depth
+
+
             return ifNode
         
         elif type == NodeType.WHILE:
-            # print("WHILE")
             children =[]
             conditionNode = self.createNode(NodeType.CONDITION, None, current_depth+1)
             children.append(conditionNode)
-            compoundStatementNode = self.createNode(NodeType.COMPOUNDSTATEMENT, None, current_depth+1)
+            compoundStatementNode = self.createNode(NodeType.SCOPE, None, current_depth+1)
             children.append(compoundStatementNode)
 
             whileNode = WhileNode(node_type=type, 
@@ -481,8 +444,7 @@ class Program():
             whileNode.depth = current_depth
             for child in children:
                 child.parent_node= whileNode
-                # print("CHILD: ", child)
-                # print("CHILD-PARENT: ", child.parent_node.node_type)
+
 
             return whileNode
         

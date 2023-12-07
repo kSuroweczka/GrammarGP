@@ -13,13 +13,12 @@ class NodeType(Enum):
     TERM = 9,
     EXPRESSION = 10,
     ASSIGNMENT = 11,
-    COMPOUNDSTATEMENT = 12,
-    OPERATOR = 13,
-    LOGICOPERATOR=14,
-    BOOLEAN = 15,
-    EXPRESSIONCONDITION=16
-    LOGICCONDITION=17,
-    WHILE =18
+    OPERATOR = 12,
+    LOGICOPERATOR=13,
+    BOOLEAN = 14,
+    EXPRESSIONCONDITION=15
+    LOGICCONDITION=16,
+    WHILE =17
 
 
 class Node:
@@ -69,8 +68,11 @@ class ScopeNode(Node):
         self.children_nodes = children_nodes
         self.parent_node = parent_node
 
-    def __repr__(self):
-        return f"Program:\n"
+    def __repr__(self) -> str:
+        output = "{\n"
+        for child in self.children_nodes:
+            output += f"{self.depth}: {child}\n"
+        return output+"}"
     
 
 # var, const, expression, number
@@ -284,30 +286,6 @@ class OutputNode(Node):
 
 
 
-
-#TO DO
-
-# class ConditionNode(Node):
-#     def __init__(self, node_type: NodeType, parent_node: Node, left: Node = None, right: Node = None, condition: str = None):
-#         super().__init__(node_type, parent_node)
-#         self.left = left
-#         self.right = right
-#         self.condition = condition
-
-#     def __repr__(self):
-#         return f"{self.left} {self.condition} {self.right}"
-
-
-# class IfNode(Node):
-#     def __init__(self, name: str, condition: ConditionNode, if_node: Node, else_node: Node):
-#         self.name = name
-#         self.condition = condition
-#         self.if_node = if_node
-#         self.else_node = else_node
-    
-#     def __rep__(self):
-#         return f"if {self.condition}:\n {self.if_node}\nelse:\n {self.else_node}\n"
-
 class BooleanNode(Node):
     def __init__(self, node_type: NodeType, parent_node: Node = None, value: bool = None):
         super().__init__(node_type, parent_node)
@@ -315,20 +293,6 @@ class BooleanNode(Node):
         self.value = value
     def __repr__(self) -> str:
         return f'{self.value}'
-
-# class OperatorNode(Node):  ### <, <= itd
-#     def __init__(self, node_type: NodeType, parent_node: Node, operatorType: str):
-#         super().__init__(node_type, parent_node)
-#         self.operatorType = operatorType
-#     def __repr__(self) -> str:
-#         return f" {self.operatorType} "
-
-# class LogicOperator(Node): ### && , ||
-#     def __init__(self, node_type: NodeType, parent_node: Node, operatorType: str):
-#         super().__init__(node_type, parent_node)
-#         self.operatorType = operatorType
-#     def __repr__(self) -> str:
-#         return f" {self.operatorType} "
 
 class ExpressionConditionNode(Node):
     def __init__(self, node_type: NodeType, 
@@ -400,41 +364,28 @@ class ConditionNode(Node):
         
 
 
-class CompoundStatementNode(Node):
-    def __init__(self, node_type: NodeType, parent_node: Node = None, children_nodes: list[Node] = []):
-        super().__init__(node_type, parent_node, children_nodes)
-        self.parent_node = parent_node
-        self.children_nodes = children_nodes
-    def __repr__(self) -> str:
-        output = "{\n"
-        for child in self.children_nodes:
-            output += f"{child}\n"
-        return output+"}"
-    
-    pass
-
 class IfNode(Node):
     def __init__(self, node_type: NodeType, 
                  parent_node: Node = None, 
                  children_nodes: list[Node] = [], 
-                 conditionNode: ConditionNode=None, 
-                 ifBody: CompoundStatementNode=None, 
-                 elseBody: CompoundStatementNode=None):
+                 conditionNode: ConditionNode = None, 
+                 ifBodyNode: ScopeNode | None = None, 
+                 elseBodyNode: ScopeNode | None = None):
         
         super().__init__(node_type, parent_node, children_nodes)
         self.parent_node = parent_node
         self.children_nodes = children_nodes
         self.conditionNode = conditionNode
-        self.ifBodyNode = ifBody
-        self.elseBodyNode = elseBody
+        self.ifBodyNode = ifBodyNode
+        self.elseBodyNode = elseBodyNode
 
     def __repr__(self) -> str:
         output = "if "
-        output += f'{self.children_nodes[0]}'
-        output += f'{self.children_nodes[1]}'
-        if len(self.children_nodes) > 2:
-            output+="else"
-            output+=f'{self.children_nodes[2]}'
+        output += f'{self.conditionNode}'
+        output += f'{self.ifBodyNode}'
+        if self.elseBodyNode is not None:
+            output+=" else"
+            output+=f'{self.elseBodyNode}'
         return output
     
 class WhileNode(Node):
@@ -442,7 +393,7 @@ class WhileNode(Node):
                  parent_node: Node = None, 
                  children_nodes: list[Node] = [],
                  conditionNode: ConditionNode=None,
-                 whileBodyNode: CompoundStatementNode=None):
+                 whileBodyNode: ScopeNode=None):
         
         super().__init__(node_type, parent_node, children_nodes)
         self.parent_node = parent_node
@@ -452,8 +403,8 @@ class WhileNode(Node):
         
     def __repr__(self) -> str:
         output = "while "
-        output += f'{self.children_nodes[0]}'
-        output += f'{self.children_nodes[1]}'
+        output += f'{self.conditionNode}'
+        output += f'{self.whileBodyNode}'
         return output
 
 
