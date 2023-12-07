@@ -70,9 +70,12 @@ class ScopeNode(Node):
 
     def __repr__(self) -> str:
         output = "{\n"
+        spaces = self.depth * "  "
         for child in self.children_nodes:
-            output += f"{self.depth}: {child}\n"
-        return output+"}"
+            output += f"{spaces}{child}\n" # {self.depth}: 
+
+        closeSpaces = (self.depth - 2) * "  "
+        return output+closeSpaces+"}"
     
 
 # var, const, expression, number
@@ -380,12 +383,13 @@ class IfNode(Node):
         self.elseBodyNode = elseBodyNode
 
     def __repr__(self) -> str:
+        spaces = self.depth * "  "
         output = "if "
         output += f'{self.conditionNode}'
         output += f'{self.ifBodyNode}'
         if self.elseBodyNode is not None:
-            output+=" else"
-            output+=f'{self.elseBodyNode}'
+            output+=f" else"
+            output+=f'{spaces}{self.elseBodyNode}'
         return output
     
 class WhileNode(Node):

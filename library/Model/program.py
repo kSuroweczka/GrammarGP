@@ -40,8 +40,21 @@ class Program():
         print(self.ROOT)
         return ""
 
+    # TO DO
+    def runProgram(self):
+        pass
+
+    #TO DO
+    def growTree(self):
+        pass
+
     def createIndividual(self):  
-        #### self.ROOT ma depth = 0     
+
+        # self.growTree()
+        # self.runProgram(self.ROOT)
+
+
+        # This code should be in growTree()
         self.ROOT.add_child(self.createNode(type = NodeType.INPUT, parent = self.ROOT, current_depth=1))
 
         posible_nodes = [NodeType.ASSIGNMENT, NodeType.IF, NodeType.WHILE]
@@ -52,6 +65,7 @@ class Program():
 
         self.ROOT.add_child(self.createNode(type = NodeType.OUTPUT, parent =self.ROOT, current_depth=1))
         
+
 
 
     def createNode(self, type: NodeType, parent: Node, current_depth: int = 0):
@@ -389,8 +403,8 @@ class Program():
 
             for i in range(howMuch):
                 # choice = random.choice(['if', 'assignment']) # potem dodac loopstatement
-                choice = random.choice(['assignment']) ## na razie tak bo sie robie nieskonczona petla
-                if choice == 'if':
+                choice = random.choice(['assignment', 'if']) ## na razie tak bo sie robie nieskonczona petla
+                if choice == 'if' and current_depth < self.max_depth-2:
                     ifNode = self.createNode(NodeType.IF, scope, current_depth+1)
                     scope.add_child(ifNode)
                 if choice == 'assignment':

@@ -22,7 +22,7 @@ class GP():
         self.best_generation = 0
         self.generation = 0
         self.task = Task(task_name)
-        self.params = params or Params(seed=set_seed, max_depth=10)
+        self.params = params or Params(seed=set_seed, max_depth=1)
         self.popuation = self.create_population(self.task, self.params)
         self.test_cases = []
 
