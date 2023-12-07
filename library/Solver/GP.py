@@ -2,6 +2,7 @@ from library.Model.program import Program
 from library.Solver.params import Params
 from library.Tasks.task import Task, TestCase
 import random
+from library.Model.node import *
 
 class GP():
     name: str
@@ -21,7 +22,7 @@ class GP():
         self.best_generation = 0
         self.generation = 0
         self.task = Task(task_name)
-        self.params = params or Params(seed=set_seed, max_depth=3)
+        self.params = params or Params(seed=set_seed, max_depth=10)
         self.popuation = self.create_population(self.task, self.params)
         self.test_cases = []
 
@@ -41,6 +42,12 @@ class GP():
 
             p = Program(i, task, params.max_depth, params.min_rand, params.max_rand, input_data=test_case.input_data)
             p.createIndividual()
+            # print(f"\nSERIALIZE: {i}")
+            # p.serialize(p.ROOT)
+            # print("KONIEC\n")
+            # print("\nSERIALIZE")
+            # self.serialize(p.ROOT, p)
+            # print("KONIEC\n")
             pop.append(p)
 
         return pop
@@ -91,3 +98,33 @@ class GP():
     # TO DO
     def crossover(self, individual_1: Program, individual_2: Program):
         pass
+
+    def print_children(self, child: Node):
+        pass
+
+    # def branch(self, node: Node):
+    #     branch=""
+    #     for i in range(node.depth):
+    #         branch += "-"
+    #     return branch
+
+    # def serialize(self, node: Node, program: Program):
+    #     # print(node.children_nodes)
+    #     for child in node.children_nodes:
+    #         if type(child) != float and child.node_type != None:
+    #             branch=""
+    #             for i in range(node.depth):
+    #                 branch += "-"
+    #             print(branch, child, child.node_type)
+    #             self.serialize(child, program)
+    #         else:
+    #             branch=""
+    #             for i in range(program.max_depth):
+    #                 branch += "-"
+
+    #             print(branch, child)
+    #         # if child.children_nodes != None:
+    #         #     self.serialize(child)
+    def deserialize(self, node: Node):
+        pass
+        
