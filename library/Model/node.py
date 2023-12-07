@@ -72,10 +72,11 @@ class ScopeNode(Node):
         output = "{\n"
         spaces = self.depth * "  "
         for child in self.children_nodes:
-            output += f"{spaces}{child}\n" # {self.depth}: 
+            output += f"{spaces}{self.depth}: {child}\n" # {: 
 
         closeSpaces = (self.depth - 2) * "  "
         return output+closeSpaces+"}"
+
     
 
 # var, const, expression, number
