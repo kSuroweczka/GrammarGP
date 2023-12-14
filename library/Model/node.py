@@ -36,6 +36,7 @@ class Node:
         self.depth = self.get_depth()
         self.children_nodes = children_nodes
         self.is_leaf = False
+        self.is_root = self.if_root()
         
     def if_root(self):
         return self.parent_node is None
@@ -55,9 +56,14 @@ class Node:
 
                 
     def change_parent(self, new_parent: 'Node'):
-        self.parent_node.children_nodes.remove(self)
+        if self.parent_node is None:
+            return
+        if self.parent_node.children_nodes is not None:
+            self.parent_node.children_nodes.remove(self)
         self.parent_node = new_parent
         new_parent.children_nodes.append(self)
+        self.depth = self.get_depth()
+        self.is_root = self.if_root()
 
     
 
@@ -71,7 +77,7 @@ class ScopeNode(Node):
         output = "{\n"
         spaces = self.depth * "  "
         for child in self.children_nodes:
-            output += f"{spaces}{self.depth}: {child}\n" # {: 
+            output += f"{spaces} {child}\n" # {: 
 
         closeSpaces = (self.depth - 2) * "  "
         return output+closeSpaces+"}"
@@ -81,7 +87,7 @@ class ScopeNode(Node):
 # var, const, expression, number
 class FactorNode(Node):
     def __init__(self, node_type: NodeType, parent_node, 
-                 body: Node | float = None, 
+                 body: Node | float | bool = None, 
                  children_nodes: list[Node] = []):
         super().__init__(node_type, parent_node)
         self.body = body
@@ -97,11 +103,13 @@ class FactorNode(Node):
             return self.body.value
         elif isinstance(self.body, float):
             return self.body
+        elif isinstance(self.body, bool):
+            return float(self.body)
         else:
             raise Exception(f"Unknown type: {type(self.body)}")
     
     def __repr__(self):
-        if isinstance(self.body, VarNode):
+        if isinstance(self.body, VarNode) | isinstance(self.body, bool):
             return f"{self.body}"
         return f"( {self.value} )"
 
@@ -258,14 +266,6 @@ class OutputNode(Node):
 
 
 
-class BooleanNode(Node):
-    def __init__(self, node_type: NodeType, parent_node: Node = None, value: bool = None):
-        super().__init__(node_type, parent_node)
-        self.parent_node = parent_node
-        self.value = value
-    def __repr__(self) -> str:
-        return f'{self.value}'
-
 class ExpressionConditionNode(Node):
     def __init__(self, node_type: NodeType, 
                  parent_node: Node = None, 
@@ -306,9 +306,9 @@ class ExpressionConditionNode(Node):
 class LogicCondition(Node):
     def __init__(self, node_type: NodeType, 
                  parent_node: Node = None, 
-                 children_nodes: list[Node] = [], 
-                 leftBoolean:BooleanNode=None, 
-                 rightBoolean: BooleanNode = None,
+                 children_nodes: list[bool] = [], 
+                 leftBoolean: VarNode | bool = None, 
+                 rightBoolean: VarNode | bool = None,
                  operator: str=None):
         super().__init__(node_type, parent_node, children_nodes)
         self.parent_node = parent_node
@@ -322,16 +322,16 @@ class LogicCondition(Node):
         output = ""
         # for child in self.children_nodes:
         #     output+=f"{child}"
-        output += f'{self.children_nodes[0]} '
+        output += f'{self.leftBoolean} '
         output += self.operator
-        output += f' {self.children_nodes[1]}'
+        output += f' {self.rightBoolean}'
         return output
     
     def calculate(self):
         if self.operator == '!=':
-            return self.leftBoolean.value != self.rightBoolean.value
+            return self.leftBoolean != self.rightBoolean
         elif self.operator == '==':
-            return self.leftBoolean.value == self.rightBoolean.value
+            return self.leftBoolean == self.rightBoolean
         else:
             raise Exception(f"Unknown operation: {self.operator}")
 
