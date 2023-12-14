@@ -7,11 +7,11 @@ from library.Solver.params import Params
 class Program():
     id: int
     name: str
-    task: Task
     variables: dict[str, VarNode]
-    const: dict[str, ConstNode]
     input_data: list[float]
     output_data: list[float]
+    const: list[float]
+    task: Task
     fitness: float
     mutable_nodes = list[Node]
     max_depth: int
@@ -19,12 +19,13 @@ class Program():
     max_rand: int
     ROOT: ScopeNode
 
+
     def __init__(self, id: int, task: Task, max_depth: int, min_rand: int = -5, max_rand: int = 5, input_data: list[float] = []):
         self.id = id
         self.task = task
         self.name = task.name
         self.variables = {}
-        self.const = {}
+        self.const = []
         self.input_data = input_data
         self.output_data = []
         self.mutable_nodes = []
@@ -33,7 +34,7 @@ class Program():
         self.min_rand = min_rand
         self.max_rand = max_rand
         self.ROOT = ScopeNode(NodeType.SCOPE, None, [])
-        self.current_max_depth = 3
+        self.input_index = 0
 
 
     def __repr__(self):
@@ -41,20 +42,20 @@ class Program():
         return ""
 
     # TO DO
-    def runProgram(self):
-        pass
+    def runProgram(self, node: Node):
+        match node.node_type:
+            case NodeType.Input:
+                pass
+
 
     #TO DO
     def growTree(self):
-        self.ROOT.add_child(self.createNode(type = NodeType.INPUT, parent = self.ROOT, current_depth=1))
-
-        posible_nodes = [NodeType.ASSIGNMENT, NodeType.IF, NodeType.WHILE]
+        posible_nodes = [NodeType.ASSIGNMENT, NodeType.OUTPUT, NodeType.IF, NodeType.WHILE]
         node_t = random.choice(posible_nodes)
 
-        for i in range(random.randint(1, 3)):
+        for i in range(random.randint(3, 5)):
             self.ROOT.add_child(self.createNode(node_t, self.ROOT))
 
-        self.ROOT.add_child(self.createNode(type = NodeType.OUTPUT, parent =self.ROOT, current_depth=1))
         
 
     def createIndividual(self):  
@@ -64,18 +65,15 @@ class Program():
 
 
 
-
     def createNode(self, type: NodeType, parent: Node, current_depth: int = 0):
         if type == NodeType.INPUT:
-            input_len = len(self.input_data)
-            input = InputNode(node_type=type, parent_node=parent, children_nodes=[])
-            input.depth = current_depth
-
-            for i in range(input_len):
-                new_assignment = self.createNode(NodeType.ASSIGNMENT, input, current_depth+1)
-                input.add_child(new_assignment)
-
-            input.value = input.calculate()
+            input = InputNode(node_type=type, parent_node=parent)
+            if self.input_index == self.input_data.__len__():
+                self.input_index = 0
+            value = self.input_data[self.input_index]
+        
+            input.value = value
+            self.input_index += 1
             return input
         
         elif type == NodeType.OUTPUT:
@@ -84,28 +82,26 @@ class Program():
 
             output = OutputNode(node_type=type, parent_node=parent, children_nodes=[])
             output.depth = current_depth
-            output_len = random.randint(self.task.min_output_length, self.task.max_output_length)
 
-            for i in range(output_len):
-                choice = random.choice(["var", "const"]) #, "rand"
-                out_rand = choice == "rand"
-                out_const = choice == "const"
-                out_var = choice == "var"
+            choice = random.choice(["var", "const", "rand"])
+            out_rand = choice == "rand"
+            out_const = choice == "const"
+            out_var = choice == "var"
 
-                if (var_count == 0 and const_count == 0) or out_rand or (const_count == 0 and out_const) or (var_count == 0 and out_var):
-                    rand_value = float(random.randint(self.min_rand, self.max_rand))
-                    output.add_child(rand_value)
-                    self.output_data.append(rand_value)
-                elif out_const:
-                    rand_const = random.choice(list(self.const.keys()))
-                    const = self.const[rand_const]
-                    output.add_child(const)
-                    self.output_data.append(const.value)
-                else:
-                    rand_var = random.choice(list(self.variables.keys()))
-                    var = self.variables[rand_var]
-                    output.add_child(var)
-                    self.output_data.append(var.value)
+            if (var_count == 0 and const_count == 0) or out_rand or (const_count == 0 and out_const) or (var_count == 0 and out_var):
+                rand_value = float(random.randint(self.min_rand, self.max_rand))
+                output.add_child(rand_value)
+                self.output_data.append(rand_value)
+                self.const.append(rand_value)
+            elif out_const:
+                rand_const = random.choice(list(self.const))
+                output.add_child(rand_const)
+                self.output_data.append(rand_const)
+            else:
+                rand_var = random.choice(list(self.variables.keys()))
+                var = self.variables[rand_var]
+                output.add_child(var)
+                self.output_data.append(var.value)
 
             output.value = output.calculate()
             return output
@@ -113,119 +109,82 @@ class Program():
 
         elif type == NodeType.VAR:
             var_name = f"x_{self.variables.__len__()}"
-            choice = random.choice(['number'])  ### dodać bool??
+            choice = random.choice(['number', 'bool'])
             if choice == 'number':
                 rand_value = float(random.randint(self.min_rand, self.max_rand))
                 node = VarNode(node_type=type, parent_node=parent, name=var_name, value=rand_value)
-                node.depth = current_depth
             else:
-                boolNode = self.createNode(NodeType.BOOLEAN, parent= parent)
-                node = VarNode(node_type=type, parent_node=parent, name=var_name, value=boolNode.value)
-                node.add_child(boolNode)
+                rand_value = random.choice([True, False])            
+                node = VarNode(node_type=type, parent_node=parent, name=var_name, value=rand_value)
             
             return node
             
-        elif type == NodeType.CONST:
-            const_name = f"c_{self.const.__len__()}"
-            rand_value = float(random.randint(self.min_rand, self.max_rand))
-            node = ConstNode(node_type=type, parent_node=parent, name=const_name, value=rand_value)
-            node.depth = current_depth
-            
-            return node
             
         elif type == NodeType.ASSIGNMENT:
-            var_count = self.variables.__len__()
+            create_var = self.variables.__len__() == 0
+            action = random.choice(["create", "assign"])
+            body_type = random.choice(["exp", "input"])
 
-            # assign = AssignmentNode(node_type=type, parent_node=parent, var=None, body=None) ### ???
-            # print("ASSigment: ")
-            # only for input node
-            if  parent != None and parent.node_type == NodeType.INPUT:
-                index = self.variables.__len__()
-                var_value = float(self.input_data[index])
-
-                new_var = self.createNode(NodeType.VAR, None, current_depth+1)
-                new_var.value = var_value
-
-                assign = AssignmentNode(node_type=type, parent_node=parent, var=new_var, body=var_value, children_nodes=[])
-                assign.depth = current_depth
-                new_var.parent_node = assign
-                # print("Var - parent: ", new_var.parent_node.node_type)
-
-                # assign.var = new_var
-                # assign.body = var_value
-                assign.add_child(new_var)
-                assign.add_child(var_value)
-                self.variables.update({new_var.name: new_var})
-
-            else:
-                choice = random.choice(["var", "const", "assign"])
-                create_const = choice == "const"
-                create_var = choice == "var"
-                var_assign = choice == "assign"
-                # create_bool = choice == "bool"
-
-                if create_const:
-                    new_const = self.createNode(NodeType.CONST, None, current_depth+1)
-                    exp = self.createNode(NodeType.EXPRESSION, None, current_depth+1)
-                    new_const.value = exp.value
-
-                    assign = AssignmentNode(node_type=type, parent_node=parent, var=new_const, body=exp)
-                    assign.depth = current_depth
-                    new_const.parent_node = assign
-                    exp.parent_node = assign
-                    # assign.var = new_const
-                    # assign.body = exp
-                    assign.add_child(new_const)
-                    assign.add_child(exp)
-
-                    self.const.update({new_const.name: new_const})
-
-                elif create_var:
+            print(f'{action} {body_type}')
+            match action, create_var:
+                case ("create", True|False) | ("assign", True):
                     new_var = self.createNode(NodeType.VAR, None, current_depth+1)
-                    exp = self.createNode(NodeType.EXPRESSION, None, current_depth+1)
-                    new_var.value = exp.value
-
-                    assign = AssignmentNode(node_type=type, parent_node=parent, var=new_var, body=exp)
-                    assign.depth = current_depth
-                    new_var.parent_node = assign
-                    exp.parent_node = assign
-                    # assign.var = new_var
-                    # assign.body = exp
-                    assign.add_child(new_var)
-                    assign.add_child(exp)
-
+                    match body_type:
+                        case "exp":
+                            exp = self.createNode(NodeType.EXPRESSION, None, current_depth+1)
+                            new_var.value = exp.value
+                            assign = AssignmentNode(node_type=type, parent_node=parent, var=new_var, body=exp)
+                            assign.depth = current_depth
+                            new_var.parent_node = assign
+                            exp.parent_node = assign
+                            assign.add_child(new_var)
+                            assign.add_child(exp)
+                        case "input":
+                            input = self.createNode(NodeType.INPUT, None, current_depth+1)
+                            new_var.value = input.value
+                            assign = AssignmentNode(node_type=type, parent_node=parent, var=new_var, body=input)
+                            assign.add_child(new_var)
+                            assign.add_child(input)
                     self.variables.update({new_var.name: new_var})
-
-                elif var_assign:
-                    var_name = random.choice(list(self.variables.keys()))
-                    var = self.variables[var_name]
-                    exp = self.createNode(NodeType.EXPRESSION, None, current_depth+1)
-                    var.value = exp.value
-
-                    assign = AssignmentNode(node_type=type, parent_node=parent, var=var, body=exp)
-                    assign.depth = current_depth
-                    exp.parent_node = assign
-                    # assign.var = var
-                    # assign.body = exp
-                    assign.add_child(var)
-                    assign.add_child(exp)
-                # elif create_bool:
-                #     new_var = self.createNode(NodeType.VAR, None, current_depth+1)
-                #     choice2 = random.choice(['bool', 'cond'])
-                #     if choice2 == 'bool':
-                #         bool = self.createNode(NodeType.BOOLEAN, parent=parent)
-                #         new_var.value = bool.value
-                #         assign = AssignmentNode(node_type=type, parent_node=parent, var=new_var, body=bool.value)
-                #         assign.add_child(new_var)
-                #         assign.add_child(bool)
-                #         return assign
-                #     if choice2 == 'cond':
-                #         condNode = self.createNode(NodeType.CONDITION, parent=parent)
-                #         new_var.add_child(condNode)
-                #         assign = AssignmentNode(node_type=type, parent_node=parent, var=new_var, body=condNode)
-                #         assign.add_child(new_var)
-                #         assign.add_child(condNode)
+                
+                case "assign", False:
+                    new_var = self.createNode(NodeType.VAR, None, current_depth+1)
+                    match body_type:
+                        case "exp":
+                            exp = self.createNode(NodeType.EXPRESSION, None, current_depth+1)
+                            new_var.value = exp.value
+                            assign = AssignmentNode(node_type=type, parent_node=parent, var=new_var, body=exp)
+                            assign.depth = current_depth
+                            exp.parent_node = assign
+                            assign.add_child(new_var)
+                            assign.add_child(exp)
+                        case "input":
+                            input = self.createNode(NodeType.INPUT, None, current_depth+1)
+                            new_var.value = input.value
+                            assign = AssignmentNode(node_type=type, parent_node=parent, var=new_var, body=input)
+                            assign.add_child(new_var)
+                            assign.add_child(input)
+            
             return assign
+
+
+            
+            # elif create_bool:
+            #     new_var = self.createNode(NodeType.VAR, None, current_depth+1)
+            #     choice2 = random.choice(['bool', 'cond'])
+            #     if choice2 == 'bool':
+            #         bool = self.createNode(NodeType.BOOLEAN, parent=parent)
+            #         new_var.value = bool.value
+            #         assign = AssignmentNode(node_type=type, parent_node=parent, var=new_var, body=bool.value)
+            #         assign.add_child(new_var)
+            #         assign.add_child(bool)
+            #         return assign
+            #     if choice2 == 'cond':
+            #         condNode = self.createNode(NodeType.CONDITION, parent=parent)
+            #         new_var.add_child(condNode)
+            #         assign = AssignmentNode(node_type=type, parent_node=parent, var=new_var, body=condNode)
+            #         assign.add_child(new_var)
+            #         assign.add_child(condNode)
                     
         elif type == NodeType.EXPRESSION:
             left = self.createNode(NodeType.TERM, None, current_depth+1)
@@ -317,8 +276,7 @@ class Program():
             leftexpNode = self.createNode(NodeType.EXPRESSION, parent=None, current_depth=current_depth+1)
             children.append(leftexpNode)
             operator = random.choice(['==', '!=','<','>','<=' ,'>='])
-            # operatorNode = self.createNode(NodeType.OPERATOR, parent = parent)
-            # children.append(operatorNode)
+
             rightexpNode = self.createNode(NodeType.EXPRESSION, parent=None, current_depth=current_depth+1)
             children.append(rightexpNode)
 
@@ -339,8 +297,6 @@ class Program():
             children.append(leftBoolean)
 
             operator = random.choice(['!=', '=='])
-            # operator = OperatorNode(node_type=NodeType.OPERATOR, parent_node=parent, operatorType=operator)
-            # children.append(operator)
 
             rightBoolean = self.createNode(NodeType.BOOLEAN, parent= None,current_depth=current_depth+1)
             children.append(rightBoolean)

@@ -3,7 +3,6 @@ from enum import Enum
 class NodeType(Enum):
     SCOPE = 0,
     VAR = 1,
-    CONST = 2,
     INPUT = 3,
     OUTPUT = 4,
     CONDITION = 5,
@@ -94,7 +93,7 @@ class FactorNode(Node):
     def calculate(self):
         if isinstance(self.body, ExpressionNode):
             return self.body.calculate()
-        if isinstance(self.body, VarNode) or isinstance(self.body, ConstNode):
+        if isinstance(self.body, VarNode):
             return self.body.value
         elif isinstance(self.body, float):
             return self.body
@@ -102,7 +101,7 @@ class FactorNode(Node):
             raise Exception(f"Unknown type: {type(self.body)}")
     
     def __repr__(self):
-        if isinstance(self.body, VarNode) or isinstance(self.body, ConstNode):
+        if isinstance(self.body, VarNode):
             return f"{self.body}"
         return f"( {self.value} )"
 
@@ -184,35 +183,26 @@ class VarNode(Node):
     
     def __repr__(self):
         return f"{self.name}" #(value: {self.value})
+
     
-    # def copy(self):
-    #     new_var = VarNode(NodeType.CONST, None, self.name, self.value)
-    #     return new_var
-
-
-class ConstNode(Node):
-    def __init__(self, node_type: NodeType, parent_node: Node, 
-                 name: str, 
-                 value: float | bool):
+class InputNode(Node):
+    def __init__(self, node_type: NodeType, parent_node: Node, index: int = 0):
         super().__init__(node_type, parent_node)
         self.parent_node = parent_node
-        self.name = name
-        self.value = value
+        self.value: float | bool = None, 
         self.is_leaf = True
 
-
     def __repr__(self):
-        return f"{self.name}"#(value: {self.value})
+        return f"input()"
     
-    # def copy(self):
-    #     new_var = ConstNode(NodeType.CONST, None, self.name, self.value)
-    #     return new_var
-    
+    def calculate(self):
+        return self.value
+
 
 class AssignmentNode(Node):
     def __init__(self, node_type: NodeType, parent_node: Node, 
-                 var: VarNode | ConstNode, 
-                 body: ExpressionNode,
+                 var: VarNode = None, 
+                 body: ExpressionNode | float | bool | InputNode = None,
                  children_nodes: list[Node] = []):
         super().__init__(node_type, parent_node)
         self.parent_node = parent_node
@@ -235,35 +225,13 @@ class AssignmentNode(Node):
     def __repr__(self):
         if self.var == None:
             return "dupa jasia"
-        if self.var.node_type == NodeType.CONST:
-            return f"const {self.var.name} = {self.body}"
         
-        return f"{self.var.name} = {self.body}" # (value: {self.value})
+        return f"{self.var.name} = {self.body} (value: {self.value})" # 
 
-
-class InputNode(Node):
-    def __init__(self, node_type: NodeType, parent_node: Node, children_nodes: list[AssignmentNode] = []):
-        super().__init__(node_type, parent_node)
-        self.parent_node = parent_node
-        self.children_nodes = children_nodes
-        self.value = []
-    
-    def __repr__(self):
-        input = ""
-        for child in self.children_nodes:
-            input += str(child) + ", "
-        input = input[:-2]
-        return f"input({input})"
-    
-    def calculate(self):
-        input = []
-        for child in self.children_nodes:
-            input.append(child.value)
-        return input
 
 
 class OutputNode(Node):
-    def __init__(self, node_type: NodeType, parent_node: Node, children_nodes: list[VarNode | ConstNode | float | bool] = []):
+    def __init__(self, node_type: NodeType, parent_node: Node, children_nodes: list[VarNode | float | bool] = []):
         super().__init__(node_type, parent_node)
         self.parent_node = parent_node
         self.children_nodes = children_nodes
@@ -280,7 +248,7 @@ class OutputNode(Node):
     def calculate(self):
         output = []
         for child in self.children_nodes:
-            if isinstance(child, VarNode) or isinstance(child, ConstNode):
+            if isinstance(child, VarNode):
                 output.append(child.value)
             elif isinstance(child, float) or isinstance(child, bool):
                 output.append(child)
@@ -310,6 +278,7 @@ class ExpressionConditionNode(Node):
         self.leftExpression = leftExpression
         self.rightExpression = rigthExpression
         self.operator = operator
+        self.value = self.calculate()
         
     def __repr__(self) -> str:
         output = ""
@@ -317,6 +286,22 @@ class ExpressionConditionNode(Node):
         output += self.operator
         output += f' {self.children_nodes[1]}'
         return output
+    
+    def calculate(self):
+        if self.operator == '<':
+            return self.leftExpression.value < self.rightExpression.value
+        elif self.operator == '>':
+            return self.leftExpression.value > self.rightExpression.value
+        elif self.operator == '==':
+            return self.leftExpression.value == self.rightExpression.value
+        elif self.operator == '!=':
+            return self.leftExpression.value != self.rightExpression.value
+        elif self.operator == '<=':
+            return self.leftExpression.value <= self.rightExpression.value
+        elif self.operator == '>=':
+            return self.leftExpression.value >= self.rightExpression.value
+        else:
+            raise Exception(f"Unknown operation: {self.operator}")
 
 class LogicCondition(Node):
     def __init__(self, node_type: NodeType, 
@@ -331,6 +316,7 @@ class LogicCondition(Node):
         self.leftBoolean = leftBoolean
         self.rightBoolean = rightBoolean
         self.operator = operator
+        self.value = self.calculate()
 
     def __repr__(self) -> str:
         output = ""
@@ -340,13 +326,18 @@ class LogicCondition(Node):
         output += self.operator
         output += f' {self.children_nodes[1]}'
         return output
+    
+    def calculate(self):
+        if self.operator == '!=':
+            return self.leftBoolean.value != self.rightBoolean.value
+        elif self.operator == '==':
+            return self.leftBoolean.value == self.rightBoolean.value
+        else:
+            raise Exception(f"Unknown operation: {self.operator}")
 
 class ConditionNode(Node):
     def __init__(self, node_type: NodeType, 
                  parent_node: Node,
-                #  expression: list[ExpressionNode]=None, 
-                #  operator: list[OperatorNode]=None, 
-                #  logicOperators:list[LogicOperator]=None, 
                 logicOperators: list[str],
                 children_nodes:list[Node]=None):  
         
@@ -354,9 +345,8 @@ class ConditionNode(Node):
         self.parent_node = parent_node
         self.children_nodes = children_nodes
         self.logicOperators = logicOperators
-        # self.expression=expression
-        # self.operator = operator 
-        # self.logicOperators= logicOperators
+        self.value = self.calculate()
+
     def __repr__(self) -> str:
         output = "( "
         # for child in self.children_nodes:
@@ -365,7 +355,20 @@ class ConditionNode(Node):
             output+=f' {self.children_nodes[i]} '
             if i!=len(self.children_nodes)-1:
                 output+=self.logicOperators[i]
-        return output+" )"
+        return output+" ) (value: "+ str(self.value) + ")"
+    
+    def calculate(self):
+        value = self.children_nodes[0].value
+        if len(self.logicOperators) > 0:
+            for i in range(len(self.logicOperators)):
+                if self.logicOperators[i]=='&&':
+                    value = value and self.children_nodes[i+1].value
+                elif self.logicOperators[i]=='||':
+                    value=value or self.children_nodes[i+1].value
+                else:
+                    raise Exception(f"Unknown operation: {self.logicOperators[i]}")
+        return value
+
         
 
 

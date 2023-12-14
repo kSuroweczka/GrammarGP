@@ -15,14 +15,14 @@ class GP():
     test_cases: list[TestCase] # list of TestCase objects from library/Tasks/task.py
     generation: int
 
-    def __init__(self, task_name: str, set_seed: int | None = None, params: Params | None = None):
+    def __init__(self, task_name: str, params: Params ):
         self.popuation = []
         self.best = None
         self.best_fitness = 0.0
         self.best_generation = 0
         self.generation = 0
         self.task = Task(task_name)
-        self.params = params or Params(seed=set_seed, max_depth=1)
+        self.params = params
         self.popuation = self.create_population(self.task, self.params)
         self.test_cases = []
 
@@ -42,12 +42,7 @@ class GP():
 
             p = Program(i, task, params.max_depth, params.min_rand, params.max_rand, input_data=test_case.input_data)
             p.createIndividual()
-            # print(f"\nSERIALIZE: {i}")
-            # p.serialize(p.ROOT)
-            # print("KONIEC\n")
-            # print("\nSERIALIZE")
-            # self.serialize(p.ROOT, p)
-            # print("KONIEC\n")
+
             pop.append(p)
 
         return pop
@@ -72,8 +67,8 @@ class GP():
         else:
 
             vars = "{ "
-            for var in self.popuation[index].const:
-                vars += f"{var}: {self.popuation[index].const[var].value}, "
+            for val in self.popuation[index].const:
+                vars += f"{val}, "
             vars = vars[:-2]
             vars += " }"
             print(f'{vars}\n') 

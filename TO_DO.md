@@ -25,12 +25,11 @@ Odtwarzanie drzewa -> coś jak createNode ale wartości pochodzą z instniejące
 - x_0 = 4 > x_1 && ...
 
 
-## Input -> różne opcje
 
 ## ilość intrukcji np przy rekurencji 
 
 ## input 
-wartości do inputu w pliku
-interpreter wczytuje kolejną wartość z pliku jak natrafi na input
+wartości do inputu w pliku  -> DONE
+interpreter wczytuje kolejną wartość z pliku jak natrafi na input   -> DONE
 
 ## TinyGP - wysłać do końca tygodnia
