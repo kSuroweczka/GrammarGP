@@ -336,20 +336,15 @@ class Program():
             return ifNode
         
         elif type == NodeType.WHILE:
-            children =[]
-            conditionNode = self.createNode(NodeType.CONDITION, None, current_depth+1)
-            children.append(conditionNode)
-            compoundStatementNode = self.createNode(NodeType.SCOPE, None, current_depth+1)
-            children.append(compoundStatementNode)
+            
+            whileNode = WhileNode(node_type=type, parent_node=parent)
+            condition = self.createNode(NodeType.CONDITION, whileNode, current_depth+1)
+            body = self.createNode(NodeType.SCOPE, whileNode, current_depth+1)
 
-            whileNode = WhileNode(node_type=type, 
-                                  parent_node= parent, 
-                                  children_nodes=children, 
-                                  conditionNode=conditionNode, 
-                                  whileBodyNode=compoundStatementNode)
-            for child in children:
-                child.change_parent(whileNode)
-
+            whileNode.conditionNode = condition
+            whileNode.whileBodyNode = body
+            whileNode.add_child(condition)
+            whileNode.add_child(body)
 
             return whileNode
         

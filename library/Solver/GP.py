@@ -61,17 +61,17 @@ class GP():
         vars += " }"
         print(f'{vars}\n') 
 
-        print("Const:")
-        if len(self.popuation[index].const) == 0:
-            print("{" + " " + "}")
-        else:
+        # print("Const:")
+        # if len(self.popuation[index].const) == 0:
+        #     print("{" + " " + "}")
+        # else:
 
-            vars = "{ "
-            for val in self.popuation[index].const:
-                vars += f"{val}, "
-            vars = vars[:-2]
-            vars += " }"
-            print(f'{vars}\n') 
+        #     vars = "{ "
+        #     for val in self.popuation[index].const:
+        #         vars += f"{val}, "
+        #     vars = vars[:-2]
+        #     vars += " }"
+        #     print(f'{vars}\n') 
 
         # print("\nRoot children:")
         # for child in self.popuation[index].ROOT.children_nodes:

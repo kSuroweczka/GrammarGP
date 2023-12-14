@@ -250,7 +250,8 @@ class OutputNode(Node):
         for child in self.children_nodes:
             output += str(child) + ","
         output = output[:-1]
-        return f"output({output})"
+        # some problem with output - needed to add 2 spaces before output
+        return f"  output({output})"
     
 
     def calculate(self):
