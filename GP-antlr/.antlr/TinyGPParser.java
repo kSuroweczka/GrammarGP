@@ -19,20 +19,19 @@ public class TinyGPParser extends Parser {
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
 		T__9=10, T__10=11, T__11=12, T__12=13, T__13=14, T__14=15, T__15=16, T__16=17, 
 		T__17=18, T__18=19, T__19=20, T__20=21, T__21=22, T__22=23, T__23=24, 
-		T__24=25, T__25=26, T__26=27, T__27=28, T__28=29, T__29=30, T__30=31, 
-		ID=32, NUMBER=33, WS=34;
+		T__24=25, T__25=26, ID=27, NUMBER=28, WS=29;
 	public static final int
 		RULE_program = 0, RULE_statement = 1, RULE_loopStatement = 2, RULE_conditionalStatement = 3, 
 		RULE_compoundStatement = 4, RULE_assignmentStatement = 5, RULE_inputStatement = 6, 
-		RULE_outputStatement = 7, RULE_condition = 8, RULE_expression = 9, RULE_term = 10, 
-		RULE_factor = 11, RULE_functionCall = 12, RULE_argumentList = 13, RULE_variable = 14, 
-		RULE_constant = 15, RULE_boolean = 16;
+		RULE_outputStatement = 7, RULE_condition = 8, RULE_expressionCondition = 9, 
+		RULE_expression = 10, RULE_term = 11, RULE_factor = 12, RULE_variable = 13, 
+		RULE_constant = 14, RULE_boolean = 15;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"program", "statement", "loopStatement", "conditionalStatement", "compoundStatement", 
 			"assignmentStatement", "inputStatement", "outputStatement", "condition", 
-			"expression", "term", "factor", "functionCall", "argumentList", "variable", 
-			"constant", "boolean"
+			"expressionCondition", "expression", "term", "factor", "variable", "constant", 
+			"boolean"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -40,9 +39,9 @@ public class TinyGPParser extends Parser {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'while'", "'('", "')'", "'if'", "'else'", "'{'", "'}'", "'='", 
-			"'+='", "'-='", "'*='", "'/='", "';'", "'input'", "'output'", "'=='", 
-			"'!='", "'<'", "'>'", "'<='", "'>='", "'&&'", "'||'", "'-'", "'+'", "'*'", 
-			"'/'", "','", "'const'", "'true'", "'false'"
+			"';'", "'input'", "'output'", "'&&'", "'||'", "'=='", "'!='", "'<'", 
+			"'>'", "'<='", "'>='", "'-'", "'+'", "'*'", "'/'", "'const'", "'true'", 
+			"'false'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -50,7 +49,7 @@ public class TinyGPParser extends Parser {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
 			null, null, null, null, null, null, null, null, null, null, null, null, 
-			null, null, null, null, null, null, null, null, "ID", "NUMBER", "WS"
+			null, null, null, "ID", "NUMBER", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -125,17 +124,17 @@ public class TinyGPParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(37);
+			setState(35);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 4831887442L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 150998098L) != 0)) {
 				{
 				{
-				setState(34);
+				setState(32);
 				statement();
 				}
 				}
-				setState(39);
+				setState(37);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -172,8 +171,8 @@ public class TinyGPParser extends Parser {
 		public OutputStatementContext outputStatement() {
 			return getRuleContext(OutputStatementContext.class,0);
 		}
-		public FunctionCallContext functionCall() {
-			return getRuleContext(FunctionCallContext.class,0);
+		public ConstantContext constant() {
+			return getRuleContext(ConstantContext.class,0);
 		}
 		public StatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -185,58 +184,60 @@ public class TinyGPParser extends Parser {
 		StatementContext _localctx = new StatementContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_statement);
 		try {
-			setState(47);
+			setState(45);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
-			case 1:
+			switch (_input.LA(1)) {
+			case T__0:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(40);
+				setState(38);
 				loopStatement();
 				}
 				break;
-			case 2:
+			case T__3:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(41);
+				setState(39);
 				conditionalStatement();
 				}
 				break;
-			case 3:
+			case T__5:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(42);
+				setState(40);
 				compoundStatement();
 				}
 				break;
-			case 4:
+			case ID:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(43);
+				setState(41);
 				assignmentStatement();
 				}
 				break;
-			case 5:
+			case T__9:
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(44);
+				setState(42);
 				inputStatement();
 				}
 				break;
-			case 6:
+			case T__10:
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(45);
+				setState(43);
 				outputStatement();
 				}
 				break;
-			case 7:
+			case T__23:
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(46);
-				functionCall();
+				setState(44);
+				constant();
 				}
 				break;
+			default:
+				throw new NoViableAltException(this);
 			}
 		}
 		catch (RecognitionException re) {
@@ -270,15 +271,15 @@ public class TinyGPParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(49);
+			setState(47);
 			match(T__0);
-			setState(50);
+			setState(48);
 			match(T__1);
-			setState(51);
+			setState(49);
 			condition();
-			setState(52);
+			setState(50);
 			match(T__2);
-			setState(53);
+			setState(51);
 			compoundStatement();
 			}
 		}
@@ -317,24 +318,24 @@ public class TinyGPParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(55);
+			setState(53);
 			match(T__3);
-			setState(56);
+			setState(54);
 			match(T__1);
-			setState(57);
+			setState(55);
 			condition();
-			setState(58);
+			setState(56);
 			match(T__2);
-			setState(59);
+			setState(57);
 			compoundStatement();
-			setState(62);
+			setState(60);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==T__4) {
 				{
-				setState(60);
+				setState(58);
 				match(T__4);
-				setState(61);
+				setState(59);
 				compoundStatement();
 				}
 			}
@@ -373,23 +374,23 @@ public class TinyGPParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(64);
+			setState(62);
 			match(T__5);
-			setState(68);
+			setState(66);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 4831887442L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 150998098L) != 0)) {
 				{
 				{
-				setState(65);
+				setState(63);
 				statement();
 				}
 				}
-				setState(70);
+				setState(68);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(71);
+			setState(69);
 			match(T__6);
 			}
 		}
@@ -412,8 +413,11 @@ public class TinyGPParser extends Parser {
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
 		}
-		public ConstantContext constant() {
-			return getRuleContext(ConstantContext.class,0);
+		public ConditionContext condition() {
+			return getRuleContext(ConditionContext.class,0);
+		}
+		public BooleanContext boolean_() {
+			return getRuleContext(BooleanContext.class,0);
 		}
 		public AssignmentStatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -426,39 +430,44 @@ public class TinyGPParser extends Parser {
 		enterRule(_localctx, 10, RULE_assignmentStatement);
 		int _la;
 		try {
-			setState(79);
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(71);
+			variable();
+			setState(72);
+			match(T__7);
+			setState(76);
 			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case ID:
-				enterOuterAlt(_localctx, 1);
+			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
+			case 1:
 				{
 				setState(73);
-				variable();
-				setState(74);
-				_la = _input.LA(1);
-				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 7936L) != 0)) ) {
-				_errHandler.recoverInline(this);
-				}
-				else {
-					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-					_errHandler.reportMatch(this);
-					consume();
-				}
-				setState(75);
 				expression();
-				setState(76);
-				match(T__12);
 				}
 				break;
-			case T__28:
-				enterOuterAlt(_localctx, 2);
+			case 2:
+				{
+				setState(74);
+				condition();
+				}
+				break;
+			case 3:
+				{
+				setState(75);
+				boolean_();
+				}
+				break;
+			}
+			setState(79);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==T__8) {
 				{
 				setState(78);
-				constant();
+				match(T__8);
 				}
-				break;
-			default:
-				throw new NoViableAltException(this);
+			}
+
 			}
 		}
 		catch (RecognitionException re) {
@@ -490,7 +499,7 @@ public class TinyGPParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(81);
-			match(T__13);
+			match(T__9);
 			setState(82);
 			match(T__1);
 			setState(83);
@@ -498,7 +507,7 @@ public class TinyGPParser extends Parser {
 			setState(84);
 			match(T__2);
 			setState(85);
-			match(T__12);
+			match(T__8);
 			}
 		}
 		catch (RecognitionException re) {
@@ -530,7 +539,7 @@ public class TinyGPParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(87);
-			match(T__14);
+			match(T__10);
 			setState(88);
 			match(T__1);
 			setState(89);
@@ -538,7 +547,7 @@ public class TinyGPParser extends Parser {
 			setState(90);
 			match(T__2);
 			setState(91);
-			match(T__12);
+			match(T__8);
 			}
 		}
 		catch (RecognitionException re) {
@@ -554,23 +563,11 @@ public class TinyGPParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ConditionContext extends ParserRuleContext {
-		public List<ExpressionContext> expression() {
-			return getRuleContexts(ExpressionContext.class);
+		public List<ExpressionConditionContext> expressionCondition() {
+			return getRuleContexts(ExpressionConditionContext.class);
 		}
-		public ExpressionContext expression(int i) {
-			return getRuleContext(ExpressionContext.class,i);
-		}
-		public List<ConditionContext> condition() {
-			return getRuleContexts(ConditionContext.class);
-		}
-		public ConditionContext condition(int i) {
-			return getRuleContext(ConditionContext.class,i);
-		}
-		public List<BooleanContext> boolean_() {
-			return getRuleContexts(BooleanContext.class);
-		}
-		public BooleanContext boolean_(int i) {
-			return getRuleContext(BooleanContext.class,i);
+		public ExpressionConditionContext expressionCondition(int i) {
+			return getRuleContext(ExpressionConditionContext.class,i);
 		}
 		public ConditionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -583,18 +580,21 @@ public class TinyGPParser extends Parser {
 		enterRule(_localctx, 16, RULE_condition);
 		int _la;
 		try {
-			int _alt;
-			setState(107);
+			enterOuterAlt(_localctx, 1);
+			{
+			{
+			setState(93);
+			expressionCondition();
+			}
+			setState(98);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
-			case 1:
-				enterOuterAlt(_localctx, 1);
+			_la = _input.LA(1);
+			while (_la==T__11 || _la==T__12) {
 				{
-				setState(93);
-				expression();
+				{
 				setState(94);
 				_la = _input.LA(1);
-				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 4128768L) != 0)) ) {
+				if ( !(_la==T__11 || _la==T__12) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -602,55 +602,64 @@ public class TinyGPParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
+				{
 				setState(95);
-				expression();
+				expressionCondition();
+				}
+				}
+				}
 				setState(100);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
-				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-					if ( _alt==1 ) {
-						{
-						{
-						setState(96);
-						_la = _input.LA(1);
-						if ( !(_la==T__21 || _la==T__22) ) {
-						_errHandler.recoverInline(this);
-						}
-						else {
-							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-							_errHandler.reportMatch(this);
-							consume();
-						}
-						setState(97);
-						condition();
-						}
-						} 
-					}
-					setState(102);
-					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
-				}
-				}
-				break;
-			case 2:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(103);
-				boolean_();
-				setState(104);
 				_la = _input.LA(1);
-				if ( !(_la==T__21 || _la==T__22) ) {
-				_errHandler.recoverInline(this);
-				}
-				else {
-					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-					_errHandler.reportMatch(this);
-					consume();
-				}
-				setState(105);
-				boolean_();
-				}
-				break;
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class ExpressionConditionContext extends ParserRuleContext {
+		public List<ExpressionContext> expression() {
+			return getRuleContexts(ExpressionContext.class);
+		}
+		public ExpressionContext expression(int i) {
+			return getRuleContext(ExpressionContext.class,i);
+		}
+		public ExpressionConditionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_expressionCondition; }
+	}
+
+	public final ExpressionConditionContext expressionCondition() throws RecognitionException {
+		ExpressionConditionContext _localctx = new ExpressionConditionContext(_ctx, getState());
+		enterRule(_localctx, 18, RULE_expressionCondition);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(101);
+			expression();
+			setState(102);
+			_la = _input.LA(1);
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 1032192L) != 0)) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
+			setState(103);
+			expression();
 			}
 		}
 		catch (RecognitionException re) {
@@ -672,9 +681,6 @@ public class TinyGPParser extends Parser {
 		public TermContext term(int i) {
 			return getRuleContext(TermContext.class,i);
 		}
-		public BooleanContext boolean_() {
-			return getRuleContext(BooleanContext.class,0);
-		}
 		public ExpressionContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -683,67 +689,47 @@ public class TinyGPParser extends Parser {
 
 	public final ExpressionContext expression() throws RecognitionException {
 		ExpressionContext _localctx = new ExpressionContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_expression);
+		enterRule(_localctx, 20, RULE_expression);
 		int _la;
 		try {
-			setState(121);
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(106);
 			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case T__1:
-			case T__23:
-			case T__28:
-			case ID:
-			case NUMBER:
-				enterOuterAlt(_localctx, 1);
+			_la = _input.LA(1);
+			if (_la==T__19) {
 				{
-				setState(110);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-				if (_la==T__23) {
-					{
-					setState(109);
-					match(T__23);
-					}
+				setState(105);
+				match(T__19);
 				}
+			}
 
-				setState(112);
+			setState(108);
+			term();
+			setState(113);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while (_la==T__19 || _la==T__20) {
+				{
+				{
+				setState(109);
+				_la = _input.LA(1);
+				if ( !(_la==T__19 || _la==T__20) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				setState(110);
 				term();
-				setState(117);
+				}
+				}
+				setState(115);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (_la==T__23 || _la==T__24) {
-					{
-					{
-					setState(113);
-					_la = _input.LA(1);
-					if ( !(_la==T__23 || _la==T__24) ) {
-					_errHandler.recoverInline(this);
-					}
-					else {
-						if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-						_errHandler.reportMatch(this);
-						consume();
-					}
-					setState(114);
-					term();
-					}
-					}
-					setState(119);
-					_errHandler.sync(this);
-					_la = _input.LA(1);
-				}
-				}
-				break;
-			case T__29:
-			case T__30:
-				enterOuterAlt(_localctx, 2);
-				{
-				setState(120);
-				boolean_();
-				}
-				break;
-			default:
-				throw new NoViableAltException(this);
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -773,22 +759,22 @@ public class TinyGPParser extends Parser {
 
 	public final TermContext term() throws RecognitionException {
 		TermContext _localctx = new TermContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_term);
+		enterRule(_localctx, 22, RULE_term);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(123);
+			setState(116);
 			factor();
-			setState(128);
+			setState(121);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__25 || _la==T__26) {
+			while (_la==T__21 || _la==T__22) {
 				{
 				{
-				setState(124);
+				setState(117);
 				_la = _input.LA(1);
-				if ( !(_la==T__25 || _la==T__26) ) {
+				if ( !(_la==T__21 || _la==T__22) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -796,11 +782,11 @@ public class TinyGPParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(125);
+				setState(118);
 				factor();
 				}
 				}
-				setState(130);
+				setState(123);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -825,10 +811,10 @@ public class TinyGPParser extends Parser {
 		public VariableContext variable() {
 			return getRuleContext(VariableContext.class,0);
 		}
-		public TerminalNode NUMBER() { return getToken(TinyGPParser.NUMBER, 0); }
-		public ConstantContext constant() {
-			return getRuleContext(ConstantContext.class,0);
+		public BooleanContext boolean_() {
+			return getRuleContext(BooleanContext.class,0);
 		}
+		public TerminalNode NUMBER() { return getToken(TinyGPParser.NUMBER, 0); }
 		public FactorContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -837,147 +823,46 @@ public class TinyGPParser extends Parser {
 
 	public final FactorContext factor() throws RecognitionException {
 		FactorContext _localctx = new FactorContext(_ctx, getState());
-		enterRule(_localctx, 22, RULE_factor);
+		enterRule(_localctx, 24, RULE_factor);
 		try {
-			setState(138);
+			setState(131);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case T__1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(131);
+				setState(124);
 				match(T__1);
-				setState(132);
+				setState(125);
 				expression();
-				setState(133);
+				setState(126);
 				match(T__2);
 				}
 				break;
 			case ID:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(135);
+				setState(128);
 				variable();
 				}
 				break;
-			case NUMBER:
+			case T__24:
+			case T__25:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(136);
-				match(NUMBER);
+				setState(129);
+				boolean_();
 				}
 				break;
-			case T__28:
+			case NUMBER:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(137);
-				constant();
+				setState(130);
+				match(NUMBER);
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class FunctionCallContext extends ParserRuleContext {
-		public TerminalNode ID() { return getToken(TinyGPParser.ID, 0); }
-		public ArgumentListContext argumentList() {
-			return getRuleContext(ArgumentListContext.class,0);
-		}
-		public FunctionCallContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_functionCall; }
-	}
-
-	public final FunctionCallContext functionCall() throws RecognitionException {
-		FunctionCallContext _localctx = new FunctionCallContext(_ctx, getState());
-		enterRule(_localctx, 24, RULE_functionCall);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(140);
-			match(ID);
-			setState(141);
-			match(T__1);
-			setState(143);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 16659775492L) != 0)) {
-				{
-				setState(142);
-				argumentList();
-				}
-			}
-
-			setState(145);
-			match(T__2);
-			setState(146);
-			match(T__12);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
-	public static class ArgumentListContext extends ParserRuleContext {
-		public List<ExpressionContext> expression() {
-			return getRuleContexts(ExpressionContext.class);
-		}
-		public ExpressionContext expression(int i) {
-			return getRuleContext(ExpressionContext.class,i);
-		}
-		public ArgumentListContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_argumentList; }
-	}
-
-	public final ArgumentListContext argumentList() throws RecognitionException {
-		ArgumentListContext _localctx = new ArgumentListContext(_ctx, getState());
-		enterRule(_localctx, 26, RULE_argumentList);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(148);
-			expression();
-			setState(153);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			while (_la==T__27) {
-				{
-				{
-				setState(149);
-				match(T__27);
-				setState(150);
-				expression();
-				}
-				}
-				setState(155);
-				_errHandler.sync(this);
-				_la = _input.LA(1);
-			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -1002,11 +887,11 @@ public class TinyGPParser extends Parser {
 
 	public final VariableContext variable() throws RecognitionException {
 		VariableContext _localctx = new VariableContext(_ctx, getState());
-		enterRule(_localctx, 28, RULE_variable);
+		enterRule(_localctx, 26, RULE_variable);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(156);
+			setState(133);
 			match(ID);
 			}
 		}
@@ -1035,20 +920,20 @@ public class TinyGPParser extends Parser {
 
 	public final ConstantContext constant() throws RecognitionException {
 		ConstantContext _localctx = new ConstantContext(_ctx, getState());
-		enterRule(_localctx, 30, RULE_constant);
+		enterRule(_localctx, 28, RULE_constant);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(158);
-			match(T__28);
-			setState(159);
+			setState(135);
+			match(T__23);
+			setState(136);
 			match(ID);
-			setState(160);
+			setState(137);
 			match(T__7);
-			setState(161);
+			setState(138);
 			expression();
-			setState(162);
-			match(T__12);
+			setState(139);
+			match(T__8);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1072,14 +957,14 @@ public class TinyGPParser extends Parser {
 
 	public final BooleanContext boolean_() throws RecognitionException {
 		BooleanContext _localctx = new BooleanContext(_ctx, getState());
-		enterRule(_localctx, 32, RULE_boolean);
+		enterRule(_localctx, 30, RULE_boolean);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(164);
+			setState(141);
 			_la = _input.LA(1);
-			if ( !(_la==T__29 || _la==T__30) ) {
+			if ( !(_la==T__24 || _la==T__25) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -1101,102 +986,87 @@ public class TinyGPParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\"\u00a7\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
-		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
-		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002"+
-		"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0002"+
-		"\f\u0007\f\u0002\r\u0007\r\u0002\u000e\u0007\u000e\u0002\u000f\u0007\u000f"+
-		"\u0002\u0010\u0007\u0010\u0001\u0000\u0005\u0000$\b\u0000\n\u0000\f\u0000"+
-		"\'\t\u0000\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
-		"\u0001\u0001\u0001\u0001\u0003\u00010\b\u0001\u0001\u0002\u0001\u0002"+
-		"\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0003\u0001\u0003"+
-		"\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0003\u0003"+
-		"?\b\u0003\u0001\u0004\u0001\u0004\u0005\u0004C\b\u0004\n\u0004\f\u0004"+
-		"F\t\u0004\u0001\u0004\u0001\u0004\u0001\u0005\u0001\u0005\u0001\u0005"+
-		"\u0001\u0005\u0001\u0005\u0001\u0005\u0003\u0005P\b\u0005\u0001\u0006"+
+		"\u0004\u0001\u001d\u0090\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001"+
+		"\u0002\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004"+
+		"\u0002\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007"+
+		"\u0002\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b"+
+		"\u0002\f\u0007\f\u0002\r\u0007\r\u0002\u000e\u0007\u000e\u0002\u000f\u0007"+
+		"\u000f\u0001\u0000\u0005\u0000\"\b\u0000\n\u0000\f\u0000%\t\u0000\u0001"+
+		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0003\u0001.\b\u0001\u0001\u0002\u0001\u0002\u0001\u0002\u0001"+
+		"\u0002\u0001\u0002\u0001\u0002\u0001\u0003\u0001\u0003\u0001\u0003\u0001"+
+		"\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0003\u0003=\b\u0003\u0001"+
+		"\u0004\u0001\u0004\u0005\u0004A\b\u0004\n\u0004\f\u0004D\t\u0004\u0001"+
+		"\u0004\u0001\u0004\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001"+
+		"\u0005\u0003\u0005M\b\u0005\u0001\u0005\u0003\u0005P\b\u0005\u0001\u0006"+
 		"\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0007"+
 		"\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\b\u0001"+
-		"\b\u0001\b\u0001\b\u0001\b\u0005\bc\b\b\n\b\f\bf\t\b\u0001\b\u0001\b\u0001"+
-		"\b\u0001\b\u0003\bl\b\b\u0001\t\u0003\to\b\t\u0001\t\u0001\t\u0001\t\u0005"+
-		"\tt\b\t\n\t\f\tw\t\t\u0001\t\u0003\tz\b\t\u0001\n\u0001\n\u0001\n\u0005"+
-		"\n\u007f\b\n\n\n\f\n\u0082\t\n\u0001\u000b\u0001\u000b\u0001\u000b\u0001"+
-		"\u000b\u0001\u000b\u0001\u000b\u0001\u000b\u0003\u000b\u008b\b\u000b\u0001"+
-		"\f\u0001\f\u0001\f\u0003\f\u0090\b\f\u0001\f\u0001\f\u0001\f\u0001\r\u0001"+
-		"\r\u0001\r\u0005\r\u0098\b\r\n\r\f\r\u009b\t\r\u0001\u000e\u0001\u000e"+
-		"\u0001\u000f\u0001\u000f\u0001\u000f\u0001\u000f\u0001\u000f\u0001\u000f"+
-		"\u0001\u0010\u0001\u0010\u0001\u0010\u0000\u0000\u0011\u0000\u0002\u0004"+
-		"\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a\u001c\u001e \u0000"+
-		"\u0006\u0001\u0000\b\f\u0001\u0000\u0010\u0015\u0001\u0000\u0016\u0017"+
-		"\u0001\u0000\u0018\u0019\u0001\u0000\u001a\u001b\u0001\u0000\u001e\u001f"+
-		"\u00aa\u0000%\u0001\u0000\u0000\u0000\u0002/\u0001\u0000\u0000\u0000\u0004"+
-		"1\u0001\u0000\u0000\u0000\u00067\u0001\u0000\u0000\u0000\b@\u0001\u0000"+
-		"\u0000\u0000\nO\u0001\u0000\u0000\u0000\fQ\u0001\u0000\u0000\u0000\u000e"+
-		"W\u0001\u0000\u0000\u0000\u0010k\u0001\u0000\u0000\u0000\u0012y\u0001"+
-		"\u0000\u0000\u0000\u0014{\u0001\u0000\u0000\u0000\u0016\u008a\u0001\u0000"+
-		"\u0000\u0000\u0018\u008c\u0001\u0000\u0000\u0000\u001a\u0094\u0001\u0000"+
-		"\u0000\u0000\u001c\u009c\u0001\u0000\u0000\u0000\u001e\u009e\u0001\u0000"+
-		"\u0000\u0000 \u00a4\u0001\u0000\u0000\u0000\"$\u0003\u0002\u0001\u0000"+
-		"#\"\u0001\u0000\u0000\u0000$\'\u0001\u0000\u0000\u0000%#\u0001\u0000\u0000"+
-		"\u0000%&\u0001\u0000\u0000\u0000&\u0001\u0001\u0000\u0000\u0000\'%\u0001"+
-		"\u0000\u0000\u0000(0\u0003\u0004\u0002\u0000)0\u0003\u0006\u0003\u0000"+
-		"*0\u0003\b\u0004\u0000+0\u0003\n\u0005\u0000,0\u0003\f\u0006\u0000-0\u0003"+
-		"\u000e\u0007\u0000.0\u0003\u0018\f\u0000/(\u0001\u0000\u0000\u0000/)\u0001"+
-		"\u0000\u0000\u0000/*\u0001\u0000\u0000\u0000/+\u0001\u0000\u0000\u0000"+
-		"/,\u0001\u0000\u0000\u0000/-\u0001\u0000\u0000\u0000/.\u0001\u0000\u0000"+
-		"\u00000\u0003\u0001\u0000\u0000\u000012\u0005\u0001\u0000\u000023\u0005"+
-		"\u0002\u0000\u000034\u0003\u0010\b\u000045\u0005\u0003\u0000\u000056\u0003"+
-		"\b\u0004\u00006\u0005\u0001\u0000\u0000\u000078\u0005\u0004\u0000\u0000"+
-		"89\u0005\u0002\u0000\u00009:\u0003\u0010\b\u0000:;\u0005\u0003\u0000\u0000"+
-		";>\u0003\b\u0004\u0000<=\u0005\u0005\u0000\u0000=?\u0003\b\u0004\u0000"+
-		"><\u0001\u0000\u0000\u0000>?\u0001\u0000\u0000\u0000?\u0007\u0001\u0000"+
-		"\u0000\u0000@D\u0005\u0006\u0000\u0000AC\u0003\u0002\u0001\u0000BA\u0001"+
-		"\u0000\u0000\u0000CF\u0001\u0000\u0000\u0000DB\u0001\u0000\u0000\u0000"+
-		"DE\u0001\u0000\u0000\u0000EG\u0001\u0000\u0000\u0000FD\u0001\u0000\u0000"+
-		"\u0000GH\u0005\u0007\u0000\u0000H\t\u0001\u0000\u0000\u0000IJ\u0003\u001c"+
-		"\u000e\u0000JK\u0007\u0000\u0000\u0000KL\u0003\u0012\t\u0000LM\u0005\r"+
-		"\u0000\u0000MP\u0001\u0000\u0000\u0000NP\u0003\u001e\u000f\u0000OI\u0001"+
-		"\u0000\u0000\u0000ON\u0001\u0000\u0000\u0000P\u000b\u0001\u0000\u0000"+
-		"\u0000QR\u0005\u000e\u0000\u0000RS\u0005\u0002\u0000\u0000ST\u0003\n\u0005"+
-		"\u0000TU\u0005\u0003\u0000\u0000UV\u0005\r\u0000\u0000V\r\u0001\u0000"+
-		"\u0000\u0000WX\u0005\u000f\u0000\u0000XY\u0005\u0002\u0000\u0000YZ\u0003"+
-		"\u0012\t\u0000Z[\u0005\u0003\u0000\u0000[\\\u0005\r\u0000\u0000\\\u000f"+
-		"\u0001\u0000\u0000\u0000]^\u0003\u0012\t\u0000^_\u0007\u0001\u0000\u0000"+
-		"_d\u0003\u0012\t\u0000`a\u0007\u0002\u0000\u0000ac\u0003\u0010\b\u0000"+
-		"b`\u0001\u0000\u0000\u0000cf\u0001\u0000\u0000\u0000db\u0001\u0000\u0000"+
-		"\u0000de\u0001\u0000\u0000\u0000el\u0001\u0000\u0000\u0000fd\u0001\u0000"+
-		"\u0000\u0000gh\u0003 \u0010\u0000hi\u0007\u0002\u0000\u0000ij\u0003 \u0010"+
-		"\u0000jl\u0001\u0000\u0000\u0000k]\u0001\u0000\u0000\u0000kg\u0001\u0000"+
-		"\u0000\u0000l\u0011\u0001\u0000\u0000\u0000mo\u0005\u0018\u0000\u0000"+
-		"nm\u0001\u0000\u0000\u0000no\u0001\u0000\u0000\u0000op\u0001\u0000\u0000"+
-		"\u0000pu\u0003\u0014\n\u0000qr\u0007\u0003\u0000\u0000rt\u0003\u0014\n"+
-		"\u0000sq\u0001\u0000\u0000\u0000tw\u0001\u0000\u0000\u0000us\u0001\u0000"+
-		"\u0000\u0000uv\u0001\u0000\u0000\u0000vz\u0001\u0000\u0000\u0000wu\u0001"+
-		"\u0000\u0000\u0000xz\u0003 \u0010\u0000yn\u0001\u0000\u0000\u0000yx\u0001"+
-		"\u0000\u0000\u0000z\u0013\u0001\u0000\u0000\u0000{\u0080\u0003\u0016\u000b"+
-		"\u0000|}\u0007\u0004\u0000\u0000}\u007f\u0003\u0016\u000b\u0000~|\u0001"+
-		"\u0000\u0000\u0000\u007f\u0082\u0001\u0000\u0000\u0000\u0080~\u0001\u0000"+
-		"\u0000\u0000\u0080\u0081\u0001\u0000\u0000\u0000\u0081\u0015\u0001\u0000"+
-		"\u0000\u0000\u0082\u0080\u0001\u0000\u0000\u0000\u0083\u0084\u0005\u0002"+
-		"\u0000\u0000\u0084\u0085\u0003\u0012\t\u0000\u0085\u0086\u0005\u0003\u0000"+
-		"\u0000\u0086\u008b\u0001\u0000\u0000\u0000\u0087\u008b\u0003\u001c\u000e"+
-		"\u0000\u0088\u008b\u0005!\u0000\u0000\u0089\u008b\u0003\u001e\u000f\u0000"+
-		"\u008a\u0083\u0001\u0000\u0000\u0000\u008a\u0087\u0001\u0000\u0000\u0000"+
-		"\u008a\u0088\u0001\u0000\u0000\u0000\u008a\u0089\u0001\u0000\u0000\u0000"+
-		"\u008b\u0017\u0001\u0000\u0000\u0000\u008c\u008d\u0005 \u0000\u0000\u008d"+
-		"\u008f\u0005\u0002\u0000\u0000\u008e\u0090\u0003\u001a\r\u0000\u008f\u008e"+
-		"\u0001\u0000\u0000\u0000\u008f\u0090\u0001\u0000\u0000\u0000\u0090\u0091"+
-		"\u0001\u0000\u0000\u0000\u0091\u0092\u0005\u0003\u0000\u0000\u0092\u0093"+
-		"\u0005\r\u0000\u0000\u0093\u0019\u0001\u0000\u0000\u0000\u0094\u0099\u0003"+
-		"\u0012\t\u0000\u0095\u0096\u0005\u001c\u0000\u0000\u0096\u0098\u0003\u0012"+
-		"\t\u0000\u0097\u0095\u0001\u0000\u0000\u0000\u0098\u009b\u0001\u0000\u0000"+
-		"\u0000\u0099\u0097\u0001\u0000\u0000\u0000\u0099\u009a\u0001\u0000\u0000"+
-		"\u0000\u009a\u001b\u0001\u0000\u0000\u0000\u009b\u0099\u0001\u0000\u0000"+
-		"\u0000\u009c\u009d\u0005 \u0000\u0000\u009d\u001d\u0001\u0000\u0000\u0000"+
-		"\u009e\u009f\u0005\u001d\u0000\u0000\u009f\u00a0\u0005 \u0000\u0000\u00a0"+
-		"\u00a1\u0005\b\u0000\u0000\u00a1\u00a2\u0003\u0012\t\u0000\u00a2\u00a3"+
-		"\u0005\r\u0000\u0000\u00a3\u001f\u0001\u0000\u0000\u0000\u00a4\u00a5\u0007"+
-		"\u0005\u0000\u0000\u00a5!\u0001\u0000\u0000\u0000\u000e%/>DOdknuy\u0080"+
-		"\u008a\u008f\u0099";
+		"\b\u0001\b\u0005\ba\b\b\n\b\f\bd\t\b\u0001\t\u0001\t\u0001\t\u0001\t\u0001"+
+		"\n\u0003\nk\b\n\u0001\n\u0001\n\u0001\n\u0005\np\b\n\n\n\f\ns\t\n\u0001"+
+		"\u000b\u0001\u000b\u0001\u000b\u0005\u000bx\b\u000b\n\u000b\f\u000b{\t"+
+		"\u000b\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0003\f"+
+		"\u0084\b\f\u0001\r\u0001\r\u0001\u000e\u0001\u000e\u0001\u000e\u0001\u000e"+
+		"\u0001\u000e\u0001\u000e\u0001\u000f\u0001\u000f\u0001\u000f\u0000\u0000"+
+		"\u0010\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018"+
+		"\u001a\u001c\u001e\u0000\u0005\u0001\u0000\f\r\u0001\u0000\u000e\u0013"+
+		"\u0001\u0000\u0014\u0015\u0001\u0000\u0016\u0017\u0001\u0000\u0019\u001a"+
+		"\u0092\u0000#\u0001\u0000\u0000\u0000\u0002-\u0001\u0000\u0000\u0000\u0004"+
+		"/\u0001\u0000\u0000\u0000\u00065\u0001\u0000\u0000\u0000\b>\u0001\u0000"+
+		"\u0000\u0000\nG\u0001\u0000\u0000\u0000\fQ\u0001\u0000\u0000\u0000\u000e"+
+		"W\u0001\u0000\u0000\u0000\u0010]\u0001\u0000\u0000\u0000\u0012e\u0001"+
+		"\u0000\u0000\u0000\u0014j\u0001\u0000\u0000\u0000\u0016t\u0001\u0000\u0000"+
+		"\u0000\u0018\u0083\u0001\u0000\u0000\u0000\u001a\u0085\u0001\u0000\u0000"+
+		"\u0000\u001c\u0087\u0001\u0000\u0000\u0000\u001e\u008d\u0001\u0000\u0000"+
+		"\u0000 \"\u0003\u0002\u0001\u0000! \u0001\u0000\u0000\u0000\"%\u0001\u0000"+
+		"\u0000\u0000#!\u0001\u0000\u0000\u0000#$\u0001\u0000\u0000\u0000$\u0001"+
+		"\u0001\u0000\u0000\u0000%#\u0001\u0000\u0000\u0000&.\u0003\u0004\u0002"+
+		"\u0000\'.\u0003\u0006\u0003\u0000(.\u0003\b\u0004\u0000).\u0003\n\u0005"+
+		"\u0000*.\u0003\f\u0006\u0000+.\u0003\u000e\u0007\u0000,.\u0003\u001c\u000e"+
+		"\u0000-&\u0001\u0000\u0000\u0000-\'\u0001\u0000\u0000\u0000-(\u0001\u0000"+
+		"\u0000\u0000-)\u0001\u0000\u0000\u0000-*\u0001\u0000\u0000\u0000-+\u0001"+
+		"\u0000\u0000\u0000-,\u0001\u0000\u0000\u0000.\u0003\u0001\u0000\u0000"+
+		"\u0000/0\u0005\u0001\u0000\u000001\u0005\u0002\u0000\u000012\u0003\u0010"+
+		"\b\u000023\u0005\u0003\u0000\u000034\u0003\b\u0004\u00004\u0005\u0001"+
+		"\u0000\u0000\u000056\u0005\u0004\u0000\u000067\u0005\u0002\u0000\u0000"+
+		"78\u0003\u0010\b\u000089\u0005\u0003\u0000\u00009<\u0003\b\u0004\u0000"+
+		":;\u0005\u0005\u0000\u0000;=\u0003\b\u0004\u0000<:\u0001\u0000\u0000\u0000"+
+		"<=\u0001\u0000\u0000\u0000=\u0007\u0001\u0000\u0000\u0000>B\u0005\u0006"+
+		"\u0000\u0000?A\u0003\u0002\u0001\u0000@?\u0001\u0000\u0000\u0000AD\u0001"+
+		"\u0000\u0000\u0000B@\u0001\u0000\u0000\u0000BC\u0001\u0000\u0000\u0000"+
+		"CE\u0001\u0000\u0000\u0000DB\u0001\u0000\u0000\u0000EF\u0005\u0007\u0000"+
+		"\u0000F\t\u0001\u0000\u0000\u0000GH\u0003\u001a\r\u0000HL\u0005\b\u0000"+
+		"\u0000IM\u0003\u0014\n\u0000JM\u0003\u0010\b\u0000KM\u0003\u001e\u000f"+
+		"\u0000LI\u0001\u0000\u0000\u0000LJ\u0001\u0000\u0000\u0000LK\u0001\u0000"+
+		"\u0000\u0000MO\u0001\u0000\u0000\u0000NP\u0005\t\u0000\u0000ON\u0001\u0000"+
+		"\u0000\u0000OP\u0001\u0000\u0000\u0000P\u000b\u0001\u0000\u0000\u0000"+
+		"QR\u0005\n\u0000\u0000RS\u0005\u0002\u0000\u0000ST\u0003\n\u0005\u0000"+
+		"TU\u0005\u0003\u0000\u0000UV\u0005\t\u0000\u0000V\r\u0001\u0000\u0000"+
+		"\u0000WX\u0005\u000b\u0000\u0000XY\u0005\u0002\u0000\u0000YZ\u0003\u0014"+
+		"\n\u0000Z[\u0005\u0003\u0000\u0000[\\\u0005\t\u0000\u0000\\\u000f\u0001"+
+		"\u0000\u0000\u0000]b\u0003\u0012\t\u0000^_\u0007\u0000\u0000\u0000_a\u0003"+
+		"\u0012\t\u0000`^\u0001\u0000\u0000\u0000ad\u0001\u0000\u0000\u0000b`\u0001"+
+		"\u0000\u0000\u0000bc\u0001\u0000\u0000\u0000c\u0011\u0001\u0000\u0000"+
+		"\u0000db\u0001\u0000\u0000\u0000ef\u0003\u0014\n\u0000fg\u0007\u0001\u0000"+
+		"\u0000gh\u0003\u0014\n\u0000h\u0013\u0001\u0000\u0000\u0000ik\u0005\u0014"+
+		"\u0000\u0000ji\u0001\u0000\u0000\u0000jk\u0001\u0000\u0000\u0000kl\u0001"+
+		"\u0000\u0000\u0000lq\u0003\u0016\u000b\u0000mn\u0007\u0002\u0000\u0000"+
+		"np\u0003\u0016\u000b\u0000om\u0001\u0000\u0000\u0000ps\u0001\u0000\u0000"+
+		"\u0000qo\u0001\u0000\u0000\u0000qr\u0001\u0000\u0000\u0000r\u0015\u0001"+
+		"\u0000\u0000\u0000sq\u0001\u0000\u0000\u0000ty\u0003\u0018\f\u0000uv\u0007"+
+		"\u0003\u0000\u0000vx\u0003\u0018\f\u0000wu\u0001\u0000\u0000\u0000x{\u0001"+
+		"\u0000\u0000\u0000yw\u0001\u0000\u0000\u0000yz\u0001\u0000\u0000\u0000"+
+		"z\u0017\u0001\u0000\u0000\u0000{y\u0001\u0000\u0000\u0000|}\u0005\u0002"+
+		"\u0000\u0000}~\u0003\u0014\n\u0000~\u007f\u0005\u0003\u0000\u0000\u007f"+
+		"\u0084\u0001\u0000\u0000\u0000\u0080\u0084\u0003\u001a\r\u0000\u0081\u0084"+
+		"\u0003\u001e\u000f\u0000\u0082\u0084\u0005\u001c\u0000\u0000\u0083|\u0001"+
+		"\u0000\u0000\u0000\u0083\u0080\u0001\u0000\u0000\u0000\u0083\u0081\u0001"+
+		"\u0000\u0000\u0000\u0083\u0082\u0001\u0000\u0000\u0000\u0084\u0019\u0001"+
+		"\u0000\u0000\u0000\u0085\u0086\u0005\u001b\u0000\u0000\u0086\u001b\u0001"+
+		"\u0000\u0000\u0000\u0087\u0088\u0005\u0018\u0000\u0000\u0088\u0089\u0005"+
+		"\u001b\u0000\u0000\u0089\u008a\u0005\b\u0000\u0000\u008a\u008b\u0003\u0014"+
+		"\n\u0000\u008b\u008c\u0005\t\u0000\u0000\u008c\u001d\u0001\u0000\u0000"+
+		"\u0000\u008d\u008e\u0007\u0004\u0000\u0000\u008e\u001f\u0001\u0000\u0000"+
+		"\u0000\u000b#-<BLObjqy\u0083";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

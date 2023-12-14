@@ -114,29 +114,4 @@ class GP():
     def print_children(self, child: Node):
         pass
 
-    # def branch(self, node: Node):
-    #     branch=""
-    #     for i in range(node.depth):
-    #         branch += "-"
-    #     return branch
-
-    # def serialize(self, node: Node, program: Program):
-    #     # print(node.children_nodes)
-    #     for child in node.children_nodes:
-    #         if type(child) != float and child.node_type != None:
-    #             branch=""
-    #             for i in range(node.depth):
-    #                 branch += "-"
-    #             print(branch, child, child.node_type)
-    #             self.serialize(child, program)
-    #         else:
-    #             branch=""
-    #             for i in range(program.max_depth):
-    #                 branch += "-"
-
-    #             print(branch, child)
-    #         # if child.children_nodes != None:
-    #         #     self.serialize(child)
-    def deserialize(self, node: Node):
-        pass
         

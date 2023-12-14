@@ -22,12 +22,8 @@ inputStatement: 'input' '(' assignmentStatement ')' ';';
 
 outputStatement: 'output' '(' expression ')' ';';
 
-//condition: expression ('==' | '!=' | '<' | '>' | '<=' | '>=') expression (('&&' | '||') condition)* | boolean ('&&' | '||') boolean (('&&' | '||') condition)*;
-//condition: expressionCondition (('&&' | '||') (expressionCondition | logicCondition))* | logicCondition (('&&' | '||') (expressionCondition | logicCondition))*;
-condition: (expressionCondition | logicCondition) (('&&' | '||') (expressionCondition | logicCondition))*;
+condition: (expressionCondition ) (('&&' | '||') (expressionCondition ))*;
 expressionCondition: expression ('==' | '!=' | '<' | '>' | '<=' | '>=') expression;
-
-logicCondition: boolean ('==' | '!=') boolean;
 
 expression: ('-')? term (('+' | '-') term)*;
 
@@ -35,6 +31,7 @@ term: factor (('*' | '/') factor)*;
 
 factor: '(' expression ')'
       | variable
+      | boolean
       | NUMBER;
 
 variable: ID;

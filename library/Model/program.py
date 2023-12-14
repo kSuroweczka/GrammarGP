@@ -51,15 +51,13 @@ class Program():
         posible_nodes = [NodeType.ASSIGNMENT, NodeType.OUTPUT, NodeType.IF, NodeType.WHILE]
         node_t = random.choice(posible_nodes)
 
-        for i in range(random.randint(2,5)):
-            self.ROOT.add_child(self.createNode(node_t, self.ROOT, 0))
+        for i in range(random.randint(2,4)):
+            self.ROOT.add_child(self.createNode(node_t, self.ROOT))
 
-        
 
     def createIndividual(self):  
         self.growTree()
         # self.runProgram(self.ROOT)
-
 
 
     def createNode(self, type: NodeType, parent: Node, current_depth: int = 0):
@@ -211,7 +209,6 @@ class Program():
                 operation = random.choice(['*', '/'])
             
             out = TermNode(node_type=type, parent_node=parent, left=left, right=right, operation=operation, children_nodes=[])
-            out.depth = current_depth
             left.change_parent(out)
             if right != None:
                 right.change_parent(out)
@@ -269,45 +266,23 @@ class Program():
             rightexpNode.change_parent(expressionConditionNode)
             return expressionConditionNode
 
-        elif type == NodeType.LOGICCONDITION:
-            leftBoolean = random.choice([True, False])
-            operator = random.choice(['!=', '=='])
-            rightBoolean = random.choice([True, False])
-
-            LogicConditionNode = LogicCondition(node_type=type, 
-                                                parent_node=parent,
-                                                children_nodes=[leftBoolean, rightBoolean],
-                                                leftBoolean=leftBoolean,
-                                                rightBoolean=rightBoolean,
-                                                operator=operator
-                                                )
-
-            return LogicConditionNode
         
         elif type == NodeType.CONDITION:
             howMuch = random.choice([1,2])  ### potem dodac 3 i 4
             children =[]
             logicOperators = []
-            expOrlog = random.choice(['exp', 'log'])
-            if expOrlog == 'exp':
-                expressionConditionNode = self.createNode(NodeType.EXPRESSIONCONDITION,  None, current_depth+1)
-                children.append(expressionConditionNode)
-            if expOrlog == 'log':
-                logicConditionNode = self.createNode(NodeType.LOGICCONDITION, None, current_depth+1)
-                children.append(logicConditionNode)
+
+            expressionConditionNode = self.createNode(NodeType.EXPRESSIONCONDITION,  None, current_depth+1)
+            children.append(expressionConditionNode)
+    
 
             for i in range(howMuch-1):
-                expOrlog = random.choice(['exp', 'log'])
                 logicOperator = random.choice(["&&", "||"])
                 logicOperators.append(logicOperator)
-                # logicOperator = self.createNode(NodeType.LOGICOPERATOR, parent, current_depth)
-                # children.append(logicOperator)
-                if expOrlog == 'exp':
-                    expressionConditionNode = self.createNode(NodeType.EXPRESSIONCONDITION,  None, current_depth+1)
-                    children.append(expressionConditionNode)
-                if expOrlog == 'log':
-                    logicConditionNode = self.createNode(NodeType.LOGICCONDITION, None, current_depth+1)
-                    children.append(logicConditionNode)
+
+                expressionConditionNode = self.createNode(NodeType.EXPRESSIONCONDITION,  None, current_depth+1)
+                children.append(expressionConditionNode)
+
 
             conditionNode = ConditionNode(node_type=type, 
                                           parent_node= parent, 
@@ -324,7 +299,6 @@ class Program():
             scope = ScopeNode(node_type=type, parent_node=parent, children_nodes=[])
 
             for i in range(howMuch):
-                # choice = random.choice(['if', 'assignment']) # potem dodac loopstatement
                 choice = random.choice(['assignment', 'if', 'output']) ## na razie tak bo sie robie nieskonczona petla
                 if choice == 'if' and scope.depth < self.max_depth-2:
                     ifNode = self.createNode(NodeType.IF, scope, current_depth+1)
@@ -345,20 +319,19 @@ class Program():
                             parent_node= parent, 
                             children_nodes=children)
             
-            condition = self.createNode(NodeType.CONDITION, None, current_depth+1)
+            condition = self.createNode(NodeType.CONDITION, ifNode, current_depth+1)
             ifNode.add_child(condition)
             ifNode.conditionNode = condition
 
-            ifTrueBody = self.createNode(NodeType.SCOPE, None, current_depth+1)
+            ifTrueBody = self.createNode(NodeType.SCOPE, ifNode, current_depth+1)
             ifNode.add_child(ifTrueBody)
             ifNode.ifBodyNode = ifTrueBody
 
             choice = random.choice([True, False])
             if choice == True:
-                ifFalseBody = self.createNode(NodeType.SCOPE, None, current_depth+1)
+                ifFalseBody = self.createNode(NodeType.SCOPE, ifNode, current_depth+1)
                 ifNode.add_child(ifFalseBody)
                 ifNode.elseBodyNode = ifFalseBody
-
 
             return ifNode
         

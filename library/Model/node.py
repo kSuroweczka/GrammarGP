@@ -75,9 +75,9 @@ class ScopeNode(Node):
 
     def __repr__(self) -> str:
         output = "{\n"
-        spaces = self.depth * "  "
         for child in self.children_nodes:
-            output += f"{spaces} {child}\n" # {: 
+            spaces = child.depth * "  "
+            output += f"{spaces}{child}\n" # {: 
 
         closeSpaces = (self.depth - 2) * "  "
         return output+closeSpaces+"}"
@@ -303,37 +303,6 @@ class ExpressionConditionNode(Node):
         else:
             raise Exception(f"Unknown operation: {self.operator}")
 
-class LogicCondition(Node):
-    def __init__(self, node_type: NodeType, 
-                 parent_node: Node = None, 
-                 children_nodes: list[bool] = [], 
-                 leftBoolean: VarNode | bool = None, 
-                 rightBoolean: VarNode | bool = None,
-                 operator: str=None):
-        super().__init__(node_type, parent_node, children_nodes)
-        self.parent_node = parent_node
-        self.children_nodes = children_nodes
-        self.leftBoolean = leftBoolean
-        self.rightBoolean = rightBoolean
-        self.operator = operator
-        self.value = self.calculate()
-
-    def __repr__(self) -> str:
-        output = ""
-        # for child in self.children_nodes:
-        #     output+=f"{child}"
-        output += f'{self.leftBoolean} '
-        output += self.operator
-        output += f' {self.rightBoolean}'
-        return output
-    
-    def calculate(self):
-        if self.operator == '!=':
-            return self.leftBoolean != self.rightBoolean
-        elif self.operator == '==':
-            return self.leftBoolean == self.rightBoolean
-        else:
-            raise Exception(f"Unknown operation: {self.operator}")
 
 class ConditionNode(Node):
     def __init__(self, node_type: NodeType, 
