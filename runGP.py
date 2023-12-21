@@ -8,6 +8,8 @@ params = Params(max_depth=4, popsize=10)
 
 gp = GP(task_name=task_name, params=params)
 
+# gp.interpret("")
+
 
 gp.print_population()
 

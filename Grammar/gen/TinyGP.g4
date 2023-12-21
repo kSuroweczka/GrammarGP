@@ -1,5 +1,5 @@
 grammar TinyGP;
-
+///usunac ; ??
 program: statement*;
 
 statement: loopStatement
@@ -7,8 +7,7 @@ statement: loopStatement
          | compoundStatement
          | assignmentStatement
          | inputStatement
-         | outputStatement
-         | constant;
+         | outputStatement;
 
 loopStatement: 'while' '(' condition ')' compoundStatement;
 
@@ -16,11 +15,11 @@ conditionalStatement: 'if' '(' condition ')' compoundStatement ('else' compoundS
 
 compoundStatement: '{' statement* '}';
 
-assignmentStatement: variable '=' (expression | condition | boolean) (';')? ;
+assignmentStatement: variable '=' ('(')? (condition | expression | inputStatement) (')')? (';')? ;
 
-inputStatement: 'input' '(' assignmentStatement ')' ';';
+inputStatement: 'input' '(' ')' (';')?;
 
-outputStatement: 'output' '(' expression ')' ';';
+outputStatement: 'output' '(' (variable | NUMBER) ')' (';')?;
 
 condition: (expressionCondition ) (('&&' | '||') (expressionCondition ))*;
 expressionCondition: expression ('==' | '!=' | '<' | '>' | '<=' | '>=') expression;
@@ -36,11 +35,9 @@ factor: '(' expression ')'
 
 variable: ID;
 
-constant: 'const' ID '=' expression ';' ;
+ID: [a-zA-Z][a-zA-Z0-9_]*;
 
-ID: [a-zA-Z][a-zA-Z0-9]*;
-
-NUMBER: ([0-9]+);
+NUMBER: ([0-9]+.[0-9]+);
 
 boolean: 'true' | 'false';
 

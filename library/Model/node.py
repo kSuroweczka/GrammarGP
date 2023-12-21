@@ -176,7 +176,7 @@ class ExpressionNode(Node):
     def __repr__(self):
         if self.operation is None:
             return f"{self.left}"
-        return f"( {self.left} {self.operation} {self.right} )"
+        return f" {self.left} {self.operation} {self.right} )"
 
 
 class VarNode(Node):
@@ -234,7 +234,7 @@ class AssignmentNode(Node):
         if self.var == None:
             return "dupa jasia"
         
-        return f"{self.var.name} = {self.body} (value: {self.value})" # 
+        return f"{self.var.name} = {self.body} " # (value: {self.value})
 
 
 
@@ -325,7 +325,7 @@ class ConditionNode(Node):
             output+=f' {self.children_nodes[i]} '
             if i!=len(self.children_nodes)-1:
                 output+=self.logicOperators[i]
-        return output+" ) (value: "+ str(self.value) + ")"
+        return output+" )" # (value: "+ str(self.value) + ")"
     
     def calculate(self):
         value = self.children_nodes[0].value
