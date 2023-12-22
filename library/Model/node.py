@@ -77,7 +77,7 @@ class ScopeNode(Node):
         output = "{\n"
         for child in self.children_nodes:
             spaces = child.depth * "  "
-            output += f"{spaces}{child}\n" # {: 
+            output += f"{spaces}{child}\n"
 
         closeSpaces = (self.depth - 2) * "  "
         return output+closeSpaces+"}"
@@ -111,7 +111,7 @@ class FactorNode(Node):
     def __repr__(self):
         if isinstance(self.body, VarNode) | isinstance(self.body, bool):
             return f"{self.body}"
-        return f"( {self.value} )"
+        return f"({self.value})"
 
     
 
@@ -176,7 +176,7 @@ class ExpressionNode(Node):
     def __repr__(self):
         if self.operation is None:
             return f"{self.left}"
-        return f" {self.left} {self.operation} {self.right} )"
+        return f"( {self.left} {self.operation} {self.right} )"
 
 
 class VarNode(Node):

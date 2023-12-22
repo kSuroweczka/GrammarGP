@@ -17,7 +17,7 @@ compoundStatement: '{' statement* '}';
 
 assignmentStatement: variable '=' ('(')? (condition | expression | inputStatement) (')')? (';')? ;
 
-inputStatement: 'input' '(' ')' (';')?;
+inputStatement: 'input()' (';')?;
 
 outputStatement: 'output' '(' (variable | NUMBER) ')' (';')?;
 
