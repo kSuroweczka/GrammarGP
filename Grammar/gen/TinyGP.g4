@@ -9,19 +9,19 @@ statement: loopStatement
          | inputStatement
          | outputStatement;
 
-loopStatement: 'while' '(' condition ')' compoundStatement;
+loopStatement: 'while'  condition  compoundStatement; ////usunelam nawiasy
 
-conditionalStatement: 'if' '(' condition ')' compoundStatement ('else' compoundStatement)?;
+conditionalStatement: 'if'  condition compoundStatement ('else' compoundStatement)?;
 
 compoundStatement: '{' statement* '}';
 
-assignmentStatement: variable '=' ('(')? (condition | expression | inputStatement) (')')? (';')? ;
+assignmentStatement: variable '='  (condition | expression | inputStatement) (';')? ;
 
 inputStatement: 'input()' (';')?;
 
 outputStatement: 'output' '(' (variable | NUMBER) ')' (';')?;
 
-condition: (expressionCondition ) (('&&' | '||') (expressionCondition ))*;
+condition: ('(')(expressionCondition ) (('&&' | '||') (expressionCondition ))* (')');
 expressionCondition: expression ('==' | '!=' | '<' | '>' | '<=' | '>=') expression;
 
 expression: ('-')? term (('+' | '-') term)*;

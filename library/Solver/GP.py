@@ -194,13 +194,13 @@ class GP():
 
     def deserialize(self, node: Node):
         pass
-    ### nie moze byc x_1 = (expression) !! --- zmien w gramatyce
-    def interpret(self, input_data, variables, input_1):
-        input_example = input_data # "{x_1 = input() while (x_1 <2.0){ output(x_1) x_1 = x_1 + 1.0 } }"
-        var = {"x_0": None, "x_1": None}
 
-        input = InputStream(input_example)
-        print("TRER ", input_example)
+    def interpret(self, input_data, variables, input_1):
+        # var = {"x_0": None, "x_1": None}
+        # input_example=input_data
+
+        input = InputStream(input_data)
+        # print("TRER ", input_example)
         lexer = TinyGPLexer(input)
 
         stream = CommonTokenStream(lexer)
