@@ -18,6 +18,7 @@ class Program():
     min_rand: int
     max_rand: int
     ROOT: ScopeNode
+    str_program: str
 
 
     def __init__(self, id: int, task: Task, max_depth: int, min_rand: int = -5, max_rand: int = 5, input_data: list[float] = []):
@@ -35,11 +36,12 @@ class Program():
         self.max_rand = max_rand
         self.ROOT = ScopeNode(NodeType.SCOPE, None, [])
         self.input_index = 0
+        self.str_program = ""
 
 
     def __repr__(self):
-        print(self.ROOT)
-        return ""
+        self.str_program = self.ROOT.__repr__().replace('\n', '').strip()
+        return self.ROOT.__repr__()
 
     # TO DO
     def runProgram(self, node: Node):
@@ -48,14 +50,14 @@ class Program():
 
     #TO DO
     def growTree(self):
-        posible_nodes = [NodeType.ASSIGNMENT, NodeType.OUTPUT, NodeType.IF, NodeType.WHILE]
+        posible_nodes = [NodeType.ASSIGNMENT] #, NodeType.OUTPUT, NodeType.IF, NodeType.WHILE
         node_t = random.choice(posible_nodes)
 
         for i in range(random.randint(2,4)):
             self.ROOT.add_child(self.createNode(node_t, self.ROOT))
 
 
-    def createIndividual(self):  
+    def createIndividual(self):
         self.growTree()
         # self.runProgram(self.ROOT)
 
