@@ -14,8 +14,10 @@ class TinyGPVisitor(ParseTreeVisitor):
     def __init__(self, variables:dict, input:list):
         self.variables = variables
         self.input = input
-        self.actual_input = input[0]
+        self.actual_input = None
         self.output = []
+        self.limit = 100
+        self.instruction_counter = 0
 
     # Visit a parse tree produced by TinyGPParser#program.
     def visitProgram(self, ctx:TinyGPParser.ProgramContext):
@@ -53,30 +55,49 @@ class TinyGPVisitor(ParseTreeVisitor):
     # Visit a parse tree produced by TinyGPParser#assignmentStatement.
     def visitAssignmentStatement(self, ctx:TinyGPParser.AssignmentStatementContext):
         # print("ASSIGNMENT ", ctx.getText())
-        result = self.visitChildren(ctx)
-        if ctx.getChild(0).getText() in self.variables:
-            self.variables.update({ctx.getChild(0).getText(): result})
+        if self.instruction_counter < self.limit:
+            self.instruction_counter+=1
+            result = self.visitChildren(ctx)
+            if ctx.getChild(0).getText() in self.variables:
+                self.variables.update({ctx.getChild(0).getText(): result})
+        else:
+            print("***********************")
+            print("LIMIT INSTRUKCJI WYCZERPANY!!!!")
+            print("Liczba instrukcji: ", self.instruction_counter)
+            exit(0)
         # return self.visitChildren(ctx)
 
 
     # Visit a parse tree produced by TinyGPParser#inputStatement.
     def visitInputStatement(self, ctx:TinyGPParser.InputStatementContext): #### tutaj uzupełnić
         # print('Input')
-        input = self.actual_input
-        if input == self.input[0]:
-            self.actual_input = self.input[1]
-            return float(input)
-        else:
+        input_length = len(self.input)
+
+        if self.actual_input == None:
             self.actual_input = self.input[0]
-            return float(input)
-        # return self.visitChildren(ctx)
+            return float(self.input[0])
+        elif self.actual_input == self.input[input_length-1]:
+            self.actual_input = self.input[0]
+            return float(self.input[0])
+        else:
+            index = self.input.index(self.actual_input)
+            self.actual_input = self.input[index+1]
+            return float(self.input[index+1])
+
 
 
     # Visit a parse tree produced by TinyGPParser#outputStatement.
     def visitOutputStatement(self, ctx:TinyGPParser.OutputStatementContext):#### tutaj uzupełnić
         # print("Output")
-        self.output.append(self.variables.get(ctx.getChild(2).getText()))
-        print("OUTPUT:   ",self.variables.get(ctx.getChild(2).getText()))
+        if self.instruction_counter < self.limit:
+            self.instruction_counter+=1
+            self.output.append(self.variables.get(ctx.getChild(2).getText()))
+            print("OUTPUT:   ",self.variables.get(ctx.getChild(2).getText()))
+        else:
+            print("***********************")
+            print("LIMIT INSTRUKCJI WYCZERPANY!!!!")
+            print("Liczba instrukcji: ", self.instruction_counter)
+            exit(0)
         # return self.visitChildren(ctx)
 
 
@@ -124,19 +145,33 @@ class TinyGPVisitor(ParseTreeVisitor):
     # Visit a parse tree produced by TinyGPParser#expression.
     def visitExpression(self, ctx:TinyGPParser.ExpressionContext):
         # print("EXPRESSION")
-        result = float(self.visitTerm(ctx.getChild(0)))
-        if ctx.getChildCount() > 1:
-            operator = None
-            for i in range(1, ctx.getChildCount()):
-                if i % 2 == 1:
-                    operator = ctx.getChild(i).getText()
-                if i % 2 == 0:
-                    if operator == "+":
-                        result= result + float(self.visitTerm(ctx.getChild(i)))
-                    if operator == "-":
-                        result = result - float(self.visitTerm(ctx.getChild(i)))
-        # print("WYNIK EXPRESSION: ", result)
-        return result
+        if ctx.getChild(0).getText() == "-":
+            result = float(self.visitTerm(ctx.getChild(1)))
+            if ctx.getChildCount() > 1:
+                operator = None
+                for i in range(2, ctx.getChildCount()):
+                    if i % 2 == 0:
+                        operator = ctx.getChild(i).getText()
+                    if i % 2 == 1:
+                        if operator == "+":
+                            result = result + float(self.visitTerm(ctx.getChild(i)))
+                        if operator == "-":
+                            result = result - float(self.visitTerm(ctx.getChild(i)))
+            return (-1)*result
+        else:
+            result = float(self.visitTerm(ctx.getChild(0)))
+            if ctx.getChildCount() > 1:
+                operator = None
+                for i in range(1, ctx.getChildCount()):
+                    if i % 2 == 1:
+                        operator = ctx.getChild(i).getText()
+                    if i % 2 == 0:
+                        if operator == "+":
+                            result= result + float(self.visitTerm(ctx.getChild(i)))
+                        if operator == "-":
+                            result = result - float(self.visitTerm(ctx.getChild(i)))
+            # print("WYNIK EXPRESSION: ", result)
+            return result
         # return self.visitChildren(ctx)
 
 
