@@ -10,7 +10,7 @@ from antlr4 import *
 import numpy as np
 
 
-class GP():
+class GP:
     name: str
     population: list[Program]
     best: Program
@@ -21,7 +21,7 @@ class GP():
     task: Task
     test_cases: list[TestCase] # list of TestCase objects from library/Tasks/task.py
     generation: int
-    tournament_size: int = 2
+    tournament_size: int
 
     def __init__(self, task_name: str, set_seed: int | None = None, params: Params | None = None):
         self.population = []
@@ -35,7 +35,6 @@ class GP():
         self.population = self.create_population(self.task, self.params)
         self.test_cases = []
         self.tournament_size = 2
-
 
 
     def get_task_cases(self):
@@ -74,9 +73,6 @@ class GP():
         vars += " }"
         print(f'{vars}\n')
 
-        print("Program in one line:")
-        print(self.population[index].str_program)
-
         output = self.interpret(self.population[index].str_program, var_dict, self.population[index].input_data)
         self.population[index].output_data = output
 
@@ -105,6 +101,9 @@ class GP():
     
     # TO DO
     def evalate(self):
+        if self.generation < self.params.generations:
+            print()
+
         # check if best_individual solve the case
         # if not -> random: mutation / crossover
         # calculate new fitnesses
@@ -126,8 +125,8 @@ class GP():
         task_cases = self.task.test_cases[index]
         if len(task_cases.output_data) == 0 or len(individual.output_data) == 0 or len(task_cases.output_data) != len(individual.output_data):
             return 0.0
-        # print("task_cases: ", task_cases.output_data[0])
-        # print("individual: ", individual.output_data[0])
+        print("task_cases: ", task_cases.output_data[0])
+        print("individual: ", individual.output_data[0])
         received = np.array(individual.output_data)
         expected = np.array(task_cases.output_data)
         self.fitnesses.append((-1) * np.abs(expected - received))
@@ -170,8 +169,8 @@ class GP():
 
     def interpret(self, input_data, variables, input_1):
         var = variables
-        # input_example=input_data
-        input_example = "x_0 = input() output(-6.0) while(x_0 < 200.0) { x_0 = x_0 + 1.0 output(x_0)}}"
+        input_example = input_data
+        # input_example = "x_0 = input() output(-6.0) while(x_0 < 200.0) { x_0 = x_0 + 1.0 output(x_0)}}"
 
         input = InputStream(input_example)
         # print("TRER ", input_example)

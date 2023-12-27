@@ -14,8 +14,8 @@ class TinyGPVisitor(ParseTreeVisitor):
     def __init__(self, variables:dict, input:list):
         self.variables = variables
         self.input = input
-        self.actual_input = None
         self.output = []
+        self.input_index = 0
         self.limit = 100
         self.instruction_counter = 0
 
@@ -75,16 +75,17 @@ class TinyGPVisitor(ParseTreeVisitor):
         # print('Input')
         input_length = len(self.input)
 
-        if self.actual_input == None:
-            self.actual_input = self.input[0]
-            return float(self.input[0])
-        elif self.actual_input == self.input[input_length-1]:
-            self.actual_input = self.input[0]
-            return float(self.input[0])
-        else:
-            index = self.input.index(self.actual_input)
-            self.actual_input = self.input[index+1]
-            return float(self.input[index+1])
+        value = 0.0
+
+        if input_length != 0:
+            if self.input_index != input_length:
+                value = self.input[self.input_index]
+            else:
+                self.input_index = 0
+                value = self.input[self.input_index]
+
+        self.input_index += 1
+        return float(value)
 
 
 
