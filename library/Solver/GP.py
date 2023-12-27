@@ -196,10 +196,11 @@ class GP():
         pass
 
     def interpret(self, input_data, variables, input_1):
-        # var = {"x_0": None, "x_1": None}
+        var = {"x_0": None, "x_1": None}
         # input_example=input_data
+        input_example = "x_0 = input() output(1.0) while(x_0 < 200.0) { x_0 = x_0 + 1.0 output(x_0)}}"
 
-        input = InputStream(input_data)
+        input = InputStream(input_example)
         # print("TRER ", input_example)
         lexer = TinyGPLexer(input)
 
@@ -210,7 +211,7 @@ class GP():
         except:
             print("Error")
             return None
-        visitor = TinyGPVisitor(variables, input_1)
+        visitor = TinyGPVisitor(var, input_1)
 
         visitor.visit(tree)
         print("output: ", visitor.output)
