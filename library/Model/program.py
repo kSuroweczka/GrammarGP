@@ -38,37 +38,33 @@ class Program():
         self.input_index = 0
         self.str_program = ""
 
-
     def __repr__(self):
         self.str_program = self.ROOT.__repr__().replace('\n', '').strip()
         return self.ROOT.__repr__()
 
-    # TO DO
-    def runProgram(self, node: Node):
-        pass
-
-
-    #TO DO
     def growTree(self):
-        posible_nodes = [NodeType.ASSIGNMENT] #, NodeType.OUTPUT, NodeType.IF, NodeType.WHILE
+        posible_nodes = [NodeType.ASSIGNMENT, NodeType.OUTPUT, NodeType.IF, NodeType.WHILE]
         node_t = random.choice(posible_nodes)
 
         for i in range(random.randint(2,4)):
             self.ROOT.add_child(self.createNode(node_t, self.ROOT))
 
-
     def createIndividual(self):
         self.growTree()
-        # self.runProgram(self.ROOT)
 
 
     def createNode(self, type: NodeType, parent: Node, current_depth: int = 0):
         if type == NodeType.INPUT:
             input = InputNode(node_type=type, parent_node=parent)
-            if self.input_index == self.input_data.__len__():
-                self.input_index = 0
-            value = self.input_data[self.input_index]
-        
+            value = 0.0
+
+            if self.input_data.__len__() != 0:
+                if self.input_index != self.input_data.__len__():
+                    value = self.input_data[self.input_index]
+                else:
+                    self.input_index = 0
+                    value = self.input_data[self.input_index]
+
             input.value = value
             self.input_index += 1
             return input

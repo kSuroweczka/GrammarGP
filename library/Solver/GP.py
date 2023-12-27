@@ -168,37 +168,10 @@ class GP():
         return worst
 
 
-    # def branch(self, node: Node):
-    #     branch=""
-    #     for i in range(node.depth):
-    #         branch += "-"
-    #     return branch
-
-    # def serialize(self, node: Node, program: Program):
-    #     # print(node.children_nodes)
-    #     for child in node.children_nodes:
-    #         if type(child) != float and child.node_type != None:
-    #             branch=""
-    #             for i in range(node.depth):
-    #                 branch += "-"
-    #             print(branch, child, child.node_type)
-    #             self.serialize(child, program)
-    #         else:
-    #             branch=""
-    #             for i in range(program.max_depth):
-    #                 branch += "-"
-
-    #             print(branch, child)
-    #         # if child.children_nodes != None:
-    #         #     self.serialize(child)
-
-    def deserialize(self, node: Node):
-        pass
-
     def interpret(self, input_data, variables, input_1):
-        var = {"x_0": None, "x_1": None}
-        # input_example=input_data
-        input_example = "x_0 = input() output(1.0) while(x_0 < 200.0) { x_0 = x_0 + 1.0 output(x_0)}}"
+        var = variables
+        input_example=input_data
+        # input_example = "x_0 = input() output(1.0) while(x_0 < 200.0) { x_0 = x_0 + 1.0 output(x_0)}}"
 
         input = InputStream(input_example)
         # print("TRER ", input_example)

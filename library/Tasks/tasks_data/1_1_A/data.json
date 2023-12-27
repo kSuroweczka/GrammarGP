@@ -6,7 +6,7 @@
     "max_output_length": 5,
     "test_cases": [
         {
-            "input": [2.0, 3.0],
+            "input": [1.0, 2.0],
             "output": [1.0]
         }
     ]

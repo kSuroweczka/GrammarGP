@@ -113,7 +113,6 @@ class FactorNode(Node):
             return f"{self.body}"
         return f"({self.value})"
 
-    
 
 class TermNode(Node):
     def __init__(self, node_type: NodeType, parent_node: Node, 
@@ -139,10 +138,9 @@ class TermNode(Node):
             left = self.left.value
             if right == 0:
                 return left
-            return  left / right
+            return left / right
         else:
             raise Exception(f"Unknown operation: {self.operation}")
-    
         
     def __repr__(self):
         if self.operation is None:
