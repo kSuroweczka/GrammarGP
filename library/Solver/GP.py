@@ -78,6 +78,7 @@ class GP():
         print(self.population[index].str_program)
 
         output = self.interpret(self.population[index].str_program, var_dict, self.population[index].input_data)
+        print(output)
         self.population[index].output_data = output
 
         print("\nInput data:")
@@ -188,6 +189,8 @@ class GP():
 
         visitor.visit(tree)
         print("output: ", visitor.output)
+        if visitor.instruction_counter == 100:
+            return 100000
         return visitor.output
 
         # return visitor.visit(tree)
