@@ -170,8 +170,8 @@ class GP():
 
     def interpret(self, input_data, variables, input_1):
         var = variables
-        input_example=input_data
-        # input_example = "x_0 = input() output(1.0) while(x_0 < 200.0) { x_0 = x_0 + 1.0 output(x_0)}}"
+        # input_example=input_data
+        input_example = "x_0 = input() output(-6.0) while(x_0 < 200.0) { x_0 = x_0 + 1.0 output(x_0)}}"
 
         input = InputStream(input_example)
         # print("TRER ", input_example)
