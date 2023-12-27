@@ -66,7 +66,7 @@ class TinyGPVisitor(ParseTreeVisitor):
             print("***********************")
             print("LIMIT INSTRUKCJI WYCZERPANY!!!!")
             print("Liczba instrukcji: ", self.instruction_counter)
-            # exit(0)
+            raise Exception("Przekroczono limit instrukcji")
         # return self.visitChildren(ctx)
 
 
@@ -103,7 +103,7 @@ class TinyGPVisitor(ParseTreeVisitor):
             print("***********************")
             print("LIMIT INSTRUKCJI WYCZERPANY!!!!")
             print("Liczba instrukcji: ", self.instruction_counter)
-            # exit(0)
+            raise Exception("Przekroczono limit instrukcji")
         # return self.visitChildren(ctx)
 
 

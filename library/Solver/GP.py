@@ -78,7 +78,6 @@ class GP():
         print(self.population[index].str_program)
 
         output = self.interpret(self.population[index].str_program, var_dict, self.population[index].input_data)
-        print(output)
         self.population[index].output_data = output
 
         print("\nInput data:")
@@ -185,14 +184,12 @@ class GP():
         except:
             print("Error")
             return None
-        visitor = TinyGPVisitor(var, input_1)
 
-        visitor.visit(tree)
-        print("output: ", visitor.output)
-        if visitor.instruction_counter == 100:
+        try:
+            visitor = TinyGPVisitor(var, input_1)
+            visitor.visit(tree)
+            return visitor.output
+        except:
             return 100000
-        return visitor.output
-
-        # return visitor.visit(tree)
 
         
