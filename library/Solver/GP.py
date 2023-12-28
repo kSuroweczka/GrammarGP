@@ -73,9 +73,7 @@ class GP:
         vars += " }"
         print(f'{vars}\n')
 
-        output = self.interpret(self.population[index].str_program, var_dict, self.population[index].input_data)
-        self.population[index].output_data = output
-
+        self.population[index].output_data = self.interpret(self.population[index].str_program, var_dict, self.population[index].input_data)
         print("\nInput data:")
         print(self.population[index].input_data)
 
@@ -123,6 +121,8 @@ class GP:
     def single_fitness(self, individual: Program):
         index = random.randint(0, len(self.task.test_cases) - 1)
         task_cases = self.task.test_cases[index]
+        print("task_casecdds: ", len(task_cases.input_data))
+        print("individuasdsdl: ", len(individual.input_data))
         if len(task_cases.output_data) == 0 or len(individual.output_data) == 0 or len(task_cases.output_data) != len(individual.output_data):
             return 0.0
         print("task_cases: ", task_cases.output_data[0])
@@ -132,10 +132,94 @@ class GP:
         self.fitnesses.append((-1) * np.abs(expected - received))
         return (-1) * np.abs(expected - received)
 
+    def single_fitness_1_1(self, where: int, only: bool, individual: Program):
+        fitness = -100.0
+        print("\n")
+        print("SINGLE FITNESS 1_1")
+        print("individual: ", individual.output_data)
+        expected = self.task.test_cases[0].output_data[0]
+
+        if type(individual.output_data) == list:
+            if len(individual.output_data) == 0:
+                # print("pusta lista, ", individual.output_data)
+                fitness = -10.0
+            elif individual.output_data == expected or expected in individual.output_data:
+                if where == None:
+                    if only:
+                        if len(individual.output_data) == 1:
+                            fitness = (-1)*np.abs(expected - individual.output_data[0])
+                            # print("fitness gdy only i len == 1: ", fitness)
+                        else:
+                            avg = np.average(individual.output_data)
+                            fitness = (-1)*np.abs(avg)
+                            # print("fitness only i len!=1: ", fitness)
+                    else:
+                        fitness = 0.0
+                else:
+                    if individual.output_data[where] == expected:
+                        fitness = 0.0
+                    else:
+                        fitness = (-1)*np.abs(expected - individual.output_data[where])
+            elif expected not in individual.output_data and where == None:
+                sub = np.abs(np.subtract(expected, individual.output_data))
+                fitness = (-1)*np.min(sub)
+                # print("nie ma w liscie, ", fitness)
+        print("single fitness: ", fitness)
+        return fitness
+
+
+    def single_fitness_1_2(self, individual: Program):
+        #### operation, min i max przedziału w pliku task
+        print("\n")
+        print("SINGLE FITNESS 1_2")
+        print("individual: ", individual.output_data)
+
+        output = individual.output_data
+        expected = self.task.test_cases[0].output_data
+        fitness = -100.0
+
+        if len(output) == 0:
+            fitness = -10.0
+        elif len(output) == 1:
+            if output[0] == expected[0]:
+                fitness = 0.0
+            else:
+                fitness = (-1)*np.abs(expected[0] - output[0])
+        elif len(output) > 1:
+            avg = np.average(output)
+            fitness = (-1)*np.abs(avg - expected[0])
+        print("single fitness: ", fitness)
+        return fitness
+
+    def single_fitness_1_3(self, list_on_input: list, operator: str, min: float, max: float):
+        ### to co w single_fitness_1_2 raczej wystarczy
+        pass
+    def single_fitness_1_4(self, individual: Program):
+        ### w sumie to to samo co w single_fitness_1_2
+        print("\n")
+        print("SINGLE FITNESS 1_4")
+        print("individual: ", individual.output_data)
+        output = individual.output_data
+        expected = self.task.test_cases[0].output_data
+        fitness = -100.0
+        if len(output) == 0:
+            fitness = -10.0
+        elif len(output) == 1:
+            if output == expected:
+                fitness = 0.0
+            else:
+                fitness = (-1)*np.abs(output[0] - expected[0])
+        elif len(output) > 1:
+            avg = int(np.average(output))
+            fitness = (-1)*np.abs(avg - expected[0])
+        print("single fitness: ", fitness)
+        return fitness
+
+
     def fitness_function(self):
         fit = 0.0
         for individual in self.population:
-            fit += self.single_fitness(individual)
+            fit += self.single_fitness_1_4(individual)
         print(f"FITNESS: {fit}")
         return fit
 
@@ -189,6 +273,6 @@ class GP:
             visitor.visit(tree)
             return visitor.output
         except:
-            return 100000
+            return [-100.0]
 
         
