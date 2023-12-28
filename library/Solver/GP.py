@@ -61,12 +61,10 @@ class GP:
         return pop
     
     def print_individual(self, index: int):
-        individual = ""
         print("---------------------")
         print(f"Individual: {self.population[index].id}\n")
         print("Program: ")
         print(self.population[index])
-        individual = self.population[index].__repr__()
 
         print("Variables:")
         var_dict = {}
@@ -86,7 +84,6 @@ class GP:
         print(self.population[index].output_data)
         print("---------------------\n")
 
-        return individual
 
     def print_population(self):
         print(f"Task: {self.name}")
@@ -114,7 +111,6 @@ class GP:
 
             self.fitness(fitness_function)
             best_index, best_fitness = self.best_individual_fitness()
-            self.print_individual(best_index)
             if best_fitness == 0.0:
                 print("Problem solved!\n")
                 self.print_individual(best_index)
