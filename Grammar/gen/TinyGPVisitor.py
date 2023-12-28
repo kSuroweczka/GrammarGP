@@ -96,10 +96,10 @@ class TinyGPVisitor(ParseTreeVisitor):
             self.instruction_counter+=1
             if ctx.getChild(2).getText() in self.variables:
                 self.output.append(self.variables.get(ctx.getChild(2).getText()))
-                print("OUTPUT:   ",self.variables.get(ctx.getChild(2).getText()))
+                # print("OUTPUT:   ",self.variables.get(ctx.getChild(2).getText()))
             else:
                 self.output.append(float(ctx.getChild(2).getText()))
-                print("OUTPUT:   ",float(ctx.getChild(2).getText()))
+                # print("OUTPUT:   ",float(ctx.getChild(2).getText()))
         else:
             print("***********************")
             print("LIMIT INSTRUKCJI WYCZERPANY!!!!")

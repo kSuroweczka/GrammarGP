@@ -2,9 +2,9 @@ import os
 import random
 from library.Tasks.task import Task, TestCase
 from library.Model.node import *
-from library.Solver.params import Params
 
-class Program():
+
+class Program:
     id: int
     name: str
     variables: dict[str, VarNode]
@@ -19,7 +19,6 @@ class Program():
     max_rand: int
     ROOT: ScopeNode
     str_program: str
-
 
     def __init__(self, id: int, task: Task, max_depth: int, min_rand: int = -5, max_rand: int = 5, input_data: list[float] = []):
         self.id = id
@@ -208,7 +207,7 @@ class Program():
             
             out = TermNode(node_type=type, parent_node=parent, left=left, right=right, operation=operation, children_nodes=[])
             left.change_parent(out)
-            if right != None:
+            if right is not None:
                 right.change_parent(out)
             out.add_child(left)
             out.add_child(right)
@@ -242,11 +241,8 @@ class Program():
                 out = FactorNode(node_type=type, parent_node=parent, body=var, children_nodes=[])
                 out.add_child(var)
 
-
             self.mutable_nodes.append(out)
             return out
-        
-        
 
         elif type == NodeType.EXPRESSIONCONDITION:
             leftexpNode = self.createNode(NodeType.EXPRESSION, None, current_depth+1)
@@ -269,10 +265,8 @@ class Program():
             howMuch = random.choice([1,2])  ### potem dodac 3 i 4
             children =[]
             logicOperators = []
-
             expressionConditionNode = self.createNode(NodeType.EXPRESSIONCONDITION,  None, current_depth+1)
             children.append(expressionConditionNode)
-    
 
             for i in range(howMuch-1):
                 logicOperator = random.choice(["&&", "||"])
@@ -280,7 +274,6 @@ class Program():
 
                 expressionConditionNode = self.createNode(NodeType.EXPRESSIONCONDITION,  None, current_depth+1)
                 children.append(expressionConditionNode)
-
 
             conditionNode = ConditionNode(node_type=type, 
                                           parent_node= parent, 
