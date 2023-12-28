@@ -1,35 +1,10 @@
-## createNode
-1. FACTOR:
-    - używanie zmiennych i stałych
-    - ładnie wyświetlać zmienne
-2. OUTPUT:
-3. WHILE
-4. IF ELSE
-5. BOOL
-
 ## MUTACJE, CROSSOVER, etc
 Nie muszą jeszcze interpretować programów tylko podmieniać poddrzewa etc.
 
 ## copyProgram?
 Może nie będzie konieczne ale może się przyda przy mutacjach itd
 
-## runProgram
-Interpreter drzewa:
-- zmienne żeby działały
-- output 
-itd
+## Zapisywanie wyniku do pliku:
 
-Odtwarzanie drzewa -> coś jak createNode ale wartości pochodzą z instniejącego programu
-
-## gramatyka
-- x_0 = 4 > x_1 && ...
-
-
-
-## ilość intrukcji np przy rekurencji 
-
-## input 
-wartości do inputu w pliku  -> DONE
-interpreter wczytuje kolejną wartość z pliku jak natrafi na input   -> DONE
-
-## TinyGP - wysłać do końca tygodnia
+path -> ../Tasks/outputs/self.name/result.txt  
+self.name -> w GP jest taki parametr i jest to nazwa testu np.: 1_1_A
