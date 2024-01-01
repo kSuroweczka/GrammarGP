@@ -32,25 +32,22 @@ class TinyGPVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by TinyGPParser#loopStatement.
     def visitLoopStatement(self, ctx:TinyGPParser.LoopStatementContext):
-        # print("LOOP")
         condition = self.visitCondition(ctx.getChild(1))
-        while condition == True:
+        while condition and self.instruction_counter < self.limit:
             self.visitCompoundStatement(ctx.getChild(2))
             condition = self.visitCondition(ctx.getChild(1))
 
     # Visit a parse tree produced by TinyGPParser#conditionalStatement.
     def visitConditionalStatement(self, ctx:TinyGPParser.ConditionalStatementContext):
-        # print("Conditionalstatement")
         condition = self.visitCondition(ctx.getChild(1))
-        if condition == True:
+        if condition:
             return self.visitCompoundStatement(ctx.getChild(2))
-        if condition == False and ctx.getChildCount() == 5:
+        if condition is False and ctx.getChildCount() == 5:
             return self.visitCompoundStatement(ctx.getChild(4))
 
 
     # Visit a parse tree produced by TinyGPParser#compoundStatement.
     def visitCompoundStatement(self, ctx:TinyGPParser.CompoundStatementContext):
-        # print("Coumpandstatement")
         return self.visitChildren(ctx)
 
 
@@ -63,9 +60,6 @@ class TinyGPVisitor(ParseTreeVisitor):
             if ctx.getChild(0).getText() in self.variables:
                 self.variables.update({ctx.getChild(0).getText(): result})
         else:
-            print("***********************")
-            print("LIMIT INSTRUKCJI WYCZERPANY!!!!")
-            print("Liczba instrukcji: ", self.instruction_counter)
             raise Exception("Przekroczono limit instrukcji")
         # return self.visitChildren(ctx)
 
@@ -101,9 +95,6 @@ class TinyGPVisitor(ParseTreeVisitor):
                 self.output.append(float(ctx.getChild(2).getText()))
                 # print("OUTPUT:   ",float(ctx.getChild(2).getText()))
         else:
-            print("***********************")
-            print("LIMIT INSTRUKCJI WYCZERPANY!!!!")
-            print("Liczba instrukcji: ", self.instruction_counter)
             raise Exception("Przekroczono limit instrukcji")
         # return self.visitChildren(ctx)
 

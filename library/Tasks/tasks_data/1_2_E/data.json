@@ -1,0 +1,21 @@
+{
+    "name": "1_2_E",
+    "min_input_length": 0,
+    "max_input_length": 0,
+    "min_output_length": 1,
+    "max_output_length": 1,
+    "test_cases": [
+        {
+            "input": [-3482.0, 285.0],
+            "output": []
+        },
+        {
+            "input": [-874.0, -2673.0],
+            "output": []
+        },
+        {
+            "input": [2946.0, 56.0],
+            "output": [3002.0]
+        }
+    ]
+}

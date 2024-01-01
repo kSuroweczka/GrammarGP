@@ -1,7 +1,5 @@
 from contextlib import redirect_stdout
 
-import numpy
-
 from library.Model.program import Program
 from library.Solver.params import Params
 from library.Tasks.task import Task, TestCase
@@ -41,7 +39,6 @@ class GP:
         self.test_cases = []
         self.tournament_size = 2
 
-
     def get_task_cases(self):
         self.test_cases = self.task.test_cases
 
@@ -78,7 +75,7 @@ class GP:
 
         self.population[index].output_data = self.interpret(self.population[index].str_program, var_dict, self.population[index].input_data)
         print("\nInput data:")
-        print(self.population[index].input_data)
+        print(self.population[index].input)
 
         print("\nOutput data:")
         print(self.population[index].output_data)
@@ -102,6 +99,8 @@ class GP:
     # TO DO
     def evaluate(self, fitness_function):
         self.print_population()
+        best_fitness = -100
+
         while self.generation < self.params.generations:
             for individual in self.population:
                 var_dict = {}
@@ -120,8 +119,12 @@ class GP:
                 #         st = self.print_individual(best_index)
                 #         f.write(st)
                 exit(1)
-            # else:
-
+            else:
+                print("------------------------------")
+                print(f"Generation {self.generation}")
+                print(f"Best fitness: {best_fitness}")
+                self.print_individual(best_index)
+                print("\n\n")
             self.generation += 1
 
         print(f"Problem not solved :c\n")

@@ -9,24 +9,26 @@ class Program:
     name: str
     variables: dict[str, VarNode]
     input_data: list[float]
+    input: list[float]
     output_data: list[float]
     const: list[float]
     task: Task
     fitness: float
     mutable_nodes = list[Node]
     max_depth: int
-    min_rand: int
-    max_rand: int
+    min_rand: float
+    max_rand: float
     ROOT: ScopeNode
     str_program: str
 
-    def __init__(self, id: int, task: Task, max_depth: int, min_rand: int = -5, max_rand: int = 5, input_data: list[float] = []):
+    def __init__(self, id: int, task: Task, max_depth: int, min_rand: float = -5.0, max_rand: float = 5.0, input_data: list[float] = []):
         self.id = id
         self.task = task
         self.name = task.name
         self.variables = {}
         self.const = []
         self.input_data = input_data
+        self.input = []
         self.output_data = []
         self.mutable_nodes = []
         self.fitness = 0.0
@@ -65,6 +67,7 @@ class Program:
                     value = self.input_data[self.input_index]
 
             input.value = value
+            self.input.append(value)
             self.input_index += 1
             return input
         

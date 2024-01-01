@@ -1,5 +1,6 @@
 from library.Model.program import Program
 import numpy as np
+import math
 
 
 def fitness_1_1_A(individual: Program):
@@ -11,6 +12,217 @@ def fitness_1_1_A(individual: Program):
     else:
         fitness = -np.sum(np.abs(output - 1.0))
     return fitness
+
+
+def fitness_1_1_B(individual: Program):
+    output = np.array(individual.output_data)
+    if output.shape[0] == 0:
+        fitness = -100
+    elif 789.0 in output:
+        fitness = 0.0
+    else:
+        fitness = -np.sum(np.abs(output - 789.0))
+    return fitness
+
+
+def fitness_1_1_C(individual: Program):
+    output = np.array(individual.output_data)
+    if output.shape[0] == 0:
+        fitness = -100
+    elif 31415.0 in output:
+        fitness = 0.0
+    else:
+        fitness = -np.sum(np.abs(output - 31415.0))
+    return fitness
+
+
+def fitness_1_1_D(individual: Program):
+    output = np.array(individual.output_data)
+    if output.shape[0] == 0:
+        fitness = -100
+    elif 1.0 in output[0]:
+        fitness = 0.0
+    else:
+        fitness = -abs(output[0] - 1.0)
+    return fitness
+
+
+def fitness_1_1_E(individual: Program):
+    output = np.array(individual.output_data)
+    if output.shape[0] == 0:
+        fitness = -100
+    elif 789.0 in output[0]:
+        fitness = 0.0
+    else:
+        fitness = -abs(output[0] - 789.0)
+    return fitness
+
+
+def fitness_1_1_F(individual: Program):
+    output = np.array(individual.output_data)
+    if output.shape[0] == 0:
+        fitness = -100
+    elif 1.0 in output[0]:
+        fitness = 0.0
+    else:
+        fitness = -np.sum(np.abs(output - 1.0))
+
+    fitness += (output.shape[0] - 1) * -10
+    return fitness
+
+
+def fitness_1_2_A_C(individual: Program):
+    output = np.array(individual.output_data)
+    input_data = np.array(individual.input_data)
+    expected = np.sum(input_data)
+
+    input = individual.input
+    if len(input) < 2:
+        fitness = -100
+        return fitness
+
+    if len(output) == 0:
+        fitness = -1000.0
+    elif len(output) == 1:
+        if output[0] == expected:
+            fitness = 0.0
+        else:
+            fitness = (-1) * np.abs(expected - output[0])
+    else:
+        avg = np.average(output)
+        fitness = (-1) * np.abs(avg - expected)
+    fitness += (output.shape[0] - 1) * -10
+    fitness += (len(input) - 2) * -10
+
+    return fitness
+
+
+def fitness_1_2_D(individual: Program):
+    output = individual.output_data
+    input_data = individual.input_data
+    expected = input_data[0] - input_data[1]
+
+    input = individual.input
+    if len(input) < 2:
+        fitness = -100
+        return fitness
+
+    if len(output) == 0:
+        fitness = -1000.0
+    elif len(output) == 1:
+        if output[0] == expected:
+            fitness = 0.0
+        else:
+            fitness = (-1) * np.abs(expected - output[0])
+    else:
+        avg = np.average(output)
+        fitness = (-1) * np.abs(avg - expected)
+    fitness += (len(output) - 1) * -10
+    fitness += (len(input) - 2) * -10
+
+    return fitness
+
+
+def fitness_1_2_E(individual: Program):
+    output = individual.output_data
+    input_data = individual.input_data
+    expected = input_data[0] * input_data[1]
+
+    input = individual.input
+    if len(input) < 2:
+        fitness = -100
+        return fitness
+
+    if len(output) == 0:
+        fitness = -1000.0
+    elif len(output) == 1:
+        if output[0] == expected[0]:
+            fitness = 0.0
+        else:
+            fitness = (-1) * np.abs(expected - output[0])
+    else:
+        avg = np.average(output)
+        fitness = (-1) * np.abs(avg - expected)
+    fitness += (len(output) - 1) * -10
+    fitness += (len(input) - 2) * -10
+    return fitness
+
+def fitness_1_3(individual: Program):
+    output = individual.output_data
+    input_data = individual.input_data
+    expected = max(input_data)
+
+    input = individual.input
+    if len(input) < 1:
+        fitness = -100
+        return fitness
+
+    if len(output) == 0:
+        fitness = -1000.0
+    elif len(output) == 1:
+        if output[0] == expected:
+            fitness = 0.0
+        else:
+            fitness = (-1) * np.abs(expected - output[0])
+    else:
+        avg = np.average(output)
+        fitness = (-1) * np.abs(avg - expected)
+
+    fitness += (len(output) - 1) * -10
+    fitness += (len(input) - 2) * -10
+    return fitness
+
+
+def fitness_1_4_A(individual: Program):
+    output = individual.output_data
+    input_data = np.array(individual.input_data)
+    expected = round(np.average(input_data))
+
+    if len(output) == 0:
+        fitness = -10.0
+    elif len(output) == 1:
+        if output == expected:
+            fitness = 0.0
+        else:
+            fitness = (-1) * np.abs(output[0] - expected)
+    else:
+        avg = int(np.average(output))
+        fitness = (-1) * np.abs(avg - expected)
+    fitness += (len(output) - 1) * -10
+    return fitness
+
+def fitness_1_4_B(individual: Program):
+    output = individual.output_data
+    input_data = np.array(individual.input_data)
+    input_len = len(input_data)
+
+    input = individual.input
+    if len(input) < 2:
+        fitness = -100
+        return fitness
+
+    n = input_data[0]
+    if n > input_len - 1:
+        a = math.ceil(n / input_len)
+        input_data.repeat(input_data, a)
+        expected = np.average(input_data)
+    else:
+        expected = np.average(input_data[1:n+1])
+
+    if len(output) == 0:
+        fitness = -1000.0
+    elif len(output) == 1:
+        if output == expected:
+            fitness = 0.0
+        else:
+            fitness = (-1) * np.abs(output[0] - expected)
+    else:
+        avg = int(np.average(output))
+        fitness = (-1) * np.abs(avg - expected)
+    fitness += (len(output) - 1) * -10
+    return fitness
+
+
 
 # def fitness_1_1(output_data, where: int, only: bool, individual: Program):
 #     fitness = -100.0
@@ -48,52 +260,3 @@ def fitness_1_1_A(individual: Program):
 #     return fitness
 
 
-def single_fitness_1_2(self, individual: Program):
-    #### operation, min i max przedziału w pliku task
-    print("\n")
-    print("SINGLE FITNESS 1_2")
-    print("individual: ", individual.output_data)
-
-    output = individual.output_data
-    expected = self.task.test_cases[0].output_data
-    fitness = -100.0
-
-    if len(output) == 0:
-        fitness = -10.0
-    elif len(output) == 1:
-        if output[0] == expected[0]:
-            fitness = 0.0
-        else:
-            fitness = (-1) * np.abs(expected[0] - output[0])
-    elif len(output) > 1:
-        avg = np.average(output)
-        fitness = (-1) * np.abs(avg - expected[0])
-    print("single fitness: ", fitness)
-    return fitness
-
-
-def single_fitness_1_3(self, list_on_input: list, operator: str, min: float, max: float):
-    ### to co w single_fitness_1_2 raczej wystarczy
-    pass
-
-
-def single_fitness_1_4(self, individual: Program):
-    ### w sumie to to samo co w single_fitness_1_2
-    print("\n")
-    print("SINGLE FITNESS 1_4")
-    print("individual: ", individual.output_data)
-    output = individual.output_data
-    expected = self.task.test_cases[0].output_data
-    fitness = -100.0
-    if len(output) == 0:
-        fitness = -10.0
-    elif len(output) == 1:
-        if output == expected:
-            fitness = 0.0
-        else:
-            fitness = (-1) * np.abs(output[0] - expected[0])
-    elif len(output) > 1:
-        avg = int(np.average(output))
-        fitness = (-1) * np.abs(avg - expected[0])
-    print("single fitness: ", fitness)
-    return fitness
