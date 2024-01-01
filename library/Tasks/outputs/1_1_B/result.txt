@@ -1,0 +1,7 @@
+Problem not solved :c
+{
+  x_0 = ( True * (100.0) ) 
+  x_1 = (192.0) 
+  x_2 = (-79.0) 
+}
+Fitness values: -100.0, Generation: 100

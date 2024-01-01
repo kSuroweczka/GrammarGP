@@ -1,0 +1,8 @@
+Problem not solved :c
+{
+  x_0 = input() 
+  x_0 = input() 
+  x_1 = input() 
+  x_2 = ( ( x_0 * True ) - x_0 ) 
+}
+Fitness values: -100.0, Generation: 100

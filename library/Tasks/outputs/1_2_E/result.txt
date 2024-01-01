@@ -1,0 +1,14 @@
+Problem not solved :c
+{
+  while (  True != ( True + (2.0) ) && ( ( True * True ) + True ) < True  ){
+      x_0 = (  True == (-2.0)  ) 
+}
+  while (  ( False - False ) >= ( (8.0) / x_0 ) && ( x_0 * (7.0) ) != ( ( x_0 * True ) + False )  ){
+      x_1 = ( (8.0) + ( (7.0) / x_0 ) ) 
+      x_1 = input() 
+}
+  while (  ( x_0 / False ) > ( x_1 * True )  ){
+      x_1 = input() 
+}
+}
+Fitness values: -110.0, Generation: 100

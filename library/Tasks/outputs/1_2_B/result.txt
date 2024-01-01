@@ -1,0 +1,14 @@
+Problem not solved :c
+{
+  if (  ( ( (4.0) * False ) + ( True / True ) ) != ( ( (7.0) * False ) + ( (-5.0) / True ) )  ){
+      x_0 = input() 
+} else  {
+      x_0 = input() 
+      x_1 = (  True <= ( True + ( x_0 * x_0 ) ) && x_0 < ( ( False / (-2.0) ) + ( False / False ) )  ) 
+      output(x_0)
+}
+  if (  ( False * x_1 ) <= ( ( x_0 * x_0 ) - x_0 ) && x_0 != ( True / x_0 )  ){
+      x_2 = (  ( ( x_1 / x_0 ) - (6.0) ) < ( ( False * x_1 ) - x_0 )  ) 
+}
+}
+Fitness values: -1010.0, Generation: 100

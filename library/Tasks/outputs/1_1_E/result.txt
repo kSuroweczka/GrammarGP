@@ -1,0 +1,7 @@
+Problem not solved :c
+{
+  output(349.0)
+  output(325.0)
+  output(325.0)
+}
+Fitness values: -440.0, Generation: 100

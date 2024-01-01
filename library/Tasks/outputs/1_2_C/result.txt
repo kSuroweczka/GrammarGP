@@ -1,0 +1,8 @@
+Problem not solved :c
+{
+  x_0 = input() 
+  x_1 = ( ( x_0 / (5.0) ) - True ) 
+  x_2 = ( x_1 + False ) 
+  x_3 = input() 
+}
+Fitness values: -1010.0, Generation: 100

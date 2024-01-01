@@ -1,0 +1,24 @@
+Problem not solved :c
+{
+  if (  ( ( True / True ) - ( True * True ) ) >= ( ( False / (0.0) ) - (5.0) )  ){
+      x_0 = ( ( True * True ) + ( False * False ) ) 
+}
+  if (  ( x_0 + x_0 ) < ( True - ( True / x_0 ) )  ){
+      x_0 = x_0 
+      x_1 = input() 
+}
+  if (  ( True * True ) != ( (1.0) + ( x_0 / False ) ) && ( x_1 + ( x_1 * True ) ) > ( ( x_1 * (3.0) ) - False )  ){
+      x_2 = x_0 
+      output(8.0)
+      x_3 = (  (8.0) >= ( ( x_2 * x_1 ) - x_0 )  ) 
+} else  {
+      x_4 = (  ( x_1 + (8.0) ) <= ( ( x_2 / x_1 ) + x_1 )  ) 
+      x_5 = ( (8.0) + ( (8.0) / x_2 ) ) 
+      output(x_1)
+}
+  if (  ( x_3 * True ) <= ( ( x_0 * x_3 ) - ( x_0 / x_2 ) ) || ( x_4 - ( False / x_4 ) ) < ( x_4 - ( x_3 * (8.0) ) )  ){
+      x_0 = (  ( ( True / (9.0) ) - x_2 ) == ( x_5 * x_0 ) && ( (8.0) - ( x_1 / (8.0) ) ) != ( ( (8.0) / (8.0) ) - x_5 )  ) 
+      x_5 = input() 
+}
+}
+Fitness values: -3.0, Generation: 100

@@ -6,41 +6,43 @@ import math
 def fitness_1_1_A(individual: Program):
     output = np.array(individual.output_data)
     if output.shape[0] == 0:
-        fitness = -100
+        fitness = -1000
     elif 1.0 in output:
         fitness = 0.0
     else:
-        fitness = -np.sum(np.abs(output - 1.0))
+        fitness = -np.min(np.abs(output - 1.0))
     return fitness
 
 
 def fitness_1_1_B(individual: Program):
     output = np.array(individual.output_data)
+
     if output.shape[0] == 0:
-        fitness = -100
+        fitness = -10000
     elif 789.0 in output:
         fitness = 0.0
     else:
-        fitness = -np.sum(np.abs(output - 789.0))
+        fitness = -np.min(np.abs(output - 789.0))
     return fitness
 
 
 def fitness_1_1_C(individual: Program):
     output = np.array(individual.output_data)
+
     if output.shape[0] == 0:
-        fitness = -100
+        fitness = -100000
     elif 31415.0 in output:
         fitness = 0.0
     else:
-        fitness = -np.sum(np.abs(output - 31415.0))
+        fitness = -np.min(np.abs(output - 31415.0))
     return fitness
 
 
 def fitness_1_1_D(individual: Program):
     output = np.array(individual.output_data)
     if output.shape[0] == 0:
-        fitness = -100
-    elif 1.0 in output[0]:
+        fitness = -1000
+    elif 1.0 in output:
         fitness = 0.0
     else:
         fitness = -abs(output[0] - 1.0)
@@ -50,8 +52,8 @@ def fitness_1_1_D(individual: Program):
 def fitness_1_1_E(individual: Program):
     output = np.array(individual.output_data)
     if output.shape[0] == 0:
-        fitness = -100
-    elif 789.0 in output[0]:
+        fitness = -1000
+    elif 789.0 in output:
         fitness = 0.0
     else:
         fitness = -abs(output[0] - 789.0)
@@ -61,11 +63,11 @@ def fitness_1_1_E(individual: Program):
 def fitness_1_1_F(individual: Program):
     output = np.array(individual.output_data)
     if output.shape[0] == 0:
-        fitness = -100
-    elif 1.0 in output[0]:
+        fitness = -1000
+    elif 1.0 in output:
         fitness = 0.0
     else:
-        fitness = -np.sum(np.abs(output - 1.0))
+        fitness = -np.min(np.abs(output - 1.0))
 
     fitness += (output.shape[0] - 1) * -10
     return fitness
@@ -79,10 +81,8 @@ def fitness_1_2_A_C(individual: Program):
     input = individual.input
     if len(input) < 2:
         fitness = -100
-        return fitness
-
-    if len(output) == 0:
-        fitness = -1000.0
+    elif len(output) == 0:
+        fitness = -100.0
     elif len(output) == 1:
         if output[0] == expected:
             fitness = 0.0
@@ -91,8 +91,8 @@ def fitness_1_2_A_C(individual: Program):
     else:
         avg = np.average(output)
         fitness = (-1) * np.abs(avg - expected)
-    fitness += (output.shape[0] - 1) * -10
-    fitness += (len(input) - 2) * -10
+    fitness += abs(output.shape[0] - 1) * -10
+    fitness += abs(len(input) - 2) * -10
 
     return fitness
 
@@ -108,7 +108,7 @@ def fitness_1_2_D(individual: Program):
         return fitness
 
     if len(output) == 0:
-        fitness = -1000.0
+        fitness = -100.0
     elif len(output) == 1:
         if output[0] == expected:
             fitness = 0.0
@@ -117,8 +117,8 @@ def fitness_1_2_D(individual: Program):
     else:
         avg = np.average(output)
         fitness = (-1) * np.abs(avg - expected)
-    fitness += (len(output) - 1) * -10
-    fitness += (len(input) - 2) * -10
+    fitness += abs(len(output) - 1) * -10
+    fitness += abs(len(input) - 2) * -10
 
     return fitness
 
@@ -131,34 +131,8 @@ def fitness_1_2_E(individual: Program):
     input = individual.input
     if len(input) < 2:
         fitness = -100
-        return fitness
-
-    if len(output) == 0:
-        fitness = -1000.0
-    elif len(output) == 1:
-        if output[0] == expected[0]:
-            fitness = 0.0
-        else:
-            fitness = (-1) * np.abs(expected - output[0])
-    else:
-        avg = np.average(output)
-        fitness = (-1) * np.abs(avg - expected)
-    fitness += (len(output) - 1) * -10
-    fitness += (len(input) - 2) * -10
-    return fitness
-
-def fitness_1_3(individual: Program):
-    output = individual.output_data
-    input_data = individual.input_data
-    expected = max(input_data)
-
-    input = individual.input
-    if len(input) < 1:
-        fitness = -100
-        return fitness
-
-    if len(output) == 0:
-        fitness = -1000.0
+    elif len(output) == 0:
+        fitness = -100.0
     elif len(output) == 1:
         if output[0] == expected:
             fitness = 0.0
@@ -167,9 +141,31 @@ def fitness_1_3(individual: Program):
     else:
         avg = np.average(output)
         fitness = (-1) * np.abs(avg - expected)
+    fitness += abs(len(output) - 1) * -10
+    fitness += abs(len(input) - 2) * -10
+    return fitness
 
-    fitness += (len(output) - 1) * -10
-    fitness += (len(input) - 2) * -10
+
+def fitness_1_3(individual: Program):
+    output = np.array(individual.output_data)
+    input_data = np.array(individual.input_data)
+    expected = np.max(input_data)
+
+    input = individual.input
+    if len(input) < 2:
+        fitness = -100
+    elif len(output) == 0:
+        fitness = -100.0
+    elif len(output) == 1:
+        if output[0] == expected:
+            fitness = 0.0
+        else:
+            fitness = -abs(expected - output[0])
+    else:
+        avg = np.average(output)
+        fitness = (-1) * abs(avg - expected)
+    fitness += abs(output.shape[0] - 1) * -10
+    fitness += abs(len(input) - 2) * -10
     return fitness
 
 

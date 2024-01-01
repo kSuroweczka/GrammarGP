@@ -1,0 +1,10 @@
+Problem not solved :c
+{
+  while (  (-4.0) < ( ( (-2.0) * False ) - (4.0) )  ){
+      x_0 = input() 
+}
+  while (  ( x_0 / x_0 ) <= ( False * False ) || ( True + ( (-1.0) * False ) ) <= ( False * (0.0) )  ){
+      x_1 = input() 
+}
+}
+Fitness values: -110.0, Generation: 100
