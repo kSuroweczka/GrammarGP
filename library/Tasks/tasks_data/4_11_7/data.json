@@ -1,0 +1,17 @@
+{
+    "name": "4_11_7",
+    "min_input_length": 0,
+    "max_input_length": 0,
+    "min_output_length": 1,
+    "max_output_length": 100,
+    "test_cases": [
+        {
+            "input": [2.0, 2.0, 11.0],
+            "output": [2.0, 4.0, 6.0, 8.0, 10.0]
+        },
+        {
+            "input": [1.0, 3.0, 10.0],
+            "output": [1.0, 4.0, 7.0]
+        }
+    ]
+}

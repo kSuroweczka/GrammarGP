@@ -8,6 +8,7 @@ class Program:
     id: int
     name: str
     variables: dict[str, VarNode]
+    vars = dict[str, float|bool]
     input_data: list[float]
     input: list[float]
     output_data: list[float]
@@ -26,6 +27,7 @@ class Program:
         self.task = task
         self.name = task.name
         self.variables = {}
+        self.vars = {}
         self.const = []
         self.input_data = input_data
         self.input = []
@@ -48,12 +50,11 @@ class Program:
         posible_nodes = [NodeType.ASSIGNMENT, NodeType.OUTPUT, NodeType.IF, NodeType.WHILE]
         node_t = random.choice(posible_nodes)
 
-        for i in range(random.randint(2,4)):
+        for i in range(random.randint(2,5)):
             self.ROOT.add_child(self.createNode(node_t, self.ROOT))
 
     def createIndividual(self):
         self.growTree()
-
 
     def createNode(self, type: NodeType, parent: Node, current_depth: int = 0):
         if type == NodeType.INPUT:
@@ -342,4 +343,4 @@ class Program:
             whileNode.add_child(body)
 
             return whileNode
-        
+

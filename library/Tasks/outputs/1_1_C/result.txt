@@ -1,8 +1,8 @@
 Problem not solved :c
 {
-  output(19357.0)
-  output(12596.0)
-  output(16532.0)
-  output(7499.0)
+  output(13685.0)
+  output(19990.0)
+  output(13685.0)
+  output(7687.0)
 }
-Fitness values: -12058.0, Generation: 100
+Fitness values: -11425.0, Generation: 100

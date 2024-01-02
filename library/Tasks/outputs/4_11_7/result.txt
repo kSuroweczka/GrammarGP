@@ -1,0 +1,6 @@
+Problem not solved :c
+{
+  x_0 = ( ( False / (3.0) ) + False ) 
+  x_0 = (  ( x_0 + x_0 ) >= ( x_0 / x_0 )  ) 
+}
+Fitness values: -250.0, Generation: 100

@@ -3,12 +3,8 @@ from contextlib import redirect_stdout
 from library.Model.program import Program
 from library.Solver.params import Params
 from library.Tasks.task import Task, TestCase
+from library.Solver.Interpreter import Interpreter
 import random
-from library.Model.node import *
-from Grammar.gen.TinyGPVisitor import TinyGPVisitor
-from Grammar.gen.TinyGPParser import TinyGPParser
-from Grammar.gen.TinyGPLexer import TinyGPLexer
-from antlr4 import *
 import numpy as np
 import os
 
@@ -25,6 +21,7 @@ class GP:
     generation: int
     tournament_size: int
     fitnesses: np.array
+    interpreter: Interpreter
 
     def __init__(self, task_name: str, set_seed: int | None = None, params: Params | None = None):
         self.population = []
@@ -38,6 +35,7 @@ class GP:
         self.population = self.create_population(self.task, self.params)
         self.test_cases = []
         self.tournament_size = 2
+        self.interpreter = Interpreter()
 
     def create_population(self, task: Task, params: Params):
         self.name = task.name
@@ -63,10 +61,7 @@ class GP:
 
         while self.generation < self.params.generations:
             for individual in self.population:
-                var_dict = {}
-                for var in individual.variables:
-                    var_dict[var] = float(individual.variables[var].value)
-                individual.output_data = self.interpret(individual.str_program, var_dict, individual.input_data)
+                individual.output_data, individual.input, individual.vars = self.interpreter.interpret(individual)
 
             self.fitness(fitness_function)
             best_index, best_fitness = self.best_individual_fitness()
@@ -92,14 +87,6 @@ class GP:
                 p = Program(worst.id, worst.task, self.params.max_depth, self.params.min_rand, self.params.max_rand, worst.input_data)
                 p.createIndividual()
 
-                # print("Worst: \n")
-                # self.print_individual(worst_index)
-                # self.population[worst_index] = p
-                #
-                # print("New Individual: \n")
-                # self.print_individual(worst_index)
-
-
                 print("\n\n")
             self.generation += 1
 
@@ -115,7 +102,6 @@ class GP:
     # TO DO
     def mutation(self):
         program = self.population[self.negative_tournament()]
-        # coś tam
 
     # TO DO
     def crossover(self):
@@ -166,24 +152,16 @@ class GP:
         print("Program: ")
         print(self.population[index])
 
-        print("Variables:")
-        var_dict = {}
-        vars = "{ "
-        for var in self.population[index].variables:
-            vars += f"{var}: {float(self.population[index].variables[var].value)}, "
-            var_dict[var] = float(self.population[index].variables[var].value)
-        if var_dict.__len__() != 0:
-            vars = vars[:-2]
-        vars += " }"
-        print(f'{vars}\n')
-
-        self.population[index].output_data = self.interpret(self.population[index].str_program, var_dict, self.population[index].input_data)
+        self.population[index].output_data, self.population[index].input, self.population[index].vars = self.interpreter.interpret(self.population[index]) #.str_program, var_dict, self.population[index].input_data
         print("\nInput data:")
         print(self.population[index].input)
 
         print("\nOutput data:")
         print(self.population[index].output_data)
         print("---------------------\n")
+
+        print("Variables:")
+        print(f'{self.population[index].vars}\n')
 
         return self.population[index].__repr__()
 
@@ -193,35 +171,6 @@ class GP:
         print(f"Generation: {self.generation}\n")
         for i in range(len(self.population)):
             self.print_individual(i)
-
-    def deep_copy_tree(self, tree: Node):
-        new_tree = ScopeNode(NodeType.SCOPE, None,[])
-        for child in tree.children_nodes:
-            new_tree.children_nodes.append(child)
-        # print("NEW_TREE:   ", new_tree)
-        return new_tree
-
-    def interpret(self, input_data, variables, input_1):
-        var = variables
-        input_example = input_data
-
-        input = InputStream(input_example)
-        lexer = TinyGPLexer(input)
-
-        stream = CommonTokenStream(lexer)
-        parser = TinyGPParser(stream)
-        try:
-            tree = parser.program()
-        except:
-            print("Error")
-            return None
-
-        try:
-            visitor = TinyGPVisitor(var, input_1)
-            visitor.visit(tree)
-            return visitor.output
-        except:
-            return [-100.0]
 
     def initialize_fitness(self):
         array = np.empty(self.params.popsize, dtype=np.float32)

@@ -12,8 +12,9 @@ else:
 class TinyGPVisitor(ParseTreeVisitor):
 
     def __init__(self, variables:dict, input:list):
-        self.variables = variables
+        self.variables = variables | {}
         self.input = input
+        self.actual_input = []
         self.output = []
         self.input_index = 0
         self.limit = 100
@@ -53,12 +54,12 @@ class TinyGPVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by TinyGPParser#assignmentStatement.
     def visitAssignmentStatement(self, ctx:TinyGPParser.AssignmentStatementContext):
-        # print("ASSIGNMENT ", ctx.getText())
         if self.instruction_counter < self.limit:
             self.instruction_counter+=1
             result = self.visitChildren(ctx)
-            if ctx.getChild(0).getText() in self.variables:
-                self.variables.update({ctx.getChild(0).getText(): result})
+
+            self.variables.update({ctx.getChild(0).getText(): result})
+
         else:
             raise Exception("Przekroczono limit instrukcji")
         # return self.visitChildren(ctx)
@@ -79,6 +80,7 @@ class TinyGPVisitor(ParseTreeVisitor):
                 value = self.input[self.input_index]
 
         self.input_index += 1
+        self.actual_input.append(value)
         return float(value)
 
 

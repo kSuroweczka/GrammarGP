@@ -74,14 +74,14 @@ def fitness_1_1_F(individual: Program):
 
 
 def fitness_1_2_A_C(individual: Program):
-    output = np.array(individual.output_data)
-    input_data = np.array(individual.input_data)
-    expected = np.sum(input_data)
+    output = individual.output_data
+    input_data = individual.input_data
+    expected = input_data[0] + input_data[1]
 
     input = individual.input
-    if len(input) < 2:
-        fitness = -100
-    elif len(output) == 0:
+    # if len(input) < 2:
+    #     fitness = -100
+    if len(output) == 0:
         fitness = -100.0
     elif len(output) == 1:
         if output[0] == expected:
@@ -91,8 +91,8 @@ def fitness_1_2_A_C(individual: Program):
     else:
         avg = np.average(output)
         fitness = (-1) * np.abs(avg - expected)
-    fitness += abs(output.shape[0] - 1) * -10
-    fitness += abs(len(input) - 2) * -10
+    fitness += abs(len(output) - 1) * -20
+    fitness += abs(len(input) - 2) * -20
 
     return fitness
 
@@ -218,6 +218,18 @@ def fitness_1_4_B(individual: Program):
     fitness += (len(output) - 1) * -10
     return fitness
 
+
+def fitness_4_11_7(individual: Program):
+    output = individual.output_data
+    input_data = np.array(individual.input_data)
+
+    input = individual.input
+    fitness = -abs(len(input) - 3) * 50
+
+    out_size = (input_data[2] - input_data[0] + 1) // input_data[1]
+    fitness -= abs(len(output) - out_size) * 50
+
+    return fitness
 
 
 # def fitness_1_1(output_data, where: int, only: bool, individual: Program):
