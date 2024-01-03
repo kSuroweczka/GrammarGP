@@ -3,10 +3,26 @@ from contextlib import redirect_stdout
 from library.Model.program import Program
 from library.Solver.params import Params
 from library.Tasks.task import Task, TestCase
-from library.Solver.Interpreter import Interpreter
 import random
+from library.Model.node import *
+from Grammar.gen.TinyGPVisitor import TinyGPVisitor
+from Grammar.gen.TinyGPParser import TinyGPParser
+from Grammar.gen.TinyGPLexer import TinyGPLexer
+from antlr4 import *
 import numpy as np
 import os
+
+global depth
+depth = 1
+
+global hasFloat
+hasFloat = False
+
+global depth_1
+depth_1 = 1
+
+global depth_2
+depth_2 = 1
 
 
 class GP:
@@ -21,7 +37,6 @@ class GP:
     generation: int
     tournament_size: int
     fitnesses: np.array
-    interpreter: Interpreter
 
     def __init__(self, task_name: str, set_seed: int | None = None, params: Params | None = None):
         self.population = []
@@ -35,7 +50,6 @@ class GP:
         self.population = self.create_population(self.task, self.params)
         self.test_cases = []
         self.tournament_size = 2
-        self.interpreter = Interpreter()
 
     def create_population(self, task: Task, params: Params):
         self.name = task.name
@@ -61,7 +75,10 @@ class GP:
 
         while self.generation < self.params.generations:
             for individual in self.population:
-                individual.output_data, individual.input, individual.vars = self.interpreter.interpret(individual)
+                var_dict = {}
+                for var in individual.variables:
+                    var_dict[var] = float(individual.variables[var].value)
+                individual.output_data = self.interpret(individual.str_program, var_dict, individual.input_data)
 
             self.fitness(fitness_function)
             best_index, best_fitness = self.best_individual_fitness()
@@ -75,17 +92,27 @@ class GP:
                 print(f"Best fitness: {best_fitness}")
                 self.print_individual(best_index)
 
+                # self.mutation(self.population[best_index])
+                self.crossover()
                 # To do:
-                rand_op = random.randrange(0, 1)
-                if rand_op < self.params.crossover_prob:
-                    self.crossover()
-                else:
-                    self.mutation()
+                # rand_op = random.randrange(0, 1)
+                # if rand_op < self.params.crossover_prob:
+                #     self.crossover()
+                # else:
+                #     self.mutation()
 
                 worst_index, worst_fitness = self.worst_individual_fitness()
                 worst = self.population[worst_index]
                 p = Program(worst.id, worst.task, self.params.max_depth, self.params.min_rand, self.params.max_rand, worst.input_data)
                 p.createIndividual()
+
+                # print("Worst: \n")
+                # self.print_individual(worst_index)
+                # self.population[worst_index] = p
+                #
+                # print("New Individual: \n")
+                # self.print_individual(worst_index)
+
 
                 print("\n\n")
             self.generation += 1
@@ -94,20 +121,124 @@ class GP:
             print(f"Problem not solved :c\n")
             print(f"Best fitness: {best_fitness}\n")
 
-        self.save_result_to_file(best_index, ok, best_fitness)
+        # self.save_result_to_file(best_index, ok, best_fitness)/
 
     def run(self, fitness_function):
         self.evaluate(fitness_function)
 
+
+
+    def depth(self, node, depth):
+        # global depth
+        # global hasFloat
+        ddd= depth
+        if node is None:
+            print("NODE IS NONE")
+        else:
+            if len(node.children_nodes) > 0:
+                for child in node.children_nodes:
+                    if type(child) is float:
+                        hasFloat = True
+                    else:
+                        d = child.get_depth()
+                        # print("CHild: ", child)
+                        # print("Depth: ", d)
+                        if d > ddd:
+                            ddd = d
+                        if len(child.children_nodes) > 0:
+                            self.depth(child, ddd)
+
+            else:
+                print("NOD")
+                # return 1 + max(self.depth(child) for child in node.children_nodes)
+
     # TO DO
-    def mutation(self):
-        program = self.population[self.negative_tournament()]
+    def mutation(self, program: Program):
+        # global depth
+        # global hasFloat
+        depth = 1
+        # hasFloat = False
+        print("MUTACJA")
+        # program = self.population[self.negative_tournament()]
+        for node in program.ROOT.children_nodes:
+            self.depth(node, depth)
+        program_copy = self.deep_copy_tree(program.ROOT)
+        # program_depth = self.depth(program_copy)
+        # if hasFloat:
+        #     depth = depth + 1
+        print(f"Program depth: {depth}")
+
+    def generate_random_node(self, max_depth):
+        random_node = Program()
+
+
+    def draw_subnode_1(self, tree):
+        # node_types = [NodeType.SCOPE, NodeType.INPUT, NodeType.IF, NodeType.WHILE, NodeType.OUTPUT, NodeType.ASSIGNMENT, NodeType.EXPRESSION]
+
+        # for child in tree.children_nodes:
+        #     random_node = random.choice(tree.children_nodes)
+        #     if random_node.node_type in node_types:
+        #         return random_node
+        random_node = random.choice(tree.children_nodes)
+        print("RANDOM NODE: ", random_node)
+        return random_node
+
+    def draw_subnode_2(self, tree, first_node):
+        node_types = [NodeType.INPUT, NodeType.IF, NodeType.WHILE, NodeType.OUTPUT, NodeType.ASSIGNMENT]
+
+        if first_node.node_type in node_types:
+            random_node = random.choice(tree.children_nodes)
+            while random_node.node_type in node_types:
+                random_node = random.choice(tree.children_nodes)
+                if random_node.node_type in node_types:
+                    print("RANDOM NODE 2 : ", random_node)
+                    return random_node
+        else:
+            random_node = random.choice(tree.children_nodes)
+            while random_node.node_type == first_node.node_type:
+                random_node = random.choice(tree.children_nodes)
+                if random_node.node_type == first_node.node_type:
+                    print("RANDOM NODE 2 : ", random_node)
+                    return random_node
+
+    def replace_node(self, tree, node_1, node_2):
+        # print("TREE BEFORE: ", tree)
+        parent_1 = None
+        parent_2 = None
+        for child in tree.children_nodes:
+            if child == node_1:
+                parent_1 = node_1.parent_node
+
+        for i in range(len(tree.children_nodes)):
+            if tree.children_nodes[i] == node_1:
+                tree.children_nodes.remove(tree.children_nodes[i])
+                tree.children_nodes.insert(i, node_2)
+        # print("TREE AFTER: ", tree)
+        return tree
+
 
     # TO DO
     def crossover(self):
-        program_1 = self.population[self.tournament()]
-        program_2 = self.population[self.tournament()]
-        # tu reszta
+        print("CROSSOVER")
+        depth_1 = 1
+        depth_2 = 1
+
+        program_1 = self.deep_copy_tree(self.population[self.tournament()].ROOT)
+        program_2 = self.deep_copy_tree(self.population[self.tournament()].ROOT)
+
+        node_1 = self.draw_subnode_1(program_1)
+        node_2 = self.draw_subnode_2(program_2, node_1)
+
+        program_1 = self.replace_node(program_1, node_1, node_2)
+        program_2 = self.replace_node(program_2, node_2, node_1)
+
+        # depth_1 = self.depth(program_1)
+        # depth_2 = self.depth(program_2)
+
+        # print(f"Depth 1: {depth_1}")
+        # print(f"Depth 2: {depth_2}")
+        #
+        # min_depth = min(depth_1, depth_2)
 
     def fitness(self, fitness_function):
         for i, individual in enumerate(self.population):
@@ -152,16 +283,24 @@ class GP:
         print("Program: ")
         print(self.population[index])
 
-        self.population[index].output_data, self.population[index].input, self.population[index].vars = self.interpreter.interpret(self.population[index]) #.str_program, var_dict, self.population[index].input_data
+        print("Variables:")
+        var_dict = {}
+        vars = "{ "
+        for var in self.population[index].variables:
+            vars += f"{var}: {float(self.population[index].variables[var].value)}, "
+            var_dict[var] = float(self.population[index].variables[var].value)
+        if var_dict.__len__() != 0:
+            vars = vars[:-2]
+        vars += " }"
+        print(f'{vars}\n')
+
+        self.population[index].output_data = self.interpret(self.population[index].str_program, var_dict, self.population[index].input_data)
         print("\nInput data:")
         print(self.population[index].input)
 
         print("\nOutput data:")
         print(self.population[index].output_data)
         print("---------------------\n")
-
-        print("Variables:")
-        print(f'{self.population[index].vars}\n')
 
         return self.population[index].__repr__()
 
@@ -171,6 +310,35 @@ class GP:
         print(f"Generation: {self.generation}\n")
         for i in range(len(self.population)):
             self.print_individual(i)
+
+    def deep_copy_tree(self, tree: Node):
+        new_tree = ScopeNode(NodeType.SCOPE, None,[])
+        for child in tree.children_nodes:
+            new_tree.children_nodes.append(child)
+        print("NEW_TREE:   ", new_tree)
+        return new_tree
+
+    def interpret(self, input_data, variables, input_1):
+        var = variables
+        input_example = input_data
+
+        input = InputStream(input_example)
+        lexer = TinyGPLexer(input)
+
+        stream = CommonTokenStream(lexer)
+        parser = TinyGPParser(stream)
+        try:
+            tree = parser.program()
+        except:
+            print("Error")
+            return None
+
+        try:
+            visitor = TinyGPVisitor(var, input_1)
+            visitor.visit(tree)
+            return visitor.output
+        except:
+            return [-100.0]
 
     def initialize_fitness(self):
         array = np.empty(self.params.popsize, dtype=np.float32)
