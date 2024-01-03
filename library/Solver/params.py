@@ -15,8 +15,8 @@ class Params:
 
     def __init__(self, seed: int | None = None, min_rand: float = -5, max_rand: float = 5, 
                  max_len: float = 10, popsize: int = 10, max_depth: int = 5, 
-                 generations: int = 100, tournament_size: int = 2, pmut_per_node: float = 0.15, 
-                 crossover_prob: float = 0.85):
+                 generations: int = 100, tournament_size: int = 2, pmut_per_node: float = 0.2,
+                 crossover_prob: float = 0.8):
         seed = seed or datetime.now().timestamp()
         random.seed(seed)
         self.seed = seed

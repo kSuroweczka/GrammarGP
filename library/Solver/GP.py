@@ -68,15 +68,12 @@ class GP:
     # TO DO
     def evaluate(self, fitness_function):
         ok = False
-
-        print(f"Task: {self.name}")
-        print(self.params)
+        self.print_population()
 
         while self.generation < self.params.generations:
-            for individual in self.population:
+            for i, individual in enumerate(self.population):
                 individual.output_data, individual.input, individual.vars = self.interpreter.interpret(individual)
 
-            self.print_population()
             self.fitness(fitness_function)
             best_index, best_fitness = self.best_individual_fitness()
             if best_fitness == 0.0:
@@ -89,8 +86,7 @@ class GP:
                 print(f"Best fitness: {best_fitness}")
                 self.print_individual(best_index)
 
-                # To do:
-                rand_op = random.randrange(0, 1)
+                rand_op = random.random()
                 if rand_op < self.params.crossover_prob:
                     self.crossover()
                 else:
@@ -113,63 +109,104 @@ class GP:
     def run(self, fitness_function):
         self.evaluate(fitness_function)
 
-    def depth(self, node, depth):
-        # global depth
-        # global hasFloat
-        ddd= depth
-        if node is None:
-            print("NODE IS NONE")
-        else:
-            if len(node.children_nodes) > 0:
-                for child in node.children_nodes:
-                    if type(child) is float:
-                        hasFloat = True
-                    else:
-                        d = child.get_depth()
-                        # print("CHild: ", child)
-                        # print("Depth: ", d)
-                        if d > ddd:
-                            ddd = d
-                        if len(child.children_nodes) > 0:
-                            self.depth(child, ddd)
-
-            else:
-                print("NOD")
-                # return 1 + max(self.depth(child) for child in node.children_nodes)
-
     # TO DO
     def mutation(self):
-        # global depth
-        # global hasFloat
-        depth = 1
-        # hasFloat = False
-        print("MUTACJA")
-        program = self.population[self.negative_tournament()]
-        # program = self.population[self.negative_tournament()]
-        for node in program.ROOT.children_nodes:
-            self.depth(node, depth)
-        program_copy = self.deep_copy_tree(program.ROOT)
-        # program_depth = self.depth(program_copy)
-        # if hasFloat:
-        #     depth = depth + 1
-        print(f"Program depth: {depth}")
 
-    def generate_random_node(self, max_depth):
-        random_node = Program()
+        print("\n------------\n MUTATION \n------------\n")
+        id = self.negative_tournament()
+        program = self.population[id]
+
+        print("\n------------\n OLD PROGRAM \n------------\n")
+        print(self.population[id])
+
+        self.population[id].ROOT = self.walk_tree(program)
+
+        print("\n------------\n NEW PROGRAM \n------------\n")
+        print(self.population[id])
+
+    # node -> root_copy
+    def walk_tree(self, program):
+        new_program = self.deep_copy_tree(program.ROOT)
+        for child in new_program.children_nodes:
+            mutate_rand = random.random()
+            if mutate_rand < self.params.pmut_per_node:
+                new_program = self.mutate(node=child, node_parent=new_program, program=program)
+
+        return new_program
+
+    def mutate(self, node, node_parent, program: Program):
+        possible_nodes = []
+        if isinstance(node, float) or isinstance(node, bool):
+            print(f"\nOLD NODE: {node} ,type: {type(node)}")
+            node_parent.value = random.choice([random.randrange(int(self.params.min_rand), int(self.params.max_rand)), True, False])
+            print(f"NEW NODE: {node_parent.value} \ntype: {type(node)}")
+        else:
+            print(f"\nOLD NODE: {node} ,type: {node.node_type}")
+            match node.node_type:
+                case NodeType.INPUT:
+                    possible_nodes = [NodeType.EXPRESSION, NodeType.CONDITION]
+                case NodeType.OUTPUT | NodeType.ASSIGNMENT | NodeType.IF | NodeType.WHILE:
+                    possible_nodes = [NodeType.ASSIGNMENT, NodeType.OUTPUT, NodeType.IF, NodeType.WHILE]
+                case NodeType.VAR:
+                    possible_nodes = [NodeType.VAR]
+                case NodeType.SCOPE:
+                    possible_nodes = [NodeType.SCOPE]
+                case NodeType.CONDITION:
+                    possible_nodes = [NodeType.CONDITION, NodeType.EXPRESSIONCONDITION]
+                case NodeType.EXPRESSIONCONDITION:
+                    possible_nodes = [NodeType.EXPRESSIONCONDITION, NodeType.CONDITION]
+                case NodeType.EXPRESSION:
+                    possible_nodes = [NodeType.EXPRESSION, NodeType.VAR, NodeType.TERM]
+                case NodeType.FACTOR:
+                    possible_nodes = [NodeType.FACTOR]
+                case NodeType.TERM:
+                    possible_nodes = [NodeType.TERM]
+                case NodeType.BOOLEAN:
+                    possible_nodes = [NodeType.BOOLEAN, NodeType.EXPRESSION, NodeType.CONDITION]
+
+            if len(possible_nodes) == 0:
+                return
+
+            random_node = random.choice(possible_nodes)
+            new_node = program.createNode(random_node, None)
+
+            print(f"NEW NODE: {new_node} \ntype: {new_node.node_type}")
+            return self.replace_node(node_parent, node, new_node)
 
 
-    def draw_subnode_1(self, tree):
-        # node_types = [NodeType.SCOPE, NodeType.INPUT, NodeType.IF, NodeType.WHILE, NodeType.OUTPUT, NodeType.ASSIGNMENT, NodeType.EXPRESSION]
+    def crossover(self):
+        print("\n------------\n CROSSOVER \n------------\n")
+        depth_1 = 1
+        depth_2 = 1
 
-        # for child in tree.children_nodes:
-        #     random_node = random.choice(tree.children_nodes)
-        #     if random_node.node_type in node_types:
-        #         return random_node
+        id_1 = self.tournament()
+        id_2 = self.tournament()
+
+        program_1 = self.deep_copy_tree(self.population[id_1].ROOT)
+        program_2 = self.deep_copy_tree(self.population[id_2].ROOT)
+
+        node_1 = self.draw_subnode_1(program_1)
+        node_2 = self.draw_subnode_2(program_2, node_1)
+
+        self.population[id_1].ROOT = self.replace_node(program_1, node_1, node_2)
+        self.population[id_2].ROOT = self.replace_node(program_2, node_2, node_1)
+
+        # depth_1 = self.depth(program_1)
+        # depth_2 = self.depth(program_2)
+
+        # print(f"Depth 1: {depth_1}")
+        # print(f"Depth 2: {depth_2}")
+        #
+        # min_depth = min(depth_1, depth_2)
+
+    @staticmethod
+    def draw_subnode_1(tree):
         random_node = random.choice(tree.children_nodes)
         print("RANDOM NODE: ", random_node)
         return random_node
 
-    def draw_subnode_2(self, tree, first_node):
+    @staticmethod
+    def draw_subnode_2(tree, first_node):
         node_types = [NodeType.INPUT, NodeType.IF, NodeType.WHILE, NodeType.OUTPUT, NodeType.ASSIGNMENT]
 
         if first_node.node_type in node_types:
@@ -187,7 +224,8 @@ class GP:
                     print("RANDOM NODE 2 : ", random_node)
                     return random_node
 
-    def replace_node(self, tree, node_1, node_2):
+    @staticmethod
+    def replace_node(tree, node_1, node_2):
         # print("TREE BEFORE: ", tree)
         parent_1 = None
         parent_2 = None
@@ -202,34 +240,12 @@ class GP:
         # print("TREE AFTER: ", tree)
         return tree
 
-    def crossover(self):
-        print("CROSSOVER")
-        depth_1 = 1
-        depth_2 = 1
-
-        id_1 = self.tournament()
-        id_2 = self.tournament()
-
-        program_1 = self.deep_copy_tree(self.population[id_1].ROOT)
-        program_2 = self.deep_copy_tree(self.population[id_2].ROOT)
-
-        node_1 = self.draw_subnode_1(program_1)
-        node_2 = self.draw_subnode_2(program_2, node_1)
-
-        program_1 = self.replace_node(program_1, node_1, node_2)
-        program_2 = self.replace_node(program_2, node_2, node_1)
-
-        # depth_1 = self.depth(program_1)
-        # depth_2 = self.depth(program_2)
-
-        # print(f"Depth 1: {depth_1}")
-        # print(f"Depth 2: {depth_2}")
-        #
-        # min_depth = min(depth_1, depth_2)
-
     def fitness(self, fitness_function):
         for i, individual in enumerate(self.population):
-            self.fitnesses[i] = fitness_function(individual)
+            if len(individual.output_data) == 1 and individual.output_data[0] == -100000:
+                self.fitnesses[i] = -100000
+            else:
+                self.fitnesses[i] = fitness_function(individual)
 
     def best_individual_fitness(self):
         max_arg = np.argmax(self.fitnesses)
@@ -290,11 +306,12 @@ class GP:
         for i in range(len(self.population)):
             self.print_individual(i)
 
-    def deep_copy_tree(self, tree: Node):
+    @staticmethod
+    def deep_copy_tree(tree: Node):
         new_tree = ScopeNode(NodeType.SCOPE, None,[])
         for child in tree.children_nodes:
             new_tree.children_nodes.append(child)
-        print("NEW_TREE:   ", new_tree)
+        # print("\nNEW_TREE (copy):   ", new_tree)
         return new_tree
 
     def initialize_fitness(self):
@@ -304,6 +321,30 @@ class GP:
 
     def get_task_cases(self):
         self.test_cases = self.task.test_cases
+
+    def depth(self, node, depth):
+        # global depth
+        # global hasFloat
+        ddd = depth
+        if node is None:
+            print("NODE IS NONE")
+        else:
+            if len(node.children_nodes) > 0:
+                for child in node.children_nodes:
+                    if type(child) is float:
+                        hasFloat = True
+                    else:
+                        d = child.get_depth()
+                        # print("CHild: ", child)
+                        # print("Depth: ", d)
+                        if d > ddd:
+                            ddd = d
+                        if len(child.children_nodes) > 0:
+                            self.depth(child, ddd)
+
+            else:
+                print("NOD")
+                # return 1 + max(self.depth(child) for child in node.children_nodes)
 
     def save_result_to_file(self, best_index, ok, best_fitness):
         path = f"./library/Tasks/outputs/{self.name}/result.txt"

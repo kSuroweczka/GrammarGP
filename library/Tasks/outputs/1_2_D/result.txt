@@ -1,8 +1,11 @@
 Problem not solved :c
 {
-  output(6.0)
-  output(7.0)
-  output(6.0)
-  output(4.0)
+  x_0 = input() 
+  while (  ( x_0 + x_0 ) != ( (7001.0) / True ) || False == ( ( True * True ) - x_0 )  ){
+      x_0 = (  x_0 <= ( ( x_0 * x_0 ) - ( True / True ) ) || ( ( x_0 / True ) - ( (3949.0) * x_0 ) ) >= ( x_0 - ( True * x_0 ) )  ) 
+}
+  while (  x_0 > ( (151.0) - (2091.0) )  ){
+      x_1 = (  ( x_0 / x_0 ) <= x_0  ) 
+}
 }
 Fitness values: -100.0, Generation: 100

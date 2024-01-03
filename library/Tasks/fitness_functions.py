@@ -78,6 +78,7 @@ def fitness_1_2_A_C(individual: Program):
     input_data = individual.input_data
     expected = input_data[0] + input_data[1]
 
+    fitness = -100
     input = individual.input
     # if len(input) < 2:
     #     fitness = -100

@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class NodeType(Enum):
     SCOPE = 0,
     VAR = 1,

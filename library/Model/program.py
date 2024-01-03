@@ -45,12 +45,11 @@ class Program:
         self.str_program = self.ROOT.__repr__().replace('\n', '').strip()
         return self.ROOT.__repr__()
 
-
     def growTree(self):
         posible_nodes = [NodeType.ASSIGNMENT, NodeType.OUTPUT, NodeType.IF, NodeType.WHILE]
         node_t = random.choice(posible_nodes)
 
-        for i in range(random.randint(2,5)):
+        for i in range(random.randint(2,4)):
             self.ROOT.add_child(self.createNode(node_t, self.ROOT))
 
     def createIndividual(self):
