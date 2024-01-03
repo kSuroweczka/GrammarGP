@@ -1,0 +1,13 @@
+{
+    "name": "1_Bench",
+    "min_input_length": 0,
+    "max_input_length": 0,
+    "min_output_length": 1,
+    "max_output_length": 5,
+    "test_cases": [
+        {
+            "input": [2.0, 6.7],
+            "output": [8.7]
+        }
+    ]
+}
