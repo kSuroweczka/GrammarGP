@@ -1,0 +1,25 @@
+{
+    "name": "Bool_1_2",
+    "min_input_length": 1,
+    "max_input_length": 1,
+    "min_output_length": 1,
+    "max_output_length": 1,
+    "test_cases": [
+        {
+            "input": [
+                0
+            ],
+            "output": [
+                0
+            ]
+        },
+        {
+            "input": [
+                1
+            ],
+            "output": [
+                1
+            ]
+        }
+    ]
+}
