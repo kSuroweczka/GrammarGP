@@ -1,19 +1,9 @@
-Problem not solved :c
+Problem solved!
 {
-  if (  ( ( True * (1357.0) ) - False ) >= ( False - ( True / True ) )  ){
-      x_0 = input() 
-      x_1 = input() 
-} else  {
-      x_2 = ( ( x_0 * x_1 ) - x_1 ) 
-      output(x_0)
-      x_0 = (  ( (5456.0) + (7842.0) ) == ( False - x_1 ) || ( x_1 - False ) > ( ( x_0 / x_0 ) - x_2 )  ) 
-      output(x_1)
+if (  ( ( True * True ) - ( True / False ) ) >= ( ( False / True ) + ( True / (-3.0) ) ) && True <= (0.0)  ){
+    x_0 = ( (-2.0) + ( (4.0) / False ) ) 
 }
-  output(856.0)
-  while (  ( False / x_0 ) != x_0  ){
-      x_0 = (  (-2167.0) <= ( ( (-2167.0) * x_0 ) - ( x_0 * x_0 ) )  ) 
-      x_0 = input() 
-      output(x_0)
+  output(1.0)
+  x_0 = ( (-3.0) * (-1.0) ) 
 }
-}
-Fitness values: -855.0, Generation: 100
+Fitness values: 0.0, Generation: 38
