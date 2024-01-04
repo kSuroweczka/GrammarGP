@@ -1,19 +1,17 @@
 Problem not solved :c
 {
-  if (  ( ( True * True ) - (4.0) ) == ( ( (-6.0) * (1.0) ) - ( True * (-5.0) ) ) || ( ( False / True ) + False ) != True  ){
+  output(3.0)
+  if (  ( True + False ) >= ( True - False ) || ( ( (-3.0) / False ) + (-9.0) ) == ( ( False * False ) - True )  ){
       x_0 = input() 
-      output(7.0)
-}
-  if (  ( True * x_0 ) <= (7.0)  ){
-      x_1 = input() 
-      x_0 = ( (-9.0) * False ) 
+      x_0 = (  ( ( x_0 / x_0 ) - ( True / x_0 ) ) < ( ( (-5.0) / True ) + x_0 )  ) 
+      output(0.0)
 } else  {
-      x_2 = input() 
-      output(x_2)
-      x_1 = input() 
-      output(-4.0)
+      x_0 = ( ( False / (0.0) ) + ( x_0 / x_0 ) ) 
+      output(0.0)
+      x_0 = (0.0) 
+      output(x_0)
 }
 }
-Fitness values: -5.0, Generation: 21
-Input: [-3.0, 5.0]
-Output: [7.0]
+Fitness values: -45.5, Generation: 100
+Input: [6.0]
+Output: [3.0, 0.0]

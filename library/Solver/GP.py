@@ -72,20 +72,20 @@ class GP:
 
         while self.generation < self.params.generations:
             for i, individual in enumerate(self.population):
-                # individual.output_data, individual.input, individual.vars = self.interpreter.interpret(individual)
                 self.population[i].output_data, self.population[i].input, self.population[i].vars = self.interpreter.interpret(individual)
 
             self.fitness(fitness_function)
             best_index, best_fitness = self.best_individual_fitness()
+            print(f"{best_index}, {best_fitness}")
 
             if best_fitness == 0.0:
-                self.save_result_to_file(best_index, True, best_fitness)
+                # self.save_result_to_file(best_index, True, best_fitness)
                 print("Problem solved!\n")
                 ok = True
                 break
             else:
-                if best_fitness >= self.best_fitness:
-                    self.save_result_to_file(best_index, False, best_fitness)
+                # if best_fitness >= self.best_fitness:
+
                 print("------------------------------")
                 print(f"Generation: {self.generation+1}")
                 print(f"Best fitness: {best_fitness}")
@@ -102,6 +102,8 @@ class GP:
                 p = Program(worst.id, worst.task, self.params.max_depth, self.params.min_rand, self.params.max_rand, worst.input_data)
                 p.createIndividual()
                 self.population[worst_index] = p
+                self.population[worst_index].output_data, self.population[worst_index].input, self.population[
+                    worst_index].vars = self.interpreter.interpret(individual)
 
                 print("\n\n")
 
@@ -111,6 +113,7 @@ class GP:
             print(f"Problem not solved :c\n")
             print(f"Best fitness: {self.best_fitness}\n")
 
+        self.save_result_to_file(best_index, ok, best_fitness)
 
     def run(self, fitness_function):
         self.evaluate(fitness_function)
@@ -294,6 +297,7 @@ class GP:
         print("Program: ")
         print(self.population[index])
 
+        self.population[index].__repr__()
         # self.population[index].output_data, self.population[index].input, self.population[index].vars = self.interpreter.interpret(self.population[index]) #.str_program, var_dict, self.population[index].input_data
         print("\nInput data:")
         print(self.population[index].input)
