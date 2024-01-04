@@ -40,7 +40,7 @@ class GP:
         self.population = []
         self.params = params or Params(seed=set_seed, max_depth=1)
         self.best = None
-        self.best_fitness = 0.0
+        self.best_fitness = -1000000.0
         self.fitnesses = self.initialize_fitness()
         self.best_generation = 0
         self.generation = 0
@@ -76,11 +76,17 @@ class GP:
 
             self.fitness(fitness_function)
             best_index, best_fitness = self.best_individual_fitness()
+
+
             if best_fitness == 0.0:
+                if best_fitness >= self.best_fitness:
+                    self.save_result_to_file(best_index, True, best_fitness)
                 print("Problem solved!\n")
                 ok = True
                 break
             else:
+                if best_fitness >= self.best_fitness:
+                    self.save_result_to_file(best_index, False, best_fitness)
                 print("------------------------------")
                 print(f"Generation {self.generation}")
                 print(f"Best fitness: {best_fitness}")
@@ -96,15 +102,16 @@ class GP:
                 worst = self.population[worst_index]
                 p = Program(worst.id, worst.task, self.params.max_depth, self.params.min_rand, self.params.max_rand, worst.input_data)
                 p.createIndividual()
+                self.population[worst_index] = p
 
                 print("\n\n")
+
             self.generation += 1
 
         if not ok:
             print(f"Problem not solved :c\n")
-            print(f"Best fitness: {best_fitness}\n")
+            print(f"Best fitness: {self.best_fitness}\n")
 
-        self.save_result_to_file(best_index, ok, best_fitness)
 
     def run(self, fitness_function):
         self.evaluate(fitness_function)
@@ -226,7 +233,7 @@ class GP:
 
     @staticmethod
     def replace_node(tree, node_1, node_2):
-        print("TREE BEFORE: ", tree)
+        # print("TREE BEFORE: ", tree)
         parent_1 = None
         parent_2 = None
         for child in tree.children_nodes:
@@ -237,7 +244,7 @@ class GP:
             if tree.children_nodes[i] == node_1:
                 tree.children_nodes.remove(tree.children_nodes[i])
                 tree.children_nodes.insert(i, node_2)
-        print("TREE AFTER: ", tree)
+        # print("TREE AFTER: ", tree)
         return tree
 
     def fitness(self, fitness_function):
@@ -250,6 +257,8 @@ class GP:
     def best_individual_fitness(self):
         max_arg = np.argmax(self.fitnesses)
         value = self.fitnesses[max_arg]
+        if value >= self.best_fitness:
+            self.best_fitness = float(value)
         self.best = self.population[max_arg]
         return int(max_arg), value
 
@@ -286,7 +295,7 @@ class GP:
         print("Program: ")
         print(self.population[index])
 
-        self.population[index].output_data, self.population[index].input, self.population[index].vars = self.interpreter.interpret(self.population[index]) #.str_program, var_dict, self.population[index].input_data
+        # self.population[index].output_data, self.population[index].input, self.population[index].vars = self.interpreter.interpret(self.population[index]) #.str_program, var_dict, self.population[index].input_data
         print("\nInput data:")
         print(self.population[index].input)
 
@@ -357,3 +366,5 @@ class GP:
             f.write(self.print_individual(best_index))
             f.write("\n")
             f.write(f"Fitness values: {best_fitness}, Generation: {self.generation}\n")
+            f.write(f"Input: {self.population[best_index].input}\n")
+            f.write(f"Output: {self.population[best_index].output_data}\n")

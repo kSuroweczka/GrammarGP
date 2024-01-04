@@ -1,14 +1,23 @@
 Problem not solved :c
 {
-  if (  ( ( (4.0) * False ) + ( True / True ) ) != ( ( (7.0) * False ) + ( (-5.0) / True ) )  ){
-      x_0 = input() 
+  if (  ( x_0 + x_0 ) == ( x_0 / x_0 )  ){
+      x_0 = ( x_0 * (9.0) ) 
+}
+  if (  ( x_0 * x_0 ) > ( x_1 - x_0 ) || ( ( (9.0) * x_1 ) + x_1 ) < ( x_0 / x_0 )  ){
+      x_1 = ( x_1 - True ) 
+      x_1 = input() 
+      output(x_1)
 } else  {
-      x_0 = input() 
-      x_1 = (  True <= ( True + ( x_0 * x_0 ) ) && x_0 < ( ( False / (-2.0) ) + ( False / False ) )  ) 
-      output(x_0)
+      x_1 = input() 
+      output(9.0)
+      x_2 = input() 
 }
-  if (  ( False * x_1 ) <= ( ( x_0 * x_0 ) - x_0 ) && x_0 != ( True / x_0 )  ){
-      x_2 = (  ( ( x_1 / x_0 ) - (6.0) ) < ( ( False * x_1 ) - x_0 )  ) 
+  if (  (9.0) < ( (9.0) + (9.0) )  ){
+      x_1 = input() 
+} else  {
+      x_1 = ( x_0 + x_2 ) 
 }
 }
-Fitness values: -1010.0, Generation: 100
+Fitness values: -42.0, Generation: 9
+Input: [6.0, 1.0, 6.0]
+Output: [9.0, 9.0]
