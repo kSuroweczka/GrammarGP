@@ -1,19 +1,7 @@
 Problem not solved :c
 {
-  if (  ( ( True * (1357.0) ) - False ) >= ( False - ( True / True ) )  ){
-      x_0 = input() 
-      x_1 = input() 
-} else  {
-      x_2 = ( ( x_0 * x_1 ) - x_1 ) 
-      output(x_0)
-      x_0 = (  ( (5456.0) + (7842.0) ) == ( False - x_1 ) || ( x_1 - False ) > ( ( x_0 / x_0 ) - x_2 )  ) 
-      output(x_1)
+  output(491.0)
+  output(-3276.0)
+  output(-331.0)
 }
-  output(856.0)
-  while (  ( False / x_0 ) != x_0  ){
-      x_0 = (  (-2167.0) <= ( ( (-2167.0) * x_0 ) - ( x_0 * x_0 ) )  ) 
-      x_0 = input() 
-      output(x_0)
-}
-}
-Fitness values: -855.0, Generation: 100
+Fitness values: -352.0, Generation: 100
