@@ -226,7 +226,7 @@ class GP:
 
     @staticmethod
     def replace_node(tree, node_1, node_2):
-        # print("TREE BEFORE: ", tree)
+        print("TREE BEFORE: ", tree)
         parent_1 = None
         parent_2 = None
         for child in tree.children_nodes:
@@ -237,7 +237,7 @@ class GP:
             if tree.children_nodes[i] == node_1:
                 tree.children_nodes.remove(tree.children_nodes[i])
                 tree.children_nodes.insert(i, node_2)
-        # print("TREE AFTER: ", tree)
+        print("TREE AFTER: ", tree)
         return tree
 
     def fitness(self, fitness_function):

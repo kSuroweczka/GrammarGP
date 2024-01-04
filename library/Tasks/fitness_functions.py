@@ -233,6 +233,95 @@ def fitness_4_11_7(individual: Program):
     return fitness
 
 
+def fitness_Bool(individual: Program):
+    output = individual.output_data
+    input_data = np.array(individual.input_data)
+    expected = individual.task.test_cases[0].output_data
+    k = len(expected)
+
+    if len(output) == 0:
+        fitness = -100.0
+    elif len(output) == k:
+        if output == expected:
+            fitness = 0.0
+        else:
+            fitness = (-1) * np.abs(np.subtract(output,expected)).sum()
+    else:
+        fitness = -50.0
+    fitness += abs(len(output) - k) * -10
+
+    return fitness
+
+def fitness_1_Bench(individual: Program):
+    output = individual.output_data
+    input_data = individual.input_data
+    expected = input_data[0] + input_data[1]
+
+    fitness = -100
+    input = individual.input
+    # if len(input) < 2:
+    #     fitness = -100
+    if len(output) == 0:
+        fitness = -100.0
+    elif len(output) == 1:
+        if output[0] == expected:
+            fitness = 0.0
+        else:
+            fitness = (-1) * np.abs(expected - output[0])
+    else:
+        avg = np.average(output)
+        fitness = (-1) * np.abs(avg - expected)
+    fitness += abs(len(output) - 1) * -20
+    fitness += abs(len(input) - 2) * -20
+
+    return fitness
+
+def fitness_17_Bench(individual: Program):
+    output = individual.output_data
+    input_data = individual.input_data
+    expected = 0
+    for i in range(len(input_data)):
+        expected += input_data[i] * input_data[i]
+
+    fitness = -100
+    if len(output) == 0:
+        fitness = -100.0
+    elif len(output) == 1:
+        if output[0] == expected:
+            fitness = 0.0
+        else:
+            fitness = (-1) * np.abs(expected - output[0])
+    else:
+        avg = np.average(output)
+        fitness = (-1) * np.abs(avg - expected)
+    fitness += abs(len(output) - 1) * -20
+
+    return fitness
+
+def fitness_27_Bench(individual: Program):
+    output = individual.output_data
+    input_data = individual.input_data
+    expected = 0
+    if len(input_data) % 2:
+        expected = (input_data[len(input_data) // 2 ] + input_data[len(input_data) // 2 + 1])/2
+    else:
+        expected = input_data[len(input_data) // 2 ]
+
+    fitness = -100
+    if len(output) == 0:
+        fitness = -100.0
+    elif len(output) == 1:
+        if output[0] == expected:
+            fitness = 0.0
+        else:
+            fitness = (-1) * np.abs(expected - output[0])
+    else:
+        avg = np.average(output)
+        fitness = (-1) * np.abs(avg - expected)
+    fitness += abs(len(output) - 1) * -20
+
+    return fitness
+
 # def fitness_1_1(output_data, where: int, only: bool, individual: Program):
 #     fitness = -100.0
 #     print("\n")
