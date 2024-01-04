@@ -1,22 +1,11 @@
-Problem solved!
+Problem not solved :c
 {
-  if (  False >= ( False / True )  ){
-      x_0 = input() 
-      output(-5.0)
+  if (  True >= False  ){
+      x_0 = (  ( False * False ) == ( True / False ) || ( ( (303.0) * False ) + ( True * False ) ) <= ( False - False )  ) 
 }
-  if (  False <= ( ( True * x_0 ) - ( True / x_0 ) ) && ( x_0 * (3.0) ) == ( True * x_0 )  ){
-      x_1 = ( x_0 * x_0 ) 
-      x_0 = ( ( x_0 / (7.0) ) + ( (-5.0) / (-5.0) ) ) 
-      output(x_1)
-} else  {
-      x_0 = (  False != x_0  ) 
+  x_0 = input() 
+  x_3 = input() 
 }
-  if (  x_0 < ( ( True * x_0 ) - ( (-5.0) / True ) )  ){
-      x_0 = (  ( ( x_0 * (-5.0) ) - ( (-5.0) * x_0 ) ) != x_1 || ( (-5.0) * (-5.0) ) <= x_0  ) 
-} else  {
-      x_1 = x_0 
-      output(-3.0)
-      x_0 = input() 
-}
-}
-Fitness values: 0.0, Generation: 1
+Fitness values: -110.0, Generation: 99
+Input: [173.0, -3235.0]
+Output: []

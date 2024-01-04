@@ -1,0 +1,14 @@
+Problem solved!
+{
+  if (  ( True / False ) <= True  ){
+      x_0 = (  ( (0.0) - True ) <= ( (2.0) / False ) && ( ( True * (3.0) ) - ( True / True ) ) <= ( ( True / True ) + ( (-1.0) * False ) )  ) 
+      output(x_0)
+}
+  if (  ( ( False / True ) - ( x_0 * x_0 ) ) > ( False * False ) || False == ( True * (-3.0) )  ){
+      x_1 = input() 
+      x_2 = ( x_0 / (3.0) ) 
+}
+}
+Fitness values: 0.0, Generation: 0
+Input: []
+Output: [False]

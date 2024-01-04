@@ -1,0 +1,8 @@
+Problem solved!
+{
+  x_0 = input() 
+  output(1.0)
+}
+Fitness values: 0.0, Generation: 79
+Input: [1]
+Output: [1.0]

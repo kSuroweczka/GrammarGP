@@ -1,0 +1,15 @@
+Problem solved!
+{
+  if (  ( ( True * (-1.0) ) - True ) < ( (2.0) / (1.0) ) && True == ( False / False )  ){
+      x_0 = ( False * (-1.0) ) 
+} else  {
+      x_0 = input() 
+      output(x_0)
+      x_0 = input() 
+}
+  x_1 = input() 
+  x_0 = input() 
+}
+Fitness values: 0.0, Generation: 75
+Input: [0, 0, 1, 0]
+Output: [0.0]

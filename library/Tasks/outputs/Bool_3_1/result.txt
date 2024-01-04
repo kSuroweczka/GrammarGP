@@ -1,0 +1,9 @@
+Problem solved!
+{
+  output(1.0)
+  output(1.0)
+  output(1.0)
+}
+Fitness values: 0.0, Generation: 0
+Input: []
+Output: [1.0, 1.0, 1.0]

@@ -1,0 +1,8 @@
+Problem not solved :c
+{
+  x_0 = ( True + ( False / True ) ) 
+  output(4.0)
+}
+Fitness values: -2.0, Generation: 95
+Input: []
+Output: [2.0]

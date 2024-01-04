@@ -1,8 +1,10 @@
 Problem not solved :c
 {
-  output(13685.0)
-  output(19990.0)
-  output(13685.0)
-  output(7687.0)
+  output(31246.0)
+  output(50061.0)
+  output(54670.0)
+  output(77200.0)
 }
-Fitness values: -11425.0, Generation: 100
+Fitness values: -169.0, Generation: 99
+Input: []
+Output: [31246.0, 50061.0, 54670.0, 77200.0]

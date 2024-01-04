@@ -1,0 +1,9 @@
+Problem solved!
+{
+  x_0 = (3.0) 
+  output(0.0)
+  x_2 = True 
+}
+Fitness values: 0.0, Generation: 35
+Input: []
+Output: [0.0]

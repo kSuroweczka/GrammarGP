@@ -1,0 +1,9 @@
+Problem solved!
+{
+  x_0 = (  ( False * False ) != (-4.0)  ) 
+  x_1 = (  ( x_0 / x_0 ) <= ( x_0 - ( x_0 / x_0 ) )  ) 
+  output(x_1)
+}
+Fitness values: 0.0, Generation: 67
+Input: []
+Output: [False]

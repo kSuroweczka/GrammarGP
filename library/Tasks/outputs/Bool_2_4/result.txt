@@ -1,0 +1,9 @@
+Problem solved!
+{
+  x_0 = ( False / True ) 
+  x_1 = False 
+  output(x_1)
+}
+Fitness values: 0.0, Generation: 85
+Input: []
+Output: [0.0]

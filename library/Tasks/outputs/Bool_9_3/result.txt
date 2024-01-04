@@ -1,0 +1,8 @@
+Problem not solved :c
+{
+  x_0 = (  ( (5.0) - ( False * (2.0) ) ) > ( (0.0) * True )  ) 
+  x_0 = (  ( ( (-5.0) * False ) + ( False / (3.0) ) ) <= (3.0) || ( False + False ) <= ( ( False / (-3.0) ) + ( (1.0) * False ) )  ) 
+}
+Fitness values: -2.0, Generation: 48
+Input: []
+Output: [-2.0]

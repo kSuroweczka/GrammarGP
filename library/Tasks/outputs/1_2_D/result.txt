@@ -1,11 +1,17 @@
 Problem not solved :c
 {
-  x_0 = input() 
-  while (  ( x_0 + x_0 ) != ( (7001.0) / True ) || False == ( ( True * True ) - x_0 )  ){
-      x_0 = (  x_0 <= ( ( x_0 * x_0 ) - ( True / True ) ) || ( ( x_0 / True ) - ( (3949.0) * x_0 ) ) >= ( x_0 - ( True * x_0 ) )  ) 
+  while (  True >= ( True * (-5650.0) )  ){
+      x_0 = ( False - ( True * True ) ) 
+      output(1055.0)
 }
-  while (  x_0 > ( (151.0) - (2091.0) )  ){
-      x_1 = (  ( x_0 / x_0 ) <= x_0  ) 
+  while (  ( ( (1055.0) / True ) - ( x_0 * True ) ) > x_0  ){
+      x_0 = input() 
+}
+  while (  ( (1055.0) * x_0 ) == ( ( x_0 * x_0 ) - x_0 ) && x_0 != ( False * x_0 )  ){
+      x_1 = False 
+      x_0 = input() 
 }
 }
-Fitness values: -100.0, Generation: 100
+Fitness values: -100.0, Generation: 99
+Input: []
+Output: []

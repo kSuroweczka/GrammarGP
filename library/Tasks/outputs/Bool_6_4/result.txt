@@ -1,0 +1,8 @@
+Problem not solved :c
+{
+  x_0 = input() 
+  output(1.0)
+}
+Fitness values: -1.0, Generation: 99
+Input: [0]
+Output: [1.0]

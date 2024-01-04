@@ -1,0 +1,19 @@
+Problem solved!
+{
+  if (  ( ( True / (3.0) ) + True ) != ( ( True / True ) + (0.0) )  ){
+      x_0 = input() 
+      output(0.0)
+} else  {
+      x_0 = ( (0.0) * False ) 
+      output(0.0)
+}
+  if (  ( ( True * True ) - ( False / (0.0) ) ) >= ( ( x_0 / x_0 ) + ( x_0 * (0.0) ) )  ){
+      x_1 = input() 
+} else  {
+      x_2 = (  (0.0) == ( x_1 + ( x_0 / False ) ) || ( ( x_1 * (0.0) ) - (3.0) ) <= ( (2.0) - (0.0) )  ) 
+      x_2 = input() 
+}
+}
+Fitness values: 0.0, Generation: 28
+Input: [0, 0]
+Output: [0.0]

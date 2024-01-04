@@ -1,7 +1,12 @@
 Problem not solved :c
 {
-  x_0 = ( True * (100.0) ) 
-  x_1 = (192.0) 
-  x_2 = (-79.0) 
+  x_0 = input() 
+  while (  ( True - True ) > ( (769.0) - False )  ){
+      x_0 = input() 
+      output(163.0)
 }
-Fitness values: -100.0, Generation: 100
+  x_0 = input() 
+}
+Fitness values: -52.0, Generation: 20
+Input: []
+Output: [841.0, 841.0]

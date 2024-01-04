@@ -1,0 +1,21 @@
+Problem solved!
+{
+  if (  (-2.0) != (4.0)  ){
+      x_0 = input() 
+      output(x_0)
+      x_0 = (  False != ( ( False * False ) - (-1.0) ) && ( x_0 - ( (-5.0) / (2.0) ) ) != ( ( x_0 / False ) - x_0 )  ) 
+}
+  if (  ( True + ( (-5.0) / x_0 ) ) <= ( False + ( True / x_0 ) ) || ( False + ( x_0 * x_0 ) ) != ( x_0 * (-1.0) )  ){
+      x_0 = input() 
+      x_0 = (  ( False / False ) < ( ( x_0 * x_0 ) - x_0 ) && ( ( False / x_0 ) + x_0 ) <= ( ( x_0 / x_0 ) + x_0 )  ) 
+}
+  if (  ( ( x_0 * x_0 ) - ( False / x_0 ) ) <= ( (1.0) * x_0 ) && ( ( x_0 / (1.0) ) + ( True * False ) ) <= ( x_0 / False )  ){
+      x_1 = input() 
+      x_2 = (  ( (0.0) * x_0 ) <= x_1 || x_0 >= ( (-3.0) + x_1 )  ) 
+} else  {
+      x_2 = (  ( ( x_1 * x_1 ) - ( x_1 / x_1 ) ) > ( ( x_2 * False ) + (2.0) )  ) 
+}
+}
+Fitness values: 0.0, Generation: 0
+Input: [0, 0, 0]
+Output: [0.0]

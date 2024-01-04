@@ -1,0 +1,11 @@
+Problem not solved :c
+{
+  if (  ( (2.0) - ( x_0 * x_1 ) ) >= ( ( x_2 / False ) - x_2 )  ){
+      x_4 = (  ( (3.0) * x_0 ) == ( ( (2.0) * (2.0) ) + ( x_0 * x_0 ) ) || ( ( (2.0) * True ) + (2.0) ) > ( x_0 * True )  ) 
+      output(2.0)
+}
+  x_1 = (-1.0) 
+}
+Fitness values: -1.0, Generation: 54
+Input: []
+Output: [-1.0]

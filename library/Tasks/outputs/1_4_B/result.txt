@@ -1,0 +1,18 @@
+Problem not solved :c
+{
+  if (  ( False * False ) < ( True / (23.0) )  ){
+      x_0 = input() 
+      output(1.0)
+      x_1 = input() 
+      output(-25.0)
+}
+  if (  ( ( x_1 * (-25.0) ) - ( (-25.0) * x_0 ) ) >= ( ( (1.0) * (1.0) ) + ( False / (1.0) ) ) && ( ( (-25.0) / False ) + ( (-18.0) * (-82.0) ) ) > ( ( (-46.0) * x_1 ) + ( x_1 * x_0 ) )  ){
+      x_1 = (  (-25.0) > ( ( x_1 * x_1 ) - True )  ) 
+}
+  if (  ( x_1 / x_1 ) < ( x_0 / x_0 )  ){
+      x_0 = ( x_0 / True ) 
+}
+}
+Fitness values: -100.0, Generation: 41
+Input: []
+Output: []

@@ -1,0 +1,17 @@
+Problem solved!
+{
+  if (  True <= ( True * True ) && ( (-1.0) / (2.0) ) < ( False - ( False / True ) )  ){
+      x_0 = input() 
+      output(x_0)
+}
+  if (  ( True / x_0 ) == ( x_0 - True ) && ( True + ( x_0 / False ) ) == ( x_0 + ( False * x_0 ) )  ){
+      x_0 = (  ( (2.0) / False ) > ( False + x_0 ) || ( x_0 * (3.0) ) <= ( (-2.0) * x_0 )  ) 
+      output(x_0)
+} else  {
+      x_1 = (  ( (-3.0) / x_0 ) < ( x_0 - ( True * True ) )  ) 
+      x_0 = input() 
+}
+}
+Fitness values: 0.0, Generation: 0
+Input: [0, 0]
+Output: [0.0]

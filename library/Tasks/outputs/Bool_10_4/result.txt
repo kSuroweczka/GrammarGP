@@ -1,0 +1,8 @@
+Problem not solved :c
+{
+  output(-1.0)
+  output(-5.0)
+}
+Fitness values: -1.0, Generation: 20
+Input: [1]
+Output: [-1.0]

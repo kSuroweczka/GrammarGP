@@ -1,8 +1,12 @@
 Problem not solved :c
 {
-x_0 = input() 
-  output(4.0)
+  output(-2.0)
+  while (  (1.0) <= ( False + False ) && ( False + True ) > ( True * False )  ){
+      x_0 = input() 
+      x_1 = ( x_0 / x_0 ) 
+      output(x_1)
 }
-Fitness values: -2.700000047683716, Generation: 99
+}
+Fitness values: -26.700000762939453, Generation: 55
 Input: [2.0]
-Output: [4.0]
+Output: [2.0]

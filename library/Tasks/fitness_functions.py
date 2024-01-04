@@ -176,7 +176,7 @@ def fitness_1_4_A(individual: Program):
     expected = round(np.average(input_data))
 
     if len(output) == 0:
-        fitness = -10.0
+        fitness = -1000.0
     elif len(output) == 1:
         if output == expected:
             fitness = 0.0
@@ -190,7 +190,7 @@ def fitness_1_4_A(individual: Program):
 
 def fitness_1_4_B(individual: Program):
     output = individual.output_data
-    input_data = np.array(individual.input_data)
+    input_data = np.array(individual.input_data, dtype='int64')
     input_len = len(input_data)
 
     input = individual.input
@@ -204,7 +204,7 @@ def fitness_1_4_B(individual: Program):
         input_data.repeat(input_data, a)
         expected = np.average(input_data)
     else:
-        expected = np.average(input_data[1:n+1])
+        expected = np.average(input_data[1:n])
 
     if len(output) == 0:
         fitness = -1000.0
@@ -235,7 +235,7 @@ def fitness_4_11_7(individual: Program):
 
 def fitness_Bool(individual: Program):
     output = individual.output_data
-    input_data = np.array(individual.input_data)
+    input_data = np.array(individual.input)
     expected = individual.task.test_cases[0].output_data
     k = len(expected)
 

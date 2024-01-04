@@ -1,8 +1,8 @@
 Problem solved!
 {
-  output(5.0)
-  output(3.0)
-  output(1.0)
   output(0.0)
+  output(1.0)
 }
-Fitness values: 0.0, Generation: 1
+Fitness values: 0.0, Generation: 0
+Input: []
+Output: [0.0, 1.0]

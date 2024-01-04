@@ -1,0 +1,12 @@
+Problem not solved :c
+{
+  output(0.0)
+  output(1.0)
+  while (  x_0 >= ( ( x_0 / True ) + x_0 ) && ( ( x_0 / True ) + x_0 ) >= ( ( x_0 / x_0 ) + True )  ){
+      x_1 = x_0 
+}
+  output(-4.0)
+}
+Fitness values: -80.0, Generation: 46
+Input: []
+Output: [0.0, 1.0, 0.0, -4.0]

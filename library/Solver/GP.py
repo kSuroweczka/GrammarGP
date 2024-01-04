@@ -88,7 +88,7 @@ class GP:
                 if best_fitness >= self.best_fitness:
                     self.save_result_to_file(best_index, False, best_fitness)
                 print("------------------------------")
-                print(f"Generation {self.generation}")
+                print(f"Generation: {self.generation}")
                 print(f"Best fitness: {best_fitness}")
                 self.print_individual(best_index)
 
