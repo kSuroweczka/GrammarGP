@@ -1,9 +1,8 @@
 Problem solved!
 {
-if (  ( ( True * True ) - ( True / False ) ) >= ( ( False / True ) + ( True / (-3.0) ) ) && True <= (0.0)  ){
-    x_0 = ( (-2.0) + ( (4.0) / False ) ) 
-}
+  x_1 = input() 
   output(1.0)
-  x_0 = ( (-3.0) * (-1.0) ) 
 }
-Fitness values: 0.0, Generation: 38
+Fitness values: 0.0, Generation: 59
+Input: [0.0]
+Output: [1.0]

@@ -72,15 +72,14 @@ class GP:
 
         while self.generation < self.params.generations:
             for i, individual in enumerate(self.population):
-                individual.output_data, individual.input, individual.vars = self.interpreter.interpret(individual)
+                # individual.output_data, individual.input, individual.vars = self.interpreter.interpret(individual)
+                self.population[i].output_data, self.population[i].input, self.population[i].vars = self.interpreter.interpret(individual)
 
             self.fitness(fitness_function)
             best_index, best_fitness = self.best_individual_fitness()
 
-
             if best_fitness == 0.0:
-                if best_fitness >= self.best_fitness:
-                    self.save_result_to_file(best_index, True, best_fitness)
+                self.save_result_to_file(best_index, True, best_fitness)
                 print("Problem solved!\n")
                 ok = True
                 break
@@ -88,7 +87,7 @@ class GP:
                 if best_fitness >= self.best_fitness:
                     self.save_result_to_file(best_index, False, best_fitness)
                 print("------------------------------")
-                print(f"Generation: {self.generation}")
+                print(f"Generation: {self.generation+1}")
                 print(f"Best fitness: {best_fitness}")
                 self.print_individual(best_index)
 
@@ -257,7 +256,7 @@ class GP:
     def best_individual_fitness(self):
         max_arg = np.argmax(self.fitnesses)
         value = self.fitnesses[max_arg]
-        if value >= self.best_fitness:
+        if value > self.best_fitness:
             self.best_fitness = float(value)
         self.best = self.population[max_arg]
         return int(max_arg), value

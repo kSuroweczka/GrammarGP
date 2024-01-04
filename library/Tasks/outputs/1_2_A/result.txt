@@ -1,20 +1,17 @@
 Problem not solved :c
 {
-  if (  True < ( (3.0) / True ) && ( True - True ) == ( False * False )  ){
+  if (  ( True + False ) == True && False > ( ( False * False ) - ( True * False ) )  ){
+      x_0 = False 
+      x_0 = (  (6.0) != ( ( (7.0) / (3.0) ) - x_0 )  ) 
+} else  {
       x_0 = input() 
-      x_1 = (  False != ( ( x_0 / x_0 ) + (2.0) )  ) 
+      output(6.0)
 }
-  if (  ( ( x_0 * x_0 ) - ( x_1 * (6.0) ) ) == ( False / False ) || ( ( x_0 / x_0 ) - ( True / x_0 ) ) != x_1  ){
-      x_0 = input() 
-      x_0 = (  ( True + False ) != ( ( True * x_0 ) - False )  ) 
-      output(5.0)
-}
-  while (  ( ( x_0 / x_0 ) + True ) == ( ( x_0 / True ) + True ) && x_0 != ( x_0 + ( (7.0) / True ) )  ){
-      x_1 = (  ( ( False / True ) - ( True / True ) ) > x_0 || x_0 <= False  ) 
-      output(2.0)
-      x_2 = input() 
+  x_0 = (  ( (4.0) - True ) <= ( ( (8.0) / (9.0) ) - ( True / False ) ) && ( ( True / False ) - False ) != ( ( True / True ) + True )  ) 
+  if (  ( (7.0) / (7.0) ) > x_0  ){
+      x_1 = (  ( x_0 - ( x_0 / True ) ) <= ( ( x_0 / x_0 ) - ( (7.0) / x_0 ) )  ) 
 }
 }
-Fitness values: -3.0, Generation: 79
-Input: [3.0, 5.0]
-Output: [5.0]
+Fitness values: -1.0, Generation: 43
+Input: [2.0, 3.0]
+Output: [6.0]
