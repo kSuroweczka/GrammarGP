@@ -24,4 +24,3 @@ for i in [1,17,27]:
     gp.run(fitness_function=exec(f'fitness_{i}_Bench'))
 
 
-
