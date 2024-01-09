@@ -65,7 +65,6 @@ class GP:
         return pop
 
     def evaluate(self, fitness_function):
-        ok = False
         self.print_population()
 
         while self.generation < self.params.generations:
@@ -76,23 +75,19 @@ class GP:
             best_index, best_fitness = self.best_individual_fitness()
 
             if best_fitness == 0.0:
-                # self.save_result_to_file(best_index, best_fitness)
                 print("Problem solved!\n")
-                ok = True
                 break
             else:
-                # if best_fitness >= self.best_fitness:
-
                 print("------------------------------")
                 print(f"Generation: {self.generation+1}")
                 print(f"Best fitness: {best_fitness}")
                 self.print_individual(best_index)
 
-                rand_op = random.random()
-                if rand_op < self.params.crossover_prob:
-                    self.crossover()
-                else:
-                    self.mutation()
+                # rand_op = random.random()
+                # if rand_op < self.params.crossover_prob:
+                #     self.crossover()
+                # else:
+                self.mutation()
 
                 worst_index, worst_fitness = self.worst_individual_fitness()
                 worst = self.population[worst_index]
@@ -101,18 +96,14 @@ class GP:
                 self.population[worst_index] = p
                 self.population[worst_index].output_data, self.population[worst_index].input, self.population[
                     worst_index].vars = self.interpreter.interpret(individual)
-
                 print("\n\n")
 
             self.generation += 1
 
         best_index, best_fitness = self.best_individual_fitness()
-
         if best_fitness != 0.0:
             print(f"Problem not solved :c\n")
             print(f"Best fitness: {self.best_fitness}\n")
-
-        # self.save_result_to_file(best_index, best_fitness)
 
     def run(self, fitness_function):
         self.evaluate(fitness_function)
@@ -126,43 +117,70 @@ class GP:
         print("\n------------\n OLD PROGRAM \n------------\n")
         print(self.population[id])
 
-        self.population[id].ROOT = self.walk_tree(program)
+        root_copy = self.deep_copy_tree(program.ROOT)
+        old_node, new_node = self.walk_tree(root_copy, program)
+
+        print("\nFINAL OLD NODE: \n")
+        print(old_node)
+
+        print("\nFINAL NEW NODE: \n")
+        print(new_node)
+
+
+
+        self.population[id].ROOT = root_copy
         self.population[id].output_data, self.population[id].input, self.population[id].vars = self.interpreter.interpret(self.population[id])
 
         print("\n------------\n NEW PROGRAM \n------------\n")
         print(self.population[id])
 
     # node -> root_copy
-    def walk_tree(self, program):
-        new_program = self.deep_copy_tree(program.ROOT)
-        for child in new_program.children_nodes:
-            mutate_rand = random.random()
-            if mutate_rand < self.params.pmut_per_node:
-                new_program = self.mutate(node=child, node_parent=new_program, program=program)
+    def walk_tree(self, node, program):
+        if not isinstance(node, bool) and not isinstance(node, float) and node.children_nodes is not None:
+            for child in node.children_nodes:
+                mutate_node = random.random()
+                if mutate_node < self.params.pmut_per_node:
+                    new_node = self.mutate(node=child, node_parent=node, program=program)
+                    return child, new_node
+                else:
+                    return child, self.walk_tree(child, program)
 
-        return new_program
+
+        # new_program = self.deep_copy_tree(program.ROOT)
+        # for child in new_program.children_nodes:
+        #     mutate_rand = random.random()
+        #     if mutate_rand < self.params.pmut_per_node:
+        #         new_program = self.mutate(node=child, node_parent=new_program, program=program)
+        #
+        # return new_program
 
     def mutate(self, node, node_parent, program: Program):
         possible_nodes = []
         if isinstance(node, float) or isinstance(node, bool):
-            print(f"\nOLD NODE: {node} ,type: {type(node)}")
-            node_parent.value = random.choice([random.randrange(int(self.params.min_rand), int(self.params.max_rand)), True, False])
-            print(f"NEW NODE: {node_parent.value} ,type: {type(node)}")
+            # print(f"\nOLD NODE: {node} ,type: {type(node)}")
+            # node_parent.
+            value = random.choice([
+                random.randrange(int(self.params.min_rand), int(self.params.max_rand)),
+                True,
+                False
+            ])
+            # print(f"NEW NODE: {node_parent.value} ,type: {type(node)}")
+            return value
         else:
-            print(f"\nOLD NODE: {node} ,type: {node.node_type}")
+            # print(f"\nOLD NODE: {node} ,type: {node.node_type}")
             match node.node_type:
                 case NodeType.INPUT:
                     possible_nodes = [NodeType.EXPRESSION, NodeType.CONDITION]
                 case NodeType.OUTPUT | NodeType.ASSIGNMENT | NodeType.IF | NodeType.WHILE:
                     possible_nodes = [NodeType.ASSIGNMENT, NodeType.OUTPUT, NodeType.IF, NodeType.WHILE]
-                case NodeType.VAR:
-                    possible_nodes = [NodeType.VAR]
+                # case NodeType.VAR:
+                #     possible_nodes = [NodeType.VAR]
                 case NodeType.SCOPE:
                     possible_nodes = [NodeType.SCOPE]
-                case NodeType.CONDITION:
-                    possible_nodes = [NodeType.CONDITION, NodeType.EXPRESSIONCONDITION]
-                case NodeType.EXPRESSIONCONDITION:
-                    possible_nodes = [NodeType.EXPRESSIONCONDITION, NodeType.CONDITION]
+                # case NodeType.CONDITION:
+                #     possible_nodes = [NodeType.CONDITION, NodeType.EXPRESSIONCONDITION]
+                # case NodeType.EXPRESSIONCONDITION:
+                #     possible_nodes = [NodeType.EXPRESSIONCONDITION, NodeType.CONDITION]
                 case NodeType.EXPRESSION:
                     possible_nodes = [NodeType.EXPRESSION, NodeType.VAR, NodeType.TERM]
                 case NodeType.FACTOR:
@@ -173,14 +191,24 @@ class GP:
                     possible_nodes = [NodeType.BOOLEAN, NodeType.EXPRESSION, NodeType.CONDITION]
 
             if len(possible_nodes) == 0:
-                return
+                return node
 
             random_node = random.choice(possible_nodes)
             new_node = program.createNode(random_node, None)
 
-            print(f"NEW NODE: {new_node} ,type: {new_node.node_type}")
-            return self.replace_node(node_parent, node, new_node)
+            # print(f"NEW NODE: {new_node} ,type: {new_node.node_type}")
 
+            # replace old node with new one:
+            # new_node.parent_node = node_parent
+            # for i in range(len(node.children_nodes)):
+            #     new_node.add_child(node.children_nodes[i])
+            # node.parent_node = None
+            # node.children_nodes = []
+
+            # print(f"new_node parent node: {new_node.parent_node}\n")
+            # print(f"new_node children nodes: {new_node.children_nodes}\n")
+
+            return new_node
 
     def crossover(self):
         print("\n------------\n CROSSOVER \n------------\n")
@@ -329,7 +357,7 @@ class GP:
 
     @staticmethod
     def deep_copy_tree(tree: Node):
-        new_tree = ScopeNode(NodeType.SCOPE, None,[])
+        new_tree = ScopeNode(NodeType.SCOPE, None, [])
         for child in tree.children_nodes:
             new_tree.children_nodes.append(child)
         # print("\nNEW_TREE (copy):   ", new_tree)

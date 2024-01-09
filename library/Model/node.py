@@ -282,9 +282,9 @@ class ExpressionConditionNode(Node):
         
     def __repr__(self) -> str:
         output = ""
-        output += f'{self.children_nodes[0]} '
+        output += f'{self.leftExpression} '
         output += self.operator
-        output += f' {self.children_nodes[1]}'
+        output += f' {self.rightExpression}'
         return output
     
     def calculate(self):
@@ -307,8 +307,8 @@ class ExpressionConditionNode(Node):
 class ConditionNode(Node):
     def __init__(self, node_type: NodeType, 
                  parent_node: Node,
-                logicOperators: list[str],
-                children_nodes:list[Node]=None):  
+                 logicOperators: list[str],
+                 children_nodes: list[Node] = None):
         
         super().__init__(node_type, parent_node)
         self.parent_node = parent_node

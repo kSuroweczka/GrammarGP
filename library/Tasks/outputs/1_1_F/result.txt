@@ -1,28 +1,28 @@
 Problem solved!
 {
-  if (  ( True * False ) == ( (-1.0) + True ) || ( ( False / False ) - True ) > ( ( False * (-1.0) ) + ( True * True ) )  ){
+  if (  ( True + False ) > ( False * False )  ){
       x_0 = input() 
       output(1.0)
 } else  {
-      x_0 = ( False + (1.0) ) 
-      output(1.0)
+      x_1 = (  ( (1.0) - ( x_0 / x_0 ) ) >= x_0  ) 
+}
+  if (  x_1 > x_0  ){
+      x_2 = ( (1.0) * False ) 
+} else  {
+      x_3 = (  ( False / x_2 ) < ( True + True ) && ( ( False * x_0 ) + ( False / (0.0) ) ) != (3.0)  ) 
+      x_2 = input() 
+      output(x_3)
+}
+  if (  ( (1.0) / x_3 ) >= ( False / False )  ){
       x_1 = input() 
-      output(1.0)
+      x_1 = input() 
+      output(x_1)
 }
-  if (  x_1 < (1.0) || ( x_1 - ( x_0 * x_0 ) ) <= ( (1.0) + (1.0) )  ){
-      x_2 = (  ( ( x_0 * x_0 ) + False ) == ( (2.0) / True )  ) 
-      x_0 = input() 
-}
-  if (  x_0 >= ( (1.0) * x_1 ) || x_2 < x_1  ){
-      x_3 = (  ( x_1 - False ) != ( False / (1.0) )  ) 
+  if (  ( ( x_1 / x_1 ) - ( x_1 * x_0 ) ) < ( x_1 + (1.0) )  ){
+      x_4 = ( x_2 / (0.0) ) 
 } else  {
-      x_4 = (  False >= x_1 || ( x_3 + (1.0) ) <= (1.0)  ) 
-}
-  if (  x_2 <= ( (1.0) - (3.0) ) || ( x_3 - x_1 ) < False  ){
-      x_5 = ( x_2 + x_1 ) 
-      x_5 = ( (4.0) - x_2 ) 
-} else  {
-      x_3 = (  True < ( False + (1.0) ) && False == ( (1.0) - ( x_4 * (2.0) ) )  ) 
+      x_5 = (  ( ( x_3 * x_2 ) - (1.0) ) < ( x_0 - ( x_4 / (1.0) ) ) || x_2 <= True  ) 
+      output(3.0)
 }
 }
 Fitness values: 0.0, Generation: 0

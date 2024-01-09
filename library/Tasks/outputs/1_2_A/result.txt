@@ -1,17 +1,10 @@
 Problem not solved :c
 {
-  if (  ( True + False ) == True && False > ( ( False * False ) - ( True * False ) )  ){
-      x_0 = False 
-      x_0 = (  (6.0) != ( ( (7.0) / (3.0) ) - x_0 )  ) 
-} else  {
-      x_0 = input() 
-      output(6.0)
+  output(-5.0)
+  output(1.0)
+  output(-1.0)
+  output(4.0)
 }
-  x_0 = (  ( (4.0) - True ) <= ( ( (8.0) / (9.0) ) - ( True / False ) ) && ( ( True / False ) - False ) != ( ( True / True ) + True )  ) 
-  if (  ( (7.0) / (7.0) ) > x_0  ){
-      x_1 = (  ( x_0 - ( x_0 / True ) ) <= ( ( x_0 / x_0 ) - ( (7.0) / x_0 ) )  ) 
-}
-}
-Fitness values: -1.0, Generation: 43
-Input: [2.0, 3.0]
-Output: [6.0]
+Fitness values: -105.25, Generation: 0
+Input: []
+Output: [-5.0, 1.0, -1.0, 4.0]

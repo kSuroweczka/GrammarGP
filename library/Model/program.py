@@ -77,26 +77,20 @@ class Program:
             return input
         
         elif type == NodeType.OUTPUT:
-            const_count = self.const.__len__()
             var_count = self.variables.__len__()
 
             output = OutputNode(node_type=type, parent_node=parent, children_nodes=[])
             output.depth = current_depth
 
-            choice = random.choice(["var", "const", "rand"])
+            choice = random.choice(["var", "rand"])
             out_rand = choice == "rand"
-            out_const = choice == "const"
             out_var = choice == "var"
 
-            if (var_count == 0 and const_count == 0) or out_rand or (const_count == 0 and out_const) or (var_count == 0 and out_var):
+            if var_count == 0 or out_rand or (var_count == 0 and out_var):
                 rand_value = float(random.randint(self.min_rand, self.max_rand))
                 output.add_child(rand_value)
                 self.output_data.append(rand_value)
                 self.const.append(rand_value)
-            elif out_const:
-                rand_const = random.choice(list(self.const))
-                output.add_child(rand_const)
-                self.output_data.append(rand_const)
             else:
                 rand_var = random.choice(list(self.variables.keys()))
                 var = self.variables[rand_var]
@@ -135,21 +129,21 @@ class Program:
                             assign = AssignmentNode(node_type=type, parent_node=parent, var=new_var, body=exp)
                             new_var.change_parent(assign)
                             exp.parent_node = assign
-                            assign.add_child(new_var)
+                            # assign.add_child(new_var)
                             assign.add_child(exp)
                         case "input":
                             input = self.createNode(NodeType.INPUT, None, current_depth+1)
                             new_var.value = input.value
                             assign = AssignmentNode(node_type=type, parent_node=parent, var=new_var, body=input)
                             input.change_parent(assign)
-                            assign.add_child(new_var)
+                            # assign.add_child(new_var)
                             assign.add_child(input)
                         case "condition":
                             condition = self.createNode(NodeType.CONDITION, None, current_depth+1)
                             new_var.value = condition.value
                             assign = AssignmentNode(node_type=type, parent_node=parent, var=new_var, body=condition)
                             condition.change_parent(assign)
-                            assign.add_child(new_var)
+                            # assign.add_child(new_var)
                             assign.add_child(condition)
 
                     self.variables.update({new_var.name: new_var})
@@ -270,8 +264,8 @@ class Program:
 
         
         elif type == NodeType.CONDITION:
-            howMuch = random.choice([1,2])  ### potem dodac 3 i 4
-            children =[]
+            howMuch = random.choice([1, 2])  ### potem dodac 3 i 4
+            children = []
             logicOperators = []
             expressionConditionNode = self.createNode(NodeType.EXPRESSIONCONDITION,  None, current_depth+1)
             children.append(expressionConditionNode)
