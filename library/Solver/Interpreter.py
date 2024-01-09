@@ -9,7 +9,7 @@ class Interpreter:
 
     @staticmethod
     def interpret(program: Program):
-        input = InputStream(program.str_program)
+        input = InputStream(program.get_program_string())
         lexer = TinyGPLexer(input)
 
         stream = CommonTokenStream(lexer)
@@ -25,4 +25,4 @@ class Interpreter:
             visitor.visit(tree)
             return visitor.output, visitor.actual_input , visitor.variables
         except:
-            return [-100000], visitor.actual_input, visitor.variables
+            return visitor.output, visitor.actual_input, visitor.variables

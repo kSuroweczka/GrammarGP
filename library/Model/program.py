@@ -45,6 +45,10 @@ class Program:
         self.str_program = self.ROOT.__repr__().replace('\n', '').strip()
         return self.ROOT.__repr__()
 
+    def get_program_string(self):
+        self.str_program = self.ROOT.__repr__().replace('\n', '').strip()
+        return self.str_program
+
     def growTree(self):
         posible_nodes = [NodeType.ASSIGNMENT, NodeType.OUTPUT, NodeType.IF, NodeType.WHILE]
         node_t = random.choice(posible_nodes)
