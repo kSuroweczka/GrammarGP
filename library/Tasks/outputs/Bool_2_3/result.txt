@@ -1,14 +1,29 @@
-Problem solved!
+Problem not solved :c
 {
-  if (  ( True / False ) <= True  ){
-      x_0 = (  ( (0.0) - True ) <= ( (2.0) / False ) && ( ( True * (3.0) ) - ( True / True ) ) <= ( ( True / True ) + ( (-1.0) * False ) )  ) 
+  if (  (-3.0) >= ( (2.0) + (-5.0) ) || ( (-5.0) + ( False * False ) ) != (-2.0)  ){
+      x_0 = input() 
+      x_0 = input() 
       output(x_0)
+} else  {
+      x_0 = input() 
+      output(4.0)
+      x_0 = ( ( x_0 * x_0 ) + ( x_0 / (4.0) ) ) 
 }
-  if (  ( ( False / True ) - ( x_0 * x_0 ) ) > ( False * False ) || False == ( True * (-3.0) )  ){
-      x_1 = input() 
-      x_2 = ( x_0 / (3.0) ) 
+  if (  ( (4.0) - ( (4.0) * x_0 ) ) >= ( (4.0) + ( True * x_0 ) )  ){
+      x_0 = (  True == x_0  ) 
+      x_1 = ( ( (2.0) / x_0 ) - ( (4.0) * x_0 ) ) 
+} else  {
+      x_2 = (  ( (4.0) - ( x_1 * x_0 ) ) >= ( ( x_1 * x_1 ) + False ) || ( False * (4.0) ) == ( x_0 * x_1 )  ) 
+}
+  if (  ( False * (-4.0) ) != ( (4.0) / x_0 ) || False == x_0  ){
+      x_3 = (  x_0 == ( x_0 - ( (4.0) / (5.0) ) ) || x_2 >= (0.0)  ) 
+      output(-4.0)
+}
+  if (  ( (-4.0) + ( False * False ) ) < ( x_3 / x_3 )  ){
+      x_4 = input() 
+      x_5 = input() 
 }
 }
-Fitness values: 0.0, Generation: 0
-Input: []
-Output: [False]
+Fitness values: -1.0, Generation: 0
+Input: [1, 1]
+Output: [1.0]

@@ -1,14 +1,14 @@
-Problem not solved :c
+Problem solved!
 {
-  output(2.0)
-  if (  x_0 > ( ( (1.0) * x_1 ) + (4.0) )  ){
-      x_1 = (  (5.0) <= (-4.0)  ) 
-      output(5.0)
-      x_2 = input() 
-} else  {
-      x_3 = ( x_1 + (5.0) ) 
+  if (  False == ( (-5.0) * False )  ){
+      x_0 = input() 
+      output(x_0)
+}
+  if (  ( x_0 - ( False / x_0 ) ) < ( True - x_0 )  ){
+      x_0 = x_0 
+      x_1 = input() 
 }
 }
-Fitness values: -5.0, Generation: 5
-Input: [0]
-Output: [5.0]
+Fitness values: 0.0, Generation: 0
+Input: [0, 0]
+Output: [0.0]

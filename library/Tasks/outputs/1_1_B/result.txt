@@ -1,12 +1,14 @@
 Problem not solved :c
 {
-  output(794.0)
-  output(680.0)
-  while (  ( ( False * (833.0) ) + (32.0) ) >= ( ( (63.0) / (779.0) ) + ( True / False ) ) && ( False + ( False * (621.0) ) ) >= ( False / (680.0) )  ){
-      x_0 = (  ( ( False * False ) + ( False / False ) ) > ( ( (827.0) * (566.0) ) - ( (713.0) / True ) ) || ( ( True * False ) + ( True * False ) ) == ( False * (200.0) )  ) 
+  while (  ( False - (4.0) ) <= (0.0) || ( (5.0) - ( (0.0) * False ) ) != False  ){
+      x_0 = (  ( False - False ) != ( (4.0) + ( (3.0) * True ) )  ) 
+      output(5.0)
 }
-  output(193.0)
+  while (  x_0 < (5.0)  ){
+      x_0 = ( ( True * (-3.0) ) + x_0 ) 
+      output(x_0)
 }
-Fitness values: -5.0, Generation: 20
+}
+Fitness values: -1084.0, Generation: 7
 Input: []
-Output: [794.0, 680.0, 634.0, 193.0]
+Output: [5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0, 5.0]
