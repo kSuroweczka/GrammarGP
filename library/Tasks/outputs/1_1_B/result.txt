@@ -1,12 +1,9 @@
 Problem not solved :c
 {
-  output(794.0)
-  output(680.0)
-  while (  ( ( False * (833.0) ) + (32.0) ) >= ( ( (63.0) / (779.0) ) + ( True / False ) ) && ( False + ( False * (621.0) ) ) >= ( False / (680.0) )  ){
-      x_0 = (  ( ( False * False ) + ( False / False ) ) > ( ( (827.0) * (566.0) ) - ( (713.0) / True ) ) || ( ( True * False ) + ( True * False ) ) == ( False * (200.0) )  ) 
+  output(808.0)
+  output(-871.0)
+  output(541.0)
 }
-  output(193.0)
-}
-Fitness values: -5.0, Generation: 20
+Fitness values: -19.0, Generation: 92
 Input: []
-Output: [794.0, 680.0, 634.0, 193.0]
+Output: [808.0, -871.0, 541.0]

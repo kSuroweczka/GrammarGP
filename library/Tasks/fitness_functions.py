@@ -42,7 +42,7 @@ def fitness_1_1_D(individual: Program):
     output = np.array(individual.output_data)
     if output.shape[0] == 0:
         fitness = -1000
-    elif 1.0 in output:
+    elif output[0] == 1.0:
         fitness = 0.0
     else:
         fitness = -abs(output[0] - 1.0)
@@ -77,23 +77,20 @@ def fitness_1_2_A_C(individual: Program):
     output = individual.output_data
     input_data = individual.input_data
     expected = input_data[0] + input_data[1]
-
-    fitness = -100
     input = individual.input
-    # if len(input) < 2:
-    #     fitness = -100
-    if len(output) == 0:
-        fitness = -100.0
-    elif len(output) == 1:
+
+    fitness = 0.0
+    if abs(len(input) - 2) != 0:
+        fitness -= abs(len(input) - 2) * 500
+
+    if abs(len(output) - 1) != 0:
+        fitness -= abs(len(output) - 1) * 500
+
+    if len(output) == 1 and len(input) == 2:
         if output[0] == expected:
             fitness = 0.0
         else:
-            fitness = (-1) * np.abs(expected - output[0])
-    else:
-        avg = np.average(output)
-        fitness = (-1) * np.abs(avg - expected)
-    fitness += abs(len(output) - 1) * -20
-    fitness += abs(len(input) - 2) * -20
+            fitness -= np.abs(expected - output[0])
 
     return fitness
 
@@ -102,24 +99,20 @@ def fitness_1_2_D(individual: Program):
     output = individual.output_data
     input_data = individual.input_data
     expected = input_data[0] - input_data[1]
-
     input = individual.input
-    if len(input) < 2:
-        fitness = -100
-        return fitness
 
-    if len(output) == 0:
-        fitness = -100.0
-    elif len(output) == 1:
+    fitness = 0.0
+    if abs(len(input) - 2) != 0:
+        fitness -= abs(len(input) - 2) * 5000
+
+    if abs(len(output) - 1) != 0:
+        fitness -= abs(len(output) - 1) * 5000
+
+    if len(output) == 1 and len(input) == 2:
         if output[0] == expected:
             fitness = 0.0
         else:
-            fitness = (-1) * np.abs(expected - output[0])
-    else:
-        avg = np.average(output)
-        fitness = (-1) * np.abs(avg - expected)
-    fitness += abs(len(output) - 1) * -10
-    fitness += abs(len(input) - 2) * -10
+            fitness -= np.abs(expected - output[0])
 
     return fitness
 
@@ -128,22 +121,21 @@ def fitness_1_2_E(individual: Program):
     output = individual.output_data
     input_data = individual.input_data
     expected = input_data[0] * input_data[1]
-
     input = individual.input
-    if len(input) < 2:
-        fitness = -100
-    elif len(output) == 0:
-        fitness = -100.0
-    elif len(output) == 1:
+
+    fitness = 0.0
+    if abs(len(input) - 2) != 0:
+        fitness -= abs(len(input) - 2) * 10000
+
+    if abs(len(output) - 1) != 0:
+        fitness -= abs(len(output) - 1) * 10000
+
+    if len(output) == 1 and len(input) == 2:
         if output[0] == expected:
             fitness = 0.0
         else:
-            fitness = (-1) * np.abs(expected - output[0])
-    else:
-        avg = np.average(output)
-        fitness = (-1) * np.abs(avg - expected)
-    fitness += abs(len(output) - 1) * -10
-    fitness += abs(len(input) - 2) * -10
+            fitness -= np.abs(expected - output[0])
+
     return fitness
 
 
@@ -322,39 +314,5 @@ def fitness_27_Bench(individual: Program):
 
     return fitness
 
-# def fitness_1_1(output_data, where: int, only: bool, individual: Program):
-#     fitness = -100.0
-#     print("\n")
-#     print("SINGLE FITNESS 1_1")
-#     print("individual: ", individual.output_data)
-#     expected = output_data[0]
-#
-#     if type(individual.output_data) == list:
-#         if len(individual.output_data) == 0:
-#             # print("pusta lista, ", individual.output_data)
-#             fitness = -10.0
-#         elif individual.output_data == expected or expected in individual.output_data:
-#             if where is None:
-#                 if only:
-#                     if len(individual.output_data) == 1:
-#                         fitness = (-1) * np.abs(expected - individual.output_data[0])
-#                         # print("fitness gdy only i len == 1: ", fitness)
-#                     else:
-#                         avg = np.average(individual.output_data)
-#                         fitness = (-1) * np.abs(avg)
-#                         # print("fitness only i len!=1: ", fitness)
-#                 else:
-#                     fitness = 0.0
-#             else:
-#                 if individual.output_data[where] == expected:
-#                     fitness = 0.0
-#                 else:
-#                     fitness = (-1) * np.abs(expected - individual.output_data[where])
-#         elif expected not in individual.output_data and where is None:
-#             sub = np.abs(np.subtract(expected, individual.output_data))
-#             fitness = (-1) * np.min(sub)
-#             # print("nie ma w liscie, ", fitness)
-#     print("single fitness: ", fitness)
-#     return fitness
 
 

@@ -1,17 +1,9 @@
 Problem not solved :c
 {
-  while (  True >= ( True * (-5650.0) )  ){
-      x_0 = ( False - ( True * True ) ) 
-      output(1055.0)
+  x_0 = input() 
+  output(x_0)
+  x_1 = input() 
 }
-  while (  ( ( (1055.0) / True ) - ( x_0 * True ) ) > x_0  ){
-      x_0 = input() 
-}
-  while (  ( (1055.0) * x_0 ) == ( ( x_0 * x_0 ) - x_0 ) && x_0 != ( False * x_0 )  ){
-      x_1 = False 
-      x_0 = input() 
-}
-}
-Fitness values: -100.0, Generation: 99
-Input: []
-Output: []
+Fitness values: -285.0, Generation: 86
+Input: [-3482.0, 285.0]
+Output: [-3482.0]

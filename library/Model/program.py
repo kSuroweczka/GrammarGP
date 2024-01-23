@@ -51,12 +51,12 @@ class Program:
 
     def growTree(self):
         posible_nodes = [NodeType.ASSIGNMENT, NodeType.OUTPUT, NodeType.IF, NodeType.WHILE]
-        node_t = random.choice(posible_nodes)
 
-        for i in range(random.randint(2,4)):
+        for i in range(random.randint(2, 4)):
+            node_t = random.choice(posible_nodes)
             self.ROOT.add_child(self.createNode(node_t, self.ROOT))
 
-    def createIndividual(self):
+    def create_individual(self):
         self.growTree()
 
     def createNode(self, type: NodeType, parent: Node, current_depth: int = 0):
@@ -83,20 +83,15 @@ class Program:
             output = OutputNode(node_type=type, parent_node=parent, children_nodes=[])
             output.depth = current_depth
 
-            choice = random.choice(["var", "const", "rand"])
+            choice = random.choice(["var", "rand"])
             out_rand = choice == "rand"
-            out_const = choice == "const"
             out_var = choice == "var"
 
-            if (var_count == 0 and const_count == 0) or out_rand or (const_count == 0 and out_const) or (var_count == 0 and out_var):
+            if var_count == 0 or out_rand or (var_count == 0 and out_var):
                 rand_value = float(random.randint(self.min_rand, self.max_rand))
                 output.add_child(rand_value)
                 self.output_data.append(rand_value)
                 self.const.append(rand_value)
-            elif out_const:
-                rand_const = random.choice(list(self.const))
-                output.add_child(rand_const)
-                self.output_data.append(rand_const)
             else:
                 rand_var = random.choice(list(self.variables.keys()))
                 var = self.variables[rand_var]
@@ -227,22 +222,17 @@ class Program:
             count_var = self.variables.__len__()
             count_const = self.const.__len__()
 
-            choice = random.choice(["var", "const", "rand", "exp"])
+            choice = random.choice(["var", "rand", "exp"])
             out_exp = choice == "exp"
             out_rand = choice == "rand"
-            out_const = choice == "const"
             out_var = choice == "var"
 
             if out_exp and current_depth < self.max_depth-2:
                 out = self.createNode(NodeType.EXPRESSION, parent, current_depth+1)
-            elif count_var == 0 or out_rand or (count_const == 0 and out_const) or (count_var == 0 and out_var):
+            elif count_var == 0 or out_rand or (count_var == 0 and out_var):
                 value = random.choice([True, False ,float(random.randint(self.min_rand, self.max_rand))])
                 out = FactorNode(node_type=type, parent_node=parent, body=value, children_nodes=[])
                 out.add_child(value)
-            elif out_const:
-                const = random.choice(self.const)
-                out = FactorNode(node_type=type, parent_node=parent, body=const, children_nodes=[])
-                out.add_child(const)
             else:
                 rand_var = random.choice(list(self.variables.keys()))
                 var = self.variables[rand_var]
@@ -254,7 +244,7 @@ class Program:
 
         elif type == NodeType.EXPRESSIONCONDITION:
             leftexpNode = self.createNode(NodeType.EXPRESSION, None, current_depth+1)
-            operator = random.choice(['==', '!=','<','>','<=' ,'>='])
+            operator = random.choice(['==', '!=', '<', '>', '<=', '>='])
             rightexpNode = self.createNode(NodeType.EXPRESSION, None, current_depth+1)
 
             expressionConditionNode = ExpressionConditionNode(node_type=type, 
@@ -262,7 +252,7 @@ class Program:
                                                               children_nodes=[leftexpNode, rightexpNode],
                                                               leftExpression=leftexpNode,
                                                               rigthExpression=rightexpNode,
-                                                              operator = operator)
+                                                              operator=operator)
             expressionConditionNode.depth = current_depth
             leftexpNode.change_parent(expressionConditionNode)
             rightexpNode.change_parent(expressionConditionNode)
@@ -270,8 +260,8 @@ class Program:
 
         
         elif type == NodeType.CONDITION:
-            howMuch = random.choice([1,2])  ### potem dodac 3 i 4
-            children =[]
+            howMuch = random.choice([1, 2])
+            children = []
             logicOperators = []
             expressionConditionNode = self.createNode(NodeType.EXPRESSIONCONDITION,  None, current_depth+1)
             children.append(expressionConditionNode)
@@ -294,11 +284,11 @@ class Program:
 
         
         elif type == NodeType.SCOPE:
-            howMuch = random.choice([1,2])
+            howMuch = random.choice([1, 2])
             scope = ScopeNode(node_type=type, parent_node=parent, children_nodes=[])
 
             for i in range(howMuch):
-                choice = random.choice(['assignment', 'if', 'output']) ## na razie tak bo sie robie nieskonczona petla
+                choice = random.choice(['assignment', 'if', 'output'])
                 if choice == 'if' and scope.depth < self.max_depth-2:
                     ifNode = self.createNode(NodeType.IF, scope, current_depth+1)
                     scope.add_child(ifNode)

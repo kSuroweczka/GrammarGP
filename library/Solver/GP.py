@@ -58,14 +58,13 @@ class GP:
             test_case = task.test_cases[index]
 
             p = Program(i, task, params.max_depth, params.min_rand, params.max_rand, test_case.input_data)
-            p.createIndividual()
+            p.create_individual()
 
             pop.append(p)
 
         return pop
 
     def evaluate(self, fitness_function):
-        ok = False
         self.print_population()
 
         while self.generation < self.params.generations:
@@ -76,13 +75,9 @@ class GP:
             best_index, best_fitness = self.best_individual_fitness()
 
             if best_fitness == 0.0:
-                # self.save_result_to_file(best_index, best_fitness)
                 print("Problem solved!\n")
-                ok = True
                 break
             else:
-                # if best_fitness >= self.best_fitness:
-
                 print("------------------------------")
                 print(f"Generation: {self.generation+1}")
                 print(f"Best fitness: {best_fitness}")
@@ -97,11 +92,10 @@ class GP:
                 worst_index, worst_fitness = self.worst_individual_fitness()
                 worst = self.population[worst_index]
                 p = Program(worst.id, worst.task, self.params.max_depth, self.params.min_rand, self.params.max_rand, worst.input_data)
-                p.createIndividual()
+                p.create_individual()
                 self.population[worst_index] = p
                 self.population[worst_index].output_data, self.population[worst_index].input, self.population[
                     worst_index].vars = self.interpreter.interpret(individual)
-
                 print("\n\n")
 
             self.generation += 1
@@ -111,8 +105,6 @@ class GP:
         if best_fitness != 0.0:
             print(f"Problem not solved :c\n")
             print(f"Best fitness: {self.best_fitness}\n")
-
-        # self.save_result_to_file(best_index, best_fitness)
 
     def run(self, fitness_function):
         self.evaluate(fitness_function)

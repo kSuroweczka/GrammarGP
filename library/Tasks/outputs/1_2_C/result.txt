@@ -2,8 +2,7 @@ Problem not solved :c
 {
   x_0 = input() 
   x_1 = input() 
-  x_1 = ( x_0 + ( (-5.0) * False ) ) 
 }
-Fitness values: -120.0, Generation: 0
-Input: [2946.0, 56.0]
+Fitness values: -200.0, Generation: 3
+Input: [-874.0, -2673.0]
 Output: []

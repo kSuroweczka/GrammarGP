@@ -1,10 +1,10 @@
 Problem solved!
 {
-  output(2.0)
-  output(0.0)
-  output(2.0)
   output(1.0)
+  output(1.0)
+  output(-5.0)
+  output(4.0)
 }
 Fitness values: 0.0, Generation: 0
 Input: []
-Output: [2.0, 0.0, 2.0, 1.0]
+Output: [1.0, 1.0, -5.0, 4.0]

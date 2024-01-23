@@ -1,17 +1,12 @@
-Problem not solved :c
+Problem solved!
 {
-  output(3.0)
-  if (  ( True + False ) >= ( True - False ) || ( ( (-3.0) / False ) + (-9.0) ) == ( ( False * False ) - True )  ){
-      x_0 = input() 
-      x_0 = (  ( ( x_0 / x_0 ) - ( True / x_0 ) ) < ( ( (-5.0) / True ) + x_0 )  ) 
-      output(0.0)
-} else  {
-      x_0 = ( ( False / (0.0) ) + ( x_0 / x_0 ) ) 
-      output(0.0)
-      x_0 = (0.0) 
-      output(x_0)
+  x_0 = input() 
+  x_1 = input()
+  if (  ( ( True * (-35.0) ) + ( True * (3.0) ) ) <= (  (-89.0) * False )   ){
+      x_0 = ( x_0 + x_1 )
 }
+output( x_0 )
 }
-Fitness values: -45.5, Generation: 100
-Input: [6.0]
-Output: [3.0, 0.0]
+Fitness values: 0.0, Generation: 92
+Input: [-7.0, -4.0]
+Output: [-11.0]

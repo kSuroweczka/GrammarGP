@@ -1,11 +1,9 @@
 Problem not solved :c
 {
   x_0 = input() 
-  while (  ( x_0 / x_0 ) > ( x_0 / False ) || x_1 != x_1  ){
-      x_1 = input() 
-      output(3823.0)
+  x_0 = input()
+  x_1 = ( x_0 * x_0 )
 }
-}
-Fitness values: -110.0, Generation: 53
-Input: [2946.0]
-Output: [8979.0]
+Fitness values: -10000.0, Generation: 0
+Input: [-3482.0, 285.0]
+Output: []
