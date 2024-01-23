@@ -1,8 +1,15 @@
 Problem solved!
 {
-  x_0 = input() 
-  output(1.0)
+  if (  ( True / True ) <= True  ){
+      x_0 = input() 
 }
-Fitness values: 0.0, Generation: 79
+  if (  (5.0) <= False  ){
+      x_1 = ( ( x_0 * False ) - x_0 ) 
+} else  {
+      x_1 = x_0 
+      output(x_1)
+}
+}
+Fitness values: 0.0, Generation: 12
 Input: [1]
 Output: [1.0]

@@ -1,15 +1,21 @@
 Problem not solved :c
 {
-  if (  ( (1.0) / True ) <= True && ( (-3.0) + ( False / False ) ) <= False  ){
-      x_0 = (  ( False * (1.0) ) >= ( False * (4.0) ) || ( (5.0) * (-3.0) ) >= ( ( (-9.0) * True ) + ( True / (3.0) ) )  ) 
-      output(-6.0)
-      x_1 = (  ( False + x_0 ) >= ( x_0 + x_0 )  ) 
-      output(x_0)
+  if (  ( False - ( True / False ) ) != True  ){
+      x_0 = ( ( True * False ) - True ) 
+      x_1 = (  ( ( x_0 / x_0 ) + ( (-3.0) * True ) ) >= x_0 || ( (2.0) + False ) <= ( x_0 / (3.0) )  ) 
+      output(3.0)
+}
+  if (  ( x_0 / x_0 ) >= x_1 && x_1 >= x_1  ){
+      x_2 = ( (3.0) - ( (3.0) / x_0 ) ) 
+}
+  if (  ( (3.0) - False ) != ( x_1 * True )  ){
+      x_3 = input() 
+      x_4 = input() 
 } else  {
-      x_1 = (-6.0) 
+      x_2 = input() 
+      x_5 = (  ( x_2 * (3.0) ) > x_0 || ( x_3 / x_1 ) >= ( (3.0) / (3.0) )  ) 
 }
-  x_0 = input() 
 }
-Fitness values: -17.5, Generation: 51
-Input: [5.0, -5.0]
-Output: [-6.0, True]
+Fitness values: -2.0, Generation: 87
+Input: [1.0, -3.0]
+Output: [3.0]

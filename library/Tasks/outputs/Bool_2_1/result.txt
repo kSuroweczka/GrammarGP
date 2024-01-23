@@ -1,8 +1,16 @@
-Problem solved!
+Problem not solved :c
 {
-  output(1.0)
-  output(1.0)
+  x_0 = input() 
+  if (  ( (1.0) - True ) == ( x_0 / x_0 )  ){
+      x_0 = input() 
+      output(5.0)
+      x_3 = (  (5.0) < ( (5.0) * (5.0) )  ) 
+      output(5.0)
+} else  {
+      x_4 = input() 
+      x_5 = ( x_3 * x_0 ) 
 }
-Fitness values: 0.0, Generation: 21
-Input: []
-Output: [1.0, 1.0]
+}
+Fitness values: -9.0, Generation: 25
+Input: [0, 1]
+Output: [5.0, 5.0]
