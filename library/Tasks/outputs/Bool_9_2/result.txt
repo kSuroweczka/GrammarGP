@@ -1,10 +1,23 @@
-Problem solved!
+Problem not solved :c
 {
-  if (  ( (5.0) / (-5.0) ) < ( ( (-3.0) / False ) - (-2.0) )  ){
-      x_0 = (  False < ( (-1.0) - False )  ) 
+  x_0 = input() 
+  if (  ( True - x_0 ) < ( x_0 / x_0 ) && ( x_0 - x_0 ) < False  ){
+      x_1 = ( ( x_0 * True ) + x_0 ) 
+} else  {
+      x_0 = input() 
+      x_2 = input() 
 }
-  output(0.0)
+  output(2.0)
+  if (  ( x_5 * x_2 ) < ( (-5.0) - ( x_5 / x_4 ) ) && ( x_0 / True ) <= False  ){
+      x_6 = ( ( x_1 * True ) - ( x_1 / x_3 ) ) 
+      output(3.0)
+      x_1 = (  x_1 < ( ( False / x_2 ) + x_3 )  ) 
+      output(-1.0)
+} else  {
+      x_3 = input() 
+      output(-1.0)
 }
-Fitness values: 0.0, Generation: 12
-Input: []
-Output: [0.0]
+}
+Fitness values: -62.0, Generation: 36
+Input: [1, 0, 1]
+Output: [2.0]

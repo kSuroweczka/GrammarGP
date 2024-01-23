@@ -1,13 +1,19 @@
-Problem solved!
+Problem not solved :c
 {
+  if (  (3.0) >= False  ){
+      x_0 = (  ( False - ( False / False ) ) > ( True - True )  ) 
+      output(-3.0)
+      x_1 = input() 
+} else  {
+      x_2 = (  ( ( (-3.0) / x_1 ) + x_0 ) >= x_0  ) 
+      output(-3.0)
+      x_3 = (  ( ( (2.0) * x_2 ) + x_2 ) >= ( x_1 * (-3.0) ) && ( (-1.0) + x_2 ) != ( ( (-3.0) / x_0 ) + ( (-3.0) / x_0 ) )  ) 
+      output(-5.0)
+}
+  x_1 = input() 
   x_0 = input() 
-  x_1 = (  (0.0) >= ( ( True * x_0 ) - x_0 )  ) 
-  x_2 = input() 
-  if (  (2.0) > ( True / (5.0) ) && ( (-2.0) - False ) < True  ){
-      x_0 = (  (5.0) <= ( False * (-4.0) ) && ( (-1.0) + ( (-4.0) / False ) ) >= ( True - True )  ) 
-      output(x_0)
+  x_1 = input() 
 }
-}
-Fitness values: 0.0, Generation: 73
-Input: [1, 0]
-Output: [False]
+Fitness values: -24.0, Generation: 72
+Input: [1, 0, 0, 0]
+Output: [-3.0]

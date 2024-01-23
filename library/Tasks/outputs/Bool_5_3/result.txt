@@ -1,15 +1,14 @@
-Problem solved!
+Problem not solved :c
 {
-  if (  ( ( True * (-1.0) ) - True ) < ( (2.0) / (1.0) ) && True == ( False / False )  ){
-      x_0 = ( False * (-1.0) ) 
-} else  {
+  x_0 = (  ( True - False ) > False && ( ( False * True ) + False ) == ( True / (2.0) )  ) 
+  x_1 = ( ( True * False ) + ( x_0 * (2.0) ) ) 
+  x_2 = input() 
+  if (  False > True || ( ( (-1.0) * False ) + True ) > (-1.0)  ){
       x_0 = input() 
-      output(x_0)
-      x_0 = input() 
+      output(1.0)
+      x_0 = (  ( ( x_0 * (1.0) ) - ( (1.0) / (-4.0) ) ) > ( x_0 + x_0 )  ) 
 }
-  x_1 = input() 
-  x_0 = input() 
 }
-Fitness values: 0.0, Generation: 75
-Input: [0, 0, 1, 0]
-Output: [0.0]
+Fitness values: -30.0, Generation: 36
+Input: [0, 1]
+Output: [1.0]

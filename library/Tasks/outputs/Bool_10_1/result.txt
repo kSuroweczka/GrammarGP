@@ -1,10 +1,22 @@
 Problem not solved :c
 {
-  output(2.0)
-  output(3.0)
-  output(0.0)
-  output(2.0)
+  if (  True != ( ( (-1.0) / True ) - (1.0) ) && ( ( (5.0) / False ) - ( (0.0) / False ) ) <= False  ){
+      x_0 = input() 
+      output(x_0)
+      x_1 = (  ( ( x_0 / x_0 ) + x_0 ) > True && ( True * True ) <= ( x_0 + ( x_0 * (-1.0) ) )  ) 
+} else  {
+      x_0 = ( ( x_1 * x_1 ) + True ) 
+      x_2 = ( True * True ) 
 }
-Fitness values: -110.0, Generation: 99
-Input: []
-Output: [2.0, 3.0, 0.0, 2.0]
+  if (  ( True - ( False * x_0 ) ) < x_1  ){
+      x_3 = input() 
+      x_4 = (  ( False + (3.0) ) == ( (0.0) * x_1 ) && ( x_3 - True ) <= ( True + (1.0) )  ) 
+} else  {
+      x_5 = input() 
+      output(-1.0)
+      x_6 = False 
+}
+}
+Fitness values: -162.0, Generation: 26
+Input: [1, 1]
+Output: [1.0, -1.0]

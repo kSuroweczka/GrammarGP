@@ -67,7 +67,7 @@ class TinyGPVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by TinyGPParser#inputStatement.
     def visitInputStatement(self, ctx:TinyGPParser.InputStatementContext): #### tutaj uzupełnić
-        # print('Input')
+#         print('Input')
         input_length = len(self.input)
 
         value = 0.0

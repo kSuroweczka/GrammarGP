@@ -1,9 +1,26 @@
-Problem solved!
+Problem not solved :c
 {
-  output(1.0)
-  output(1.0)
-  output(1.0)
+  if (  ( ( False / False ) + ( True * True ) ) <= True || ( False - ( True * True ) ) < ( ( False / (-4.0) ) - (1.0) )  ){
+      x_0 = input() 
+      output(0.0)
+      x_0 = ( ( x_0 * x_0 ) + ( x_0 * x_0 ) ) 
+      output(0.0)
 }
-Fitness values: 0.0, Generation: 0
-Input: []
-Output: [1.0, 1.0, 1.0]
+  if (  ( ( x_0 * x_0 ) - ( False / x_0 ) ) >= ( x_0 / x_0 )  ){
+      x_1 = input() 
+      x_2 = (  ( False * (-1.0) ) != (0.0)  ) 
+}
+  if (  ( x_0 + ( x_2 / x_0 ) ) == ( ( x_0 * (0.0) ) + ( x_1 / x_0 ) )  ){
+      x_3 = input() 
+      output(x_3)
+} else  {
+      x_4 = input() 
+      output(0.0)
+}
+  if (  ( (-4.0) - ( x_3 / True ) ) == False && ( ( (0.0) / True ) - (0.0) ) == True  ){
+      x_4 = input() 
+}
+}
+Fitness values: -1.0, Generation: 0
+Input: [1, 1, 0]
+Output: [0.0, 0.0, 0.0]

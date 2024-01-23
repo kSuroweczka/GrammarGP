@@ -1,15 +1,15 @@
 Problem not solved :c
 {
-  if (  ( False - ( (2.0) / True ) ) < ( (-5.0) - False ) && (-5.0) < ( ( False * False ) + ( False * True ) )  ){
-      x_0 = input() 
-      x_0 = (  True < ( False * True )  ) 
+  x_0 = input() 
+  x_0 = input() 
+  if (  False >= ( (1.0) * False )  ){
+      x_0 = (  x_0 <= ( ( x_0 / True ) + False )  ) 
+      x_2 = input() 
+      output(x_2)
 } else  {
       x_0 = input() 
-      output(x_0)
-      x_0 = input() 
 }
-  x_0 = input() 
 }
-Fitness values: -1.0, Generation: 74
-Input: [1, 0, 0]
+Fitness values: -1.0, Generation: 49
+Input: [0, 1, 1]
 Output: [1.0]

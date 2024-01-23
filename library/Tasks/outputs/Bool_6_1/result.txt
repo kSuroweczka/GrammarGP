@@ -1,24 +1,20 @@
 Problem not solved :c
 {
-  if (  ( False * True ) <= ( ( (0.0) / (0.0) ) - ( (-5.0) * False ) )  ){
-      x_0 = ( ( False / True ) + ( (1.0) * True ) ) 
-      x_1 = (  ( x_0 * x_0 ) <= ( True - ( x_0 * x_0 ) ) && ( (4.0) * x_0 ) > ( x_0 / True )  ) 
-      output(1.0)
+  output(-5.0)
+  if (  False > ( ( False * False ) + ( False * (0.0) ) )  ){
+      x_0 = input() 
+      x_0 = (  ( x_0 / x_0 ) < ( x_0 + False ) && ( x_0 * (-2.0) ) >= ( x_0 + ( x_0 * (-3.0) ) )  ) 
 } else  {
-      x_0 = (  ( (1.0) * x_0 ) > (3.0) || ( x_0 + (1.0) ) > ( ( x_1 / (0.0) ) + x_0 )  ) 
-      output(1.0)
-      x_1 = ( True / (1.0) ) 
-}
-  while (  ( ( x_0 * x_0 ) - ( (0.0) / (0.0) ) ) != ( x_0 + x_0 )  ){
       x_0 = input() 
-      output(-1.0)
+      x_1 = input() 
+      output(0.0)
 }
-  while (  ( x_0 - False ) > ( x_0 + ( x_0 * (-1.0) ) ) && ( ( (-1.0) * x_0 ) - ( (-1.0) * (-1.0) ) ) != ( (-1.0) + x_0 )  ){
-      x_0 = input() 
-      output(-4.0)
-      x_0 = input() 
+  x_0 = input() 
+  if (  False != (3.0) || ( ( True / (-3.0) ) - False ) <= ( ( (-1.0) * (2.0) ) - (-5.0) )  ){
+      x_0 = ( ( False * True ) - False ) 
+      output(x_0)
 }
 }
-Fitness values: -60.0, Generation: 99
-Input: [1, 1, 1, 0]
-Output: [1.0, -1.0, -1.0, -1.0, -1.0]
+Fitness values: -35.0, Generation: 53
+Input: [1, 1, 1]
+Output: [-5.0, 0.0, 0.0]

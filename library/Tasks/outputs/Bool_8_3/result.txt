@@ -1,21 +1,13 @@
 Problem not solved :c
 {
-  if (  ( False * x_0 ) < True  ){
-      x_1 = ( x_0 - (-3.0) ) 
+  x_0 = input() 
+  output(x_0)
+  if (  (5.0) <= x_0  ){
+      x_1 = ( True - (4.0) ) 
 } else  {
-      x_0 = ( x_0 * x_0 ) 
-      output(-3.0)
-      x_2 = ( (-3.0) / x_1 ) 
+      x_0 = input() 
 }
-  if (  ( False * x_0 ) < True  ){
-      x_1 = ( x_0 - (-3.0) ) 
-} else  {
-      x_0 = ( x_0 * x_0 ) 
-      output(-3.0)
-      x_2 = ( (-3.0) / x_1 ) 
 }
-  output(-2.0)
-}
-Fitness values: -2.0, Generation: 92
-Input: []
-Output: [-2.0]
+Fitness values: -60.0, Generation: 52
+Input: [1, 0]
+Output: [1.0]

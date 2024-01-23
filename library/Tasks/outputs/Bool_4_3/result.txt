@@ -1,12 +1,24 @@
 Problem not solved :c
 {
-  while (  ( x_0 + ( True * True ) ) == ( ( (3.0) / x_0 ) + False )  ){
-      x_1 = ( False - ( False / x_0 ) ) 
-      x_2 = (  ( x_1 * (-3.0) ) != ( True - ( True * x_1 ) ) || ( False / x_0 ) != ( ( x_0 * x_1 ) + ( (4.0) / (-5.0) ) )  ) 
-      output(-4.0)
+  if (  (-4.0) < ( (4.0) * False )  ){
+      x_0 = input() 
+} else  {
+      x_1 = ( x_0 * False ) 
+      x_2 = input() 
+}
+  if (  ( ( False / True ) - (-5.0) ) == ( ( False / True ) - ( (2.0) * (-1.0) ) )  ){
+      x_0 = input() 
+      output(-3.0)
+} else  {
+      x_0 = input() 
+      output(0.0)
 }
   x_0 = input() 
+  if (  ( (-4.0) - x_1 ) == ( x_2 / x_0 )  ){
+      x_0 = x_3 
+      output(x_1)
 }
-Fitness values: -2.0, Generation: 81
-Input: [1]
-Output: [-2.0]
+}
+Fitness values: -11.0, Generation: 38
+Input: [1, 1, 1]
+Output: [0.0]

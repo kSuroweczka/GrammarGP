@@ -1,8 +1,19 @@
 Problem not solved :c
 {
-  x_1 = ( (-4.0) + True ) 
-  output(-5.0)
+  if (  ( ( True * True ) - ( False / True ) ) > False  ){
+      x_0 = input() 
+      x_1 = (  ( ( x_0 / (3.0) ) - ( x_0 * x_0 ) ) > ( ( True / x_0 ) + x_0 ) || (-4.0) <= ( x_0 * False )  ) 
 }
-Fitness values: -11.0, Generation: 78
-Input: []
-Output: [5.0]
+  if (  ( ( False * False ) - ( True / (-5.0) ) ) < ( False / x_0 )  ){
+      x_0 = input() 
+      x_1 = input() 
+      output(-1.0)
+} else  {
+      x_1 = (  ( x_0 + (-1.0) ) < ( ( (2.0) / x_1 ) + ( x_1 * True ) )  ) 
+      x_1 = (  (-1.0) == ( ( x_1 * True ) + True )  ) 
+      output(x_0)
+}
+}
+Fitness values: -12.0, Generation: 27
+Input: [4.0]
+Output: [4.0]

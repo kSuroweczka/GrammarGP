@@ -1,14 +1,20 @@
 Problem not solved :c
 {
+  if (  ( ( (5.0) * True ) + (-1.0) ) > True  ){
+      x_0 = (  ( False * False ) > ( ( (-4.0) * (-4.0) ) + ( True / (1.0) ) )  ) 
+      output(-2.0)
+} else  {
+      x_1 = (  (0.0) == True || ( (-2.0) / (-2.0) ) != (-2.0)  ) 
+      output(-1.0)
+      x_2 = (  ( ( x_0 * (-2.0) ) - x_0 ) < ( ( (-1.0) * (-1.0) ) + x_1 )  ) 
+}
+  x_1 = input() 
   x_0 = input() 
-  if (  ( (-4.0) / (-4.0) ) <= ( ( x_0 / (-4.0) ) + x_2 )  ){
-      x_2 = ( ( x_2 / True ) + ( (-4.0) / x_1 ) ) 
-}
-while (  (-4.0) > True  ){
-    x_0 = (  ( True - False ) == ( ( (-4.0) / (-2.0) ) - False )  ) 
-    x_0 = ( x_0 / x_0 ) 
+  if (  ( ( x_0 / True ) + ( False * (-4.0) ) ) == ( x_0 * (-4.0) ) || ( x_0 / x_0 ) > ( ( True / x_0 ) + (-4.0) )  ){
+      x_1 = input() 
+      x_1 = input() 
 }
 }
-Fitness values: -2.0, Generation: 78
-Input: [1]
-Output: [2.0]
+Fitness values: -2.0, Generation: 51
+Input: [1, 1, 0, 0]
+Output: [-2.0]

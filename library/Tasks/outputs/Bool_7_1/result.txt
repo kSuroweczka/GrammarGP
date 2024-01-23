@@ -1,12 +1,23 @@
 Problem not solved :c
 {
-  output(0.0)
-  output(1.0)
-  while (  x_0 >= ( ( x_0 / True ) + x_0 ) && ( ( x_0 / True ) + x_0 ) >= ( ( x_0 / x_0 ) + True )  ){
+  if (  ( (2.0) + ( True / False ) ) > True  ){
+      x_0 = False 
+      output(x_0)
+} else  {
+      x_0 = x_0 
+      output(-5.0)
       x_1 = x_0 
 }
-  output(-4.0)
+  if (  ( (-1.0) - (-1.0) ) != (-1.0)  ){
+      x_0 = input() 
+      x_1 = (  ( x_0 - ( x_0 / (-2.0) ) ) != x_0 || ( ( True / (3.0) ) + (-1.0) ) <= ( ( True * False ) - ( (1.0) * x_0 ) )  ) 
+      output(2.0)
+} else  {
+      x_2 = (-5.0) 
+      x_3 = x_1 
 }
-Fitness values: -80.0, Generation: 46
-Input: []
-Output: [0.0, 1.0, 0.0, -4.0]
+  x_1 = input() 
+}
+Fitness values: -101.0, Generation: 31
+Input: [1, 0]
+Output: [0.0, 2.0]

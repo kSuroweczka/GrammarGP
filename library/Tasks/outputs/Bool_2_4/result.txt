@@ -1,9 +1,9 @@
 Problem solved!
 {
-  x_0 = ( False / True ) 
-  x_1 = False 
-  output(x_1)
+  output(0.0)
+  x_0 = input() 
+  x_0 = input() 
 }
-Fitness values: 0.0, Generation: 85
-Input: []
+Fitness values: 0.0, Generation: 10
+Input: [1, 1]
 Output: [0.0]

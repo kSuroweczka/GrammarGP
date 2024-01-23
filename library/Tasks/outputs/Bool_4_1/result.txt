@@ -1,10 +1,17 @@
 Problem not solved :c
 {
-  output(1.0)
-  x_1 = x_0 
-  output(-1.0)
-  output(0.0)
+if (  ( ( True * False ) + False ) != ( (-3.0) + True ) && ( ( True * True ) + True ) >= ( False + False )  ){
+    x_0 = (  ( False * True ) < True  ) 
+    x_1 = input() 
+      output(-4.0)
 }
-Fitness values: -3.0, Generation: 19
-Input: []
-Output: [1.0, 1.0, -1.0, 0.0]
+  output(2.0)
+  if (  x_1 != ( True + True ) && ( False * x_1 ) == ( False * False )  ){
+      x_0 = input() 
+      output(-4.0)
+      x_0 = input() 
+}
+}
+Fitness values: -21.0, Generation: 30
+Input: [1, 1, 0]
+Output: [-4.0, 2.0, -4.0]

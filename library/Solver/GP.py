@@ -119,17 +119,17 @@ class GP:
 
     def mutation(self):
 
-        print("\n------------\n MUTATION \n------------\n")
+#         print("\n------------\n MUTATION \n------------\n")
         id = self.negative_tournament()
         program = self.population[id]
 
-        print("\n------------\n OLD PROGRAM \n------------\n")
+#         print("\n------------\n OLD PROGRAM \n------------\n")
         print(self.population[id])
 
         self.population[id].ROOT = self.walk_tree(program)
         self.population[id].output_data, self.population[id].input, self.population[id].vars = self.interpreter.interpret(self.population[id])
 
-        print("\n------------\n NEW PROGRAM \n------------\n")
+#         print("\n------------\n NEW PROGRAM \n------------\n")
         print(self.population[id])
 
     # node -> root_copy
@@ -145,11 +145,11 @@ class GP:
     def mutate(self, node, node_parent, program: Program):
         possible_nodes = []
         if isinstance(node, float) or isinstance(node, bool):
-            print(f"\nOLD NODE: {node} ,type: {type(node)}")
+#             print(f"\nOLD NODE: {node} ,type: {type(node)}")
             node_parent.value = random.choice([random.randrange(int(self.params.min_rand), int(self.params.max_rand)), True, False])
-            print(f"NEW NODE: {node_parent.value} ,type: {type(node)}")
+#             print(f"NEW NODE: {node_parent.value} ,type: {type(node)}")
         else:
-            print(f"\nOLD NODE: {node} ,type: {node.node_type}")
+#             print(f"\nOLD NODE: {node} ,type: {node.node_type}")
             match node.node_type:
                 case NodeType.INPUT:
                     possible_nodes = [NodeType.EXPRESSION, NodeType.CONDITION]
@@ -178,12 +178,12 @@ class GP:
             random_node = random.choice(possible_nodes)
             new_node = program.createNode(random_node, None)
 
-            print(f"NEW NODE: {new_node} ,type: {new_node.node_type}")
+#             print(f"NEW NODE: {new_node} ,type: {new_node.node_type}")
             return self.replace_node(node_parent, node, new_node)
 
 
     def crossover(self):
-        print("\n------------\n CROSSOVER \n------------\n")
+#         print("\n------------\n CROSSOVER \n------------\n")
         depth_1 = 1
         depth_2 = 1
 
@@ -216,7 +216,7 @@ class GP:
     @staticmethod
     def draw_subnode_1(tree):
         random_node = random.choice(tree.children_nodes)
-        print("RANDOM NODE: ", random_node)
+#         print("RANDOM NODE: ", random_node)
         return random_node
 
     @staticmethod
@@ -228,19 +228,19 @@ class GP:
             while random_node.node_type in node_types:
                 random_node = random.choice(tree.children_nodes)
                 if random_node.node_type in node_types:
-                    print("RANDOM NODE 2 : ", random_node)
+#                     print("RANDOM NODE 2 : ", random_node)
                     return random_node
         else:
             random_node = random.choice(tree.children_nodes)
             while random_node.node_type == first_node.node_type:
                 random_node = random.choice(tree.children_nodes)
                 if random_node.node_type == first_node.node_type:
-                    print("RANDOM NODE 2 : ", random_node)
+#                     print("RANDOM NODE 2 : ", random_node)
                     return random_node
 
     @staticmethod
     def replace_node(tree, node_1, node_2):
-        print("TREE BEFORE: ", tree)
+#         print("TREE BEFORE: ", tree)
         parent_1 = None
         parent_2 = None
         for child in tree.children_nodes:
@@ -251,7 +251,7 @@ class GP:
             if tree.children_nodes[i] == node_1:
                 tree.children_nodes.remove(tree.children_nodes[i])
                 tree.children_nodes.insert(i, node_2)
-        print("TREE AFTER: ", tree)
+#         print("TREE AFTER: ", tree)
         return tree
 
     def fitness(self, fitness_function):
@@ -303,8 +303,8 @@ class GP:
     def print_individual(self, index: int):
         print("---------------------")
         print(f"Individual: {self.population[index].id}\n")
-        print("Program: ")
-        print(self.population[index])
+#         print("Program: ")
+#         print(self.population[index])
 
         self.population[index].__repr__()
         # self.population[index].output_data, self.population[index].input, self.population[index].vars = self.interpreter.interpret(self.population[index]) #.str_program, var_dict, self.population[index].input_data

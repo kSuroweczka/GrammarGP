@@ -1,5 +1,5 @@
 grammar TinyGP;
-///usunac ; ??
+
 program: statement*;
 
 statement: loopStatement
@@ -9,7 +9,7 @@ statement: loopStatement
          | inputStatement
          | outputStatement;
 
-loopStatement: 'while'  condition  compoundStatement; ////usunelam nawiasy
+loopStatement: 'while'  condition  compoundStatement;
 
 conditionalStatement: 'if'  condition compoundStatement ('else' compoundStatement)?;
 

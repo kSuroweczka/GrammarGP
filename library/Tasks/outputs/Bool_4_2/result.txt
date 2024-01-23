@@ -1,10 +1,10 @@
-Problem solved!
+Problem not solved :c
 {
-  x_0 = (  ( (4.0) * (-1.0) ) > ( ( False / False ) - ( (2.0) * (3.0) ) )  ) 
-  x_0 = (  ( ( x_0 / x_0 ) - ( x_0 / True ) ) != False  ) 
-  x_0 = (  ( ( x_0 / False ) - (4.0) ) == ( x_0 - x_0 ) || ( True * x_0 ) >= ( x_0 + (4.0) )  ) 
-  output(x_0)
+  x_1 = input() 
+  x_1 = input() 
+  output(0.0)
+  x_0 = input() 
 }
-Fitness values: 0.0, Generation: 6
-Input: []
-Output: [False]
+Fitness values: -10.0, Generation: 36
+Input: [0, 1, 0]
+Output: [0.0]

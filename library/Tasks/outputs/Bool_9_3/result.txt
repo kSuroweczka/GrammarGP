@@ -1,8 +1,21 @@
 Problem not solved :c
 {
-  x_0 = (  ( (5.0) - ( False * (2.0) ) ) > ( (0.0) * True )  ) 
-  x_0 = (  ( ( (-5.0) * False ) + ( False / (3.0) ) ) <= (3.0) || ( False + False ) <= ( ( False / (-3.0) ) + ( (1.0) * False ) )  ) 
+  if (  ( False / False ) < ( (1.0) / False )  ){
+      x_0 = input() 
+      output(3.0)
+      x_0 = (  ( (3.0) - ( x_0 * x_0 ) ) <= ( x_0 - x_0 )  ) 
+} else  {
+      x_0 = input() 
+      x_0 = (  (3.0) > ( ( (-1.0) * True ) - x_0 ) && ( False + ( x_0 / x_0 ) ) <= ( x_0 / (-3.0) )  ) 
 }
-Fitness values: -2.0, Generation: 48
-Input: []
-Output: [-2.0]
+  if (  ( (3.0) + ( (3.0) / (3.0) ) ) >= ( False - ( (3.0) * (3.0) ) )  ){
+      x_0 = input() 
+      output(x_0)
+      x_0 = (  ( x_0 * True ) > x_0  ) 
+} else  {
+      x_1 = ( x_0 - x_0 ) 
+}
+}
+Fitness values: -70.0, Generation: 0
+Input: [0, 0]
+Output: [0.0]

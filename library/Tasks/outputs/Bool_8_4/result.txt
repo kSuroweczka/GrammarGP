@@ -1,11 +1,18 @@
 Problem not solved :c
 {
-  if (  ( (2.0) - ( x_0 * x_1 ) ) >= ( ( x_2 / False ) - x_2 )  ){
-      x_4 = (  ( (3.0) * x_0 ) == ( ( (2.0) * (2.0) ) + ( x_0 * x_0 ) ) || ( ( (2.0) * True ) + (2.0) ) > ( x_0 * True )  ) 
-      output(2.0)
+  x_0 = input() 
+  if (  (-5.0) <= ( x_0 - x_0 ) || x_0 == ( ( (-2.0) / x_0 ) - x_0 )  ){
+      x_0 = (  ( ( True * (5.0) ) + ( True / x_0 ) ) == x_0  ) 
 }
-  x_1 = (-1.0) 
+  if (  ( True * (-5.0) ) != True  ){
+      x_0 = input() 
+      x_1 = input() 
+} else  {
+      x_2 = ( ( (5.0) * (5.0) ) + True ) 
+      x_0 = input() 
 }
-Fitness values: -1.0, Generation: 54
-Input: []
-Output: [-1.0]
+  output(2.0)
+}
+Fitness values: -52.0, Generation: 71
+Input: [0, 1, 1]
+Output: [2.0]

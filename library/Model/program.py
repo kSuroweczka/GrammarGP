@@ -51,9 +51,9 @@ class Program:
 
     def growTree(self):
         posible_nodes = [NodeType.ASSIGNMENT, NodeType.OUTPUT, NodeType.IF, NodeType.WHILE]
-        node_t = random.choice(posible_nodes)
 
         for i in range(random.randint(2,4)):
+            node_t = random.choice(posible_nodes)
             self.ROOT.add_child(self.createNode(node_t, self.ROOT))
 
     def createIndividual(self):

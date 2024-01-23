@@ -1,30 +1,21 @@
-Problem solved!
+Problem not solved :c
 {
-  if (  ( True + ( True * True ) ) != ( ( True / (-4.0) ) - ( True / True ) ) && True >= ( True / True )  ){
+  if (  ( (-3.0) * True ) != ( True / True )  ){
       x_0 = input() 
-      x_0 = (  (-4.0) >= False || ( True - ( False / x_0 ) ) == ( x_0 + ( False / x_0 ) )  ) 
-} else  {
-      x_0 = (  ( x_0 / (1.0) ) > ( (2.0) * True )  ) 
-      output(-3.0)
-      x_1 = input() 
-}
-  if (  ( x_0 * False ) <= (-3.0) && ( ( x_0 / x_1 ) + ( False / (-3.0) ) ) >= ( (2.0) + (-3.0) )  ){
+      output(x_0)
       x_0 = input() 
-} else  {
-      x_1 = x_0 
-      output(x_1)
-      x_2 = (  ( ( True * x_1 ) - ( (-3.0) / (-3.0) ) ) >= ( (-3.0) / x_0 ) || x_0 > x_1  ) 
 }
-  if (  x_1 != ( ( x_2 / x_1 ) + ( x_0 * x_0 ) )  ){
+  while (  ( ( x_0 * True ) + ( x_0 * x_0 ) ) <= x_0  ){
       x_1 = input() 
-      x_2 = (  ( ( (-3.0) * x_2 ) + x_2 ) < ( (-3.0) + ( x_2 / (-3.0) ) ) && ( ( (2.0) / x_0 ) - x_2 ) != ( ( x_0 / x_2 ) + ( (-5.0) / x_2 ) )  ) 
-      output(-3.0)
+      output(-2.0)
+      x_0 = ( ( True / True ) - x_1 ) 
 }
-  if (  ( x_0 / False ) != ( ( x_0 / x_2 ) + False ) || ( x_2 * x_1 ) == ( ( (-2.0) / (-3.0) ) + x_2 )  ){
-      x_3 = input() 
-      output(-4.0)
+  x_2 = input() 
+  if (  ( (-2.0) / (-2.0) ) < ( True - ( (-2.0) * (-2.0) ) ) || ( (-2.0) + ( False / False ) ) != ( False + ( (-2.0) / x_2 ) )  ){
+      x_3 = False 
+      x_4 = ( x_0 * (3.0) ) 
 }
 }
-Fitness values: 0.0, Generation: 0
-Input: [0]
+Fitness values: -40.0, Generation: 42
+Input: [0, 1, 1]
 Output: [0.0]

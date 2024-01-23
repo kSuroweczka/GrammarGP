@@ -1,8 +1,17 @@
 Problem not solved :c
 {
   output(-1.0)
-  output(-5.0)
+  if (  True < True && ( False + ( False / (3.0) ) ) != ( (-4.0) / True )  ){
+      x_0 = input() 
+      x_1 = (-1.0) 
+      output(x_0)
 }
-Fitness values: -1.0, Generation: 20
-Input: [1]
+  if (  ( True + ( True / (5.0) ) ) > ( (5.0) + (4.0) ) || ( False + True ) <= True  ){
+      x_0 = input() 
+      x_1 = input() 
+}
+  x_1 = input() 
+}
+Fitness values: -72.0, Generation: 66
+Input: [1, 0, 0]
 Output: [-1.0]

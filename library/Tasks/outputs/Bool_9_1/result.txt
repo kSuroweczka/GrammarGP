@@ -1,14 +1,29 @@
 Problem not solved :c
 {
-  output(2.0)
-  output(2.0)
-  if (  ( (3.0) + ( x_0 * True ) ) > ( ( (3.0) / x_0 ) + ( x_0 / x_0 ) ) && ( (3.0) + (3.0) ) >= ( (-4.0) * x_0 )  ){
-      x_1 = input() 
-      output(-2.0)
-      x_2 = ( True * False ) 
+  if (  ( ( False * (0.0) ) - ( (0.0) * (-3.0) ) ) >= ( True - True ) || False == ( True * True )  ){
+      x_0 = input() 
+      x_1 = (  ( x_0 - ( x_0 * (0.0) ) ) < ( x_0 / x_0 )  ) 
+} else  {
+      x_1 = ( (0.0) + ( x_1 * True ) ) 
 }
-  output(2.0)
+  if (  False > ( x_0 * x_0 )  ){
+      x_0 = input() 
+      x_1 = (  ( x_0 + ( True / x_0 ) ) >= ( False + x_0 ) && ( x_0 * x_0 ) <= ( ( (-4.0) * x_0 ) + ( x_0 * x_0 ) )  ) 
+      output(1.0)
+} else  {
+      x_2 = input() 
+      output(1.0)
+      x_3 = input() 
+      output(0.0)
 }
-Fitness values: -100.0, Generation: 82
-Input: []
-Output: [2.0, 2.0, 2.0, 2.0]
+  if (  ( True * (1.0) ) > ( x_2 - x_1 )  ){
+      x_4 = ( x_0 + ( (0.0) / x_3 ) ) 
+      output(x_4)
+      x_5 = ( ( (1.0) / (1.0) ) - True ) 
+} else  {
+      x_6 = input() 
+}
+}
+Fitness values: -123.0, Generation: 8
+Input: [1, 0, 1]
+Output: [1.0, 0.0, 1.0]
