@@ -1,8 +1,17 @@
 Problem not solved :c
 {
-  x_0 = input() 
-  x_1 = input() 
+  if (  ( ( (99.0) / (58.0) ) + False ) < ( ( False / (73.0) ) + ( False * (39.0) ) ) || (-53.0) == ( False / (55.0) )  ){
+      x_0 = (  ( (-67.0) + ( False * False ) ) != ( False + ( True / False ) ) && (-50.0) < ( False + ( False * (100.0) ) )  ) 
+      x_0 = input() 
+} else  {
+      x_1 = input() 
+      output(x_1)
+      x_1 = input() 
 }
-Fitness values: -200.0, Generation: 3
-Input: [-874.0, -2673.0]
-Output: []
+  while (  x_0 == x_1 || ( ( x_1 * x_1 ) + (100.0) ) < ( ( x_1 / False ) - ( False * x_0 ) )  ){
+      x_2 = input() 
+}
+}
+Fitness values: -56.0, Generation: 96
+Input: [2946.0, 56.0]
+Output: [2946.0]

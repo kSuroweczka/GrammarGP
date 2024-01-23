@@ -1,9 +1,22 @@
 Problem not solved :c
 {
   x_0 = input() 
-  output(x_0)
-  x_1 = input() 
+  if (  ( ( x_0 / x_0 ) - x_0 ) > ( x_0 * x_0 ) || ( ( x_0 * x_0 ) + (35.0) ) == ( True + ( x_0 / x_0 ) )  ){
+      x_0 = (  ( ( x_0 * x_0 ) + ( x_0 * False ) ) != ( ( False * False ) + ( x_0 / x_0 ) )  ) 
+} else  {
+      x_1 = (  ( x_0 + ( True * x_0 ) ) != ( False + x_0 )  ) 
 }
-Fitness values: -285.0, Generation: 86
-Input: [-3482.0, 285.0]
-Output: [-3482.0]
+  if (  ( False + True ) != ( (59.0) + False ) && ( True / True ) != ( True - False )  ){
+      x_0 = ( (48.0) + False ) 
+} else  {
+      x_1 = input() 
+}
+  if (  ( x_0 * x_1 ) >= ( ( x_1 / (-33.0) ) - ( (89.0) / x_1 ) ) || ( x_1 + x_1 ) == ( True * x_1 )  ){
+      x_2 = (  ( ( True * x_1 ) + x_1 ) >= ( False - ( False * x_1 ) )  ) 
+      x_1 = ( False + ( x_2 * True ) ) 
+      output(x_0)
+}
+}
+Fitness values: -56.0, Generation: 72
+Input: [2946.0, 56.0]
+Output: [2946.0]

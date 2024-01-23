@@ -26,3 +26,21 @@ class Interpreter:
             return visitor.output, visitor.actual_input , visitor.variables
         except:
             return visitor.output, visitor.actual_input, visitor.variables
+
+    @staticmethod
+    def interpret_string(program_string: str, program_intput: [float]):
+        input = InputStream(program_string)
+        lexer = TinyGPLexer(input)
+        stream = CommonTokenStream(lexer)
+        parser = TinyGPParser(stream)
+        try:
+            tree = parser.program()
+        except:
+            print("Error")
+            return None
+        visitor = TinyGPVisitor({}, program_intput)
+        try:
+            visitor.visit(tree)
+            return visitor.output, visitor.actual_input, visitor.variables
+        except:
+            return visitor.output, visitor.actual_input, visitor.variables

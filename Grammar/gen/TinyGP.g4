@@ -1,5 +1,4 @@
 grammar TinyGP;
-///usunac ; ??
 program: statement*;
 
 statement: loopStatement

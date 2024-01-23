@@ -77,7 +77,6 @@ class Program:
             return input
         
         elif type == NodeType.OUTPUT:
-            const_count = self.const.__len__()
             var_count = self.variables.__len__()
 
             output = OutputNode(node_type=type, parent_node=parent, children_nodes=[])
