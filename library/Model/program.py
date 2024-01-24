@@ -50,11 +50,13 @@ class Program:
         return self.str_program
 
     def growTree(self):
-        posible_nodes = [NodeType.ASSIGNMENT, NodeType.OUTPUT, NodeType.IF, NodeType.WHILE]
+        # posible_nodes = [NodeType.ASSIGNMENT, NodeType.OUTPUT, NodeType.IF, NodeType.WHILE]
+        # for i in range(random.randint(2, 4)):
+        #     node_t = random.choice(posible_nodes)
+        #     self.ROOT.add_child(self.createNode(node_t, self.ROOT))
 
-        for i in range(random.randint(2, 4)):
-            node_t = random.choice(posible_nodes)
-            self.ROOT.add_child(self.createNode(node_t, self.ROOT))
+        self.ROOT = self.createNode(NodeType.SCOPE, None, 0)
+
 
     def create_individual(self):
         self.growTree()
@@ -282,7 +284,7 @@ class Program:
 
         
         elif type == NodeType.SCOPE:
-            howMuch = random.choice([1, 2])
+            howMuch = random.choice([2, 4])
             scope = ScopeNode(node_type=type, parent_node=parent, children_nodes=[])
             if current_depth > self.max_depth - 2:
                 for i in range(howMuch):

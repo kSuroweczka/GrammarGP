@@ -168,7 +168,7 @@ class GP:
                 return
 
             random_node = random.choice(possible_nodes)
-            new_node = program.createNode(random_node, None)
+            new_node = program.createNode(random_node, None, self.params.max_depth // 2)
 
             print(f"NEW NODE: {new_node} ,type: {new_node.node_type}")
             return self.replace_node(node_parent, node, new_node)
@@ -299,7 +299,6 @@ class GP:
         print(self.population[index])
 
         self.population[index].__repr__()
-        # self.population[index].output_data, self.population[index].input, self.population[index].vars = self.interpreter.interpret(self.population[index]) #.str_program, var_dict, self.population[index].input_data
         print("\nInput data:")
         print(self.population[index].input)
 
