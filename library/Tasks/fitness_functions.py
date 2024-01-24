@@ -76,24 +76,20 @@ def fitness_1_2_A(individual: Program):
     output = individual.output_data
     input_data = individual.input_data
     expected = input_data[0] + input_data[1]
-
-    fitness = -100
     input = individual.input
-#     if len(input) < 2:
-#         print("input too short")
-#         fitness = -100
-    if len(output) == 0:
-        fitness = -100.0
-    elif len(output) == 1:
-        if output[0] == expected:
-            fitness = 0.0
-        else:
-            fitness = (-1) * np.abs(expected - output[0])
-    else:
-        avg = np.average(output)
-        fitness = (-1) * np.abs(avg - expected)
-    fitness += abs(len(output) - 1) * -20
-    fitness += abs(len(input) - 2) * -30
+
+    fitness = 0.0
+    if len(output) == 1 and len(input) == 2 and output[0] == expected:
+        return fitness
+
+    if abs(len(input) - 2) != 0:
+        fitness -= abs(len(input) - 2) * 500
+
+    if abs(len(output) - 1) != 0:
+        fitness -= abs(len(output) - 1) * 500
+
+    if len(output) > 0:
+        fitness -= np.abs(expected - output[0])
 
     return fitness
 

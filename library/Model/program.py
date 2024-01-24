@@ -219,7 +219,6 @@ class Program:
         
         elif type == NodeType.FACTOR:
             count_var = self.variables.__len__()
-            count_const = self.const.__len__()
 
             choice = random.choice(["var", "rand", "exp"])
             out_exp = choice == "exp"
@@ -285,18 +284,30 @@ class Program:
         elif type == NodeType.SCOPE:
             howMuch = random.choice([1, 2])
             scope = ScopeNode(node_type=type, parent_node=parent, children_nodes=[])
-
-            for i in range(howMuch):
-                choice = random.choice(['assignment', 'if', 'output'])
-                if choice == 'if' and scope.depth < self.max_depth-2:
-                    ifNode = self.createNode(NodeType.IF, scope, current_depth+1)
-                    scope.add_child(ifNode)
-                if choice == 'assignment' or scope.depth >= self.max_depth-2:
-                    assignmentNode = self.createNode(NodeType.ASSIGNMENT, scope, current_depth+1)
-                    scope.add_child(assignmentNode)
-                if choice == 'output':
-                    outputNode = self.createNode(NodeType.OUTPUT, scope, current_depth+1)
-                    scope.add_child(outputNode)
+            if current_depth > self.max_depth - 2:
+                for i in range(howMuch):
+                    choice = random.choice(['assignment', 'output'])
+                    if choice == 'assignment' or scope.depth >= self.max_depth-2:
+                        assignmentNode = self.createNode(NodeType.ASSIGNMENT, scope, current_depth+1)
+                        scope.add_child(assignmentNode)
+                    if choice == 'output':
+                        outputNode = self.createNode(NodeType.OUTPUT, scope, current_depth+1)
+                        scope.add_child(outputNode)
+            else:
+                for i in range(howMuch):
+                    choice = random.choice(['assignment', 'if', 'output', 'while'])
+                    if choice == 'if' and scope.depth < self.max_depth-3:
+                        ifNode = self.createNode(NodeType.IF, scope, current_depth+1)
+                        scope.add_child(ifNode)
+                    if choice == 'assignment' or scope.depth >= self.max_depth-2:
+                        assignmentNode = self.createNode(NodeType.ASSIGNMENT, scope, current_depth+1)
+                        scope.add_child(assignmentNode)
+                    if choice == 'output':
+                        outputNode = self.createNode(NodeType.OUTPUT, scope, current_depth+1)
+                        scope.add_child(outputNode)
+                    if choice == 'while':
+                        whileNode = self.createNode(NodeType.WHILE, scope, current_depth+1)
+                        scope.add_child(whileNode)
 
             return scope
 

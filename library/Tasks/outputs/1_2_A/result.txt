@@ -1,19 +1,8 @@
 Problem not solved :c
 {
   x_0 = input() 
-  output(x_0)
-  if (  ( x_0 - ( (38.0) * x_0 ) ) < ( ( x_0 / x_0 ) + x_0 ) || ( ( x_0 / False ) - ( x_0 / x_0 ) ) != ( x_0 + ( x_0 * x_0 ) )  ){
-      x_0 = ( (-26.0) + ( (21.0) / (-36.0) ) ) 
-      x_1 = ( ( False / x_0 ) - ( True * x_0 ) ) 
-} else  {
-      x_1 = x_1 
-      output(95.0)
+  x_1 = input() 
 }
-  while (  x_0 != x_1 && x_1 >= ( ( True / x_0 ) + ( x_1 * x_0 ) )  ){
-      x_2 = (  ( x_1 / x_0 ) == ( x_0 - True ) || ( False / x_1 ) != False  ) 
-      x_0 = input() 
-}
-}
-Fitness values: -1.0, Generation: 0
-Input: [6.0, 1.0]
-Output: [6.0]
+Fitness values: -500.0, Generation: 0
+Input: [3.0, 5.0]
+Output: []
