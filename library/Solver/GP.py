@@ -9,18 +9,6 @@ from library.Model.node import *
 import numpy as np
 import os
 
-global depth
-depth = 1
-
-global hasFloat
-hasFloat = False
-
-global depth_1
-depth_1 = 1
-
-global depth_2
-depth_2 = 1
-
 
 class GP:
     name: str
@@ -176,8 +164,6 @@ class GP:
 
     def crossover(self):
         print("\n------------\n CROSSOVER \n------------\n")
-        depth_1 = 1
-        depth_2 = 1
 
         id_1 = self.tournament()
         id_2 = self.tournament()
@@ -197,13 +183,6 @@ class GP:
         self.population[id_1].output_data, self.population[id_1].input, self.population[id_1].vars = self.interpreter.interpret(self.population[id_1])
         self.population[id_2].output_data, self.population[id_2].input, self.population[id_2].vars = self.interpreter.interpret(self.population[id_2])
 
-        # depth_1 = self.depth(program_1)
-        # depth_2 = self.depth(program_2)
-
-        # print(f"Depth 1: {depth_1}")
-        # print(f"Depth 2: {depth_2}")
-        #
-        # min_depth = min(depth_1, depth_2)
 
     @staticmethod
     def draw_subnode_1(tree):
@@ -333,30 +312,6 @@ class GP:
 
     def get_task_cases(self):
         self.test_cases = self.task.test_cases
-
-    def depth(self, node, depth):
-        # global depth
-        # global hasFloat
-        ddd = depth
-        if node is None:
-            print("NODE IS NONE")
-        else:
-            if len(node.children_nodes) > 0:
-                for child in node.children_nodes:
-                    if type(child) is float:
-                        hasFloat = True
-                    else:
-                        d = child.get_depth()
-                        # print("CHild: ", child)
-                        # print("Depth: ", d)
-                        if d > ddd:
-                            ddd = d
-                        if len(child.children_nodes) > 0:
-                            self.depth(child, ddd)
-
-            else:
-                print("NOD")
-                # return 1 + max(self.depth(child) for child in node.children_nodes)
 
     def save_result_to_file(self, best_index, best_fitness):
         path = f"./library/Tasks/outputs/{self.name}/result.txt"

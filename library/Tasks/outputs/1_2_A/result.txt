@@ -1,9 +1,11 @@
 Problem not solved :c
 {
+  x_0 = (  False < ( ( (-86.0) * True ) - (79.0) )  ) 
   x_0 = input() 
-    output(x_0)
-  x_0 = input() 
+  x_1 = input() 
+  x_2 = (-97.0) 
+    output(x_1)
 }
-Fitness values: -1.0, Generation: 10
-Input: [6.0, 1.0]
-Output: [6.0]
+Fitness values: -2.0, Generation: 75
+Input: [2.0, 3.0]
+Output: [3.0]

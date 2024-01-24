@@ -318,8 +318,6 @@ class ConditionNode(Node):
 
     def __repr__(self) -> str:
         output = "( "
-        # for child in self.children_nodes:
-        #     output += f"{child}"
         for i in range(len(self.children_nodes)):
             output+=f' {self.children_nodes[i]} '
             if i!=len(self.children_nodes)-1:
@@ -384,22 +382,3 @@ class WhileNode(Node):
         output += f'{self.conditionNode}'
         output += f'{self.whileBodyNode}'
         return output
-
-
-# CHECK IF NESSESARY
-
-# class TerminalNode(Node):
-#     def __init__(self, value: float | bool, parent_node: Node = None, children_nodes
-#: list[Node] = []):
-#         super().__init__(NodeType.TERMINAL, parent_node, children_nodes)
-#         self.is_leaf = True
-#         self.value = value
-
-#     def __repr__(self):
-#         return f"{self.value}"
-    
-#     def is_numeral(self):
-#         return isinstance(self.value, float)
-    
-#     def is_boolean(self):
-#         return isinstance(self.value, bool)

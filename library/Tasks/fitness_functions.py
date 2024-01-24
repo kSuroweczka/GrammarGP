@@ -212,8 +212,8 @@ def fitness_1_4_B(individual: Program):
 
     n = input_data[0]
     if n > input_len - 1:
-        a = math.ceil(n / input_len)
-        input_data.repeat(input_data, a)
+#         a = math.ceil(n / input_len)
+#         input_data.repeat(input_data, a)
         expected = np.average(input_data)
     else:
         expected = np.average(input_data[1:n])
@@ -452,6 +452,7 @@ def fitness_1_Bench(individual: Program):
 def fitness_17_Bench(individual: Program):
     output = individual.output_data
     input_data = individual.input_data
+    input = individual.input
     expected = 0
     for i in range(len(input_data)):
         expected += input_data[i] * input_data[i]
@@ -468,12 +469,14 @@ def fitness_17_Bench(individual: Program):
         avg = np.average(output)
         fitness = (-1) * np.abs(avg - expected)
     fitness += abs(len(output) - 1) * -20
+    fitness += abs(len(input) - 1) * -20
 
     return fitness
 
 def fitness_27_Bench(individual: Program):
     output = individual.output_data
     input_data = individual.input_data
+    input = individual.input
     expected = 0
     if len(input_data) % 2:
         expected = (input_data[len(input_data) // 2 ] + input_data[len(input_data) // 2 + 1])/2
@@ -492,6 +495,7 @@ def fitness_27_Bench(individual: Program):
         avg = np.average(output)
         fitness = (-1) * np.abs(avg - expected)
     fitness += abs(len(output) - 1) * -20
+    fitness += abs(len(input) - 3) * -20
 
     return fitness
 
